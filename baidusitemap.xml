@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://maslow.github.io/2018/11/09/gitlab-ci/index/</loc>
-    <lastmod>2018-11-23T17:36:36.904Z</lastmod>
-  </url>  <url>
     <loc>http://maslow.github.io/2018/11/24/gitlab-ci/example-node-js/</loc>
-    <lastmod>2018-11-23T17:24:01.296Z</lastmod>
+    <lastmod>2018-11-23T17:42:42.550Z</lastmod>
+  </url>  <url>
+    <loc>http://maslow.github.io/2018/11/09/gitlab-ci/index/</loc>
+    <lastmod>2018-11-23T17:42:31.602Z</lastmod>
   </url>
 </urlset>

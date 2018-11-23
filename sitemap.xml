@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/</loc>
+    
+    <lastmod>2018-11-23T18:28:25.575Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://maslow.github.io/2018/11/24/gitlab-ci/example-node-js/</loc>
     
     <lastmod>2018-11-23T17:42:42.550Z</lastmod>

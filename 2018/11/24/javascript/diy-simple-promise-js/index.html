@@ -115,20 +115,18 @@
 
 
 
-  <meta name="description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。  前置需求当前有 3 台服务器 develop, staging, production 分别对应代">
-<meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
+  <meta name="description" content="初学 Node.js 的朋友总会耗一番周折去理解 Promise，这里给出一个最简单的 Promise 实现，以帮助对 Promise 还有疑惑的同学彻底理解其实现原理。  这个代码应该是三年前我刚接触 Node.js 的时候写的了，当时也是 Google 不少关于 Promise 的文章，现在已经不记得相关链接了。   这个并不是完整的 Promise 逻辑，旨在理解 Promise 的实现原理">
+<meta name="keywords" content="javascript,promise">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitLab CI 基本介绍">
-<meta property="og:url" content="http://maslow.github.io/2018/11/09/gitlab-ci/index/index.html">
+<meta property="og:title" content="动手写一个简单的 Promise.js">
+<meta property="og:url" content="http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。  前置需求当前有 3 台服务器 develop, staging, production 分别对应代">
+<meta property="og:description" content="初学 Node.js 的朋友总会耗一番周折去理解 Promise，这里给出一个最简单的 Promise 实现，以帮助对 Promise 还有疑惑的同学彻底理解其实现原理。  这个代码应该是三年前我刚接触 Node.js 的时候写的了，当时也是 Google 不少关于 Promise 的文章，现在已经不记得相关链接了。   这个并不是完整的 Promise 逻辑，旨在理解 Promise 的实现原理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<meta property="og:updated_time" content="2018-11-23T17:42:31.602Z">
+<meta property="og:updated_time" content="2018-11-23T18:28:25.575Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitLab CI 基本介绍">
-<meta name="twitter:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。  前置需求当前有 3 台服务器 develop, staging, production 分别对应代">
-<meta name="twitter:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
+<meta name="twitter:title" content="动手写一个简单的 Promise.js">
+<meta name="twitter:description" content="初学 Node.js 的朋友总会耗一番周折去理解 Promise，这里给出一个最简单的 Promise 实现，以帮助对 Promise 还有疑惑的同学彻底理解其实现原理。  这个代码应该是三年前我刚接触 Node.js 的时候写的了，当时也是 Google 不少关于 Promise 的文章，现在已经不记得相关链接了。   这个并不是完整的 Promise 逻辑，旨在理解 Promise 的实现原理">
 
 
 
@@ -137,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="http://maslow.github.io/2018/11/09/gitlab-ci/index/">
+  <link rel="canonical" href="http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/">
 
 
 
@@ -147,7 +145,7 @@
   };
 </script>
 
-  <title>GitLab CI 基本介绍 | 老根's Blog</title>
+  <title>动手写一个简单的 Promise.js | 老根's Blog</title>
   
 
 
@@ -325,7 +323,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/09/gitlab-ci/index/">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -342,7 +340,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">GitLab CI 基本介绍
+          <h1 class="post-title" itemprop="name headline">动手写一个简单的 Promise.js
               
             
           </h1>
@@ -367,24 +365,12 @@
                 
               
 
-              <time title="创建时间：2018-11-09 00:03:53" itemprop="dateCreated datePublished" datetime="2018-11-09T00:03:53+08:00">2018-11-09</time>
+              <time title="创建时间：2018-11-24 02:07:14 / 修改时间：02:28:25" itemprop="dateCreated datePublished" datetime="2018-11-24T02:07:14+08:00">2018-11-24</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-24 01:42:31" itemprop="dateModified" datetime="2018-11-24T01:42:31+08:00">2018-11-24</time>
               
             
           </span>
@@ -401,14 +387,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/GitLab-CI-基本介绍/" itemprop="url" rel="index"><span itemprop="name">GitLab CI 基本介绍</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a></span>
 
                 
                 
@@ -425,13 +404,9 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
+                <a href="/tags/javascript/" rel="tag"> javascript</a>
               
-                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
-              
-                <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
-              
-                <a href="/tags/DevOps/" rel="tag"> DevOps</a>
+                <a href="/tags/promise/" rel="tag"> promise</a>
               
             </span>
           
@@ -458,35 +433,15 @@
       
 
       
-        <img src="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
+        <p>初学 <code>Node.js</code> 的朋友总会耗一番周折去理解 <code>Promise</code>，这里给出一个最简单的 <code>Promise</code> 实现，以帮助对 <code>Promise</code> 还有疑惑的同学彻底理解其实现原理。</p>
 <blockquote>
-<p>这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。</p>
+<p>这个代码应该是三年前我刚接触 <code>Node.js</code> 的时候写的了，当时也是 Google 不少关于 <code>Promise</code> 的文章，现在已经不记得相关链接了。</p>
 </blockquote>
 <blockquote>
-<p>GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。</p>
+<p>这个并不是完整的 <code>Promise</code> 逻辑，旨在理解 <code>Promise</code> 的实现原理，由于过了太久，我就直接贴出来代码不做解释说明了。如果先前有用过 <code>Promise</code> 的话，应该还是较容易理解的； 若是初接触，这个逻辑还是有点绕，先去其它地方了解 Promse 的用法，再多花点时间去理一理这段代码，是值得的。</p>
 </blockquote>
-<h3 id="前置需求"><a href="#前置需求" class="headerlink" title="前置需求"></a>前置需求</h3><p>当前有 3 台服务器 develop, staging, production 分别对应代码仓库上的三个分支：develop, staging, master。</p>
-<p>要求 push 代码到仓库时会触发 CI 的执行：</p>
-<pre><code>1. build app
-2. testing app
-3. deploy to server
-</code></pre><p>代码 push 到哪个分支，就把项目部署到相应的服务器上。</p>
-<h3 id="GitLab-CI-的重要概念"><a href="#GitLab-CI-的重要概念" class="headerlink" title="GitLab CI 的重要概念"></a>GitLab CI 的重要概念</h3><p>要理解 GitLab CI 的工作方式，必须要理解两个概念：</p>
-<pre><code>- Pipeline
-- Runner
-</code></pre><p>上面说的 CI 执行过程就是 <code>pipeline</code>，它定义了项目的构建、测试、部署等的执行过程。</p>
-<p>我们需要在每个项目上定义一个 <code>pipeline</code>。</p>
-<p>定义一个 <code>pipeline</code> 就是在项目代码根目录创建文件：<code>.gitlab-ci.yml</code>.</p>
-<p>定义好 <code>pipeline</code> 后，GitLab CI 会读取并执行这个 <code>pipeline</code>，执行的程序叫做 <code>Runner</code>。</p>
-<p><code>Runner</code> 是负责执行 <code>pipeline</code> 的程序。</p>
-<p>通常 <code>Runner</code> 需要我们自己安装并运行在自己的服务器上，当然也可以使用 gitlab.com 官方提供的免费的 Shared Runner 服务。</p>
-<h3 id="GitLab-CI-的工作方式"><a href="#GitLab-CI-的工作方式" class="headerlink" title="GitLab CI 的工作方式"></a>GitLab CI 的工作方式</h3><ul>
-<li><p>Pipeline 的触发<br>当开发者 Push 代码到某个分支时，如果我们定义了 Pipeline，也就是代码根目录中有 <code>.gitlab-ci.yml</code> 文件，GitLab 会自动触发 Pipeline 的执行。</p>
-</li>
-<li><p>Pipeline 的执行<br>Pipeline 执行时，首先会 pull 下来被触发分支的代码，然后执行你在 pipline 中定义的 Job，Job 是你指定的一些 shell scripts，它就是你构建项目的逻辑。</p>
-</li>
-</ul>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>简单介绍一下 GitLab CI 的几个重要概念，接下来会通过实例来详细讲解 GitLab CI 的使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Promise</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span></span><br><span class="line">    self.state = <span class="string">'PENDING'</span></span><br><span class="line">    self.onFulfilled = <span class="literal">null</span></span><br><span class="line">    self.onRejected = <span class="literal">null</span></span><br><span class="line">    self.then = <span class="function"><span class="keyword">function</span> (<span class="params">onResolved, onRejected</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">            that.onFulfilled = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> ret = onResolved ? onResolved(val) : val;</span><br><span class="line">                <span class="keyword">if</span> (ret &amp;&amp; ret.then) &#123;</span><br><span class="line">                    ret.then(<span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">                        resolve(val)</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    resolve(ret);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            that.onRejected = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> ret = onRejected ? onRejected(val) : val;</span><br><span class="line">                reject(ret);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    fn &amp;&amp; fn(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (self.state === <span class="string">'PENDING'</span>) &#123;</span><br><span class="line">            self.state = <span class="string">'FULFILLED'</span>;</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                self.onFulfilled &amp;&amp; self.onFulfilled(result);</span><br><span class="line">            &#125;,<span class="number">0</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">reason</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (self.state === <span class="string">'PENDING'</span>) &#123;</span><br><span class="line">            self.state = <span class="string">'REJECTED'</span>;</span><br><span class="line">            self.onRejected &amp;&amp; self.onRejected(reason);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用示例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">t</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(t)</span><br><span class="line">            resolve(t)</span><br><span class="line">        &#125;, t)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sleep(<span class="number">1000</span>)</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> sleep(data + <span class="number">1</span>))</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> sleep(data + <span class="number">1</span>))</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> sleep(data + <span class="number">1</span>))</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -537,7 +492,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://maslow.github.io/2018/11/09/gitlab-ci/index/" title="GitLab CI 基本介绍">http://maslow.github.io/2018/11/09/gitlab-ci/index/</a>
+    <a href="http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/" title="动手写一个简单的 Promise.js">http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -555,15 +510,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/11/24/gitlab-ci/example-node-js/" rel="next" title="GitLab CI 示例：构建 & 测试 Node.js 应用">
+                <i class="fa fa-chevron-left"></i> GitLab CI 示例：构建 & 测试 Node.js 应用
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/24/gitlab-ci/example-node-js/" rel="prev" title="GitLab CI 示例：构建 & 测试 Node.js 应用">
-                GitLab CI 示例：构建 & 测试 Node.js 应用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,17 +570,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -757,22 +703,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前置需求"><span class="nav-number">1.</span> <span class="nav-text">前置需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-的重要概念"><span class="nav-number">2.</span> <span class="nav-text">GitLab CI 的重要概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-的工作方式"><span class="nav-number">3.</span> <span class="nav-text">GitLab CI 的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

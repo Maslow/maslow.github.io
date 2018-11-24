@@ -115,20 +115,18 @@
 
 
 
-  <meta name="description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
-<meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
+  <meta name="description" content="说明这个代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
+<meta name="keywords" content="Node.js,V8,Javascript,C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitLab CI 基本介绍">
-<meta property="og:url" content="http://maslow.github.io/2018/11/09/gitlab-ci/index/index.html">
+<meta property="og:title" content="Javascript Engine V8 Embedding - Hello World 示例介绍">
+<meta property="og:url" content="http://maslow.github.io/2018/03/26/nodejs/v8/v8-embedding-hello-world/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
+<meta property="og:description" content="说明这个代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<meta property="og:updated_time" content="2018-11-23T19:03:06.360Z">
+<meta property="og:updated_time" content="2018-11-24T17:32:51.472Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitLab CI 基本介绍">
-<meta name="twitter:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
-<meta name="twitter:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
+<meta name="twitter:title" content="Javascript Engine V8 Embedding - Hello World 示例介绍">
+<meta name="twitter:description" content="说明这个代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
 
 
 
@@ -137,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="http://maslow.github.io/2018/11/09/gitlab-ci/index/">
+  <link rel="canonical" href="http://maslow.github.io/2018/03/26/nodejs/v8/v8-embedding-hello-world/">
 
 
 
@@ -147,7 +145,7 @@
   };
 </script>
 
-  <title>GitLab CI 基本介绍 | 老根's Blog</title>
+  <title>Javascript Engine V8 Embedding - Hello World 示例介绍 | 老根's Blog</title>
   
 
 
@@ -314,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/09/gitlab-ci/index/">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/03/26/nodejs/v8/v8-embedding-hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -331,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GitLab CI 基本介绍
+          <h2 class="post-title" itemprop="name headline">Javascript Engine V8 Embedding - Hello World 示例介绍
               
             
           </h2>
@@ -356,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-11-09 00:03:53" itemprop="dateCreated datePublished" datetime="2018-11-09T00:03:53+08:00">2018-11-09</time>
+              <time title="创建时间：2018-03-26 23:47:14" itemprop="dateCreated datePublished" datetime="2018-03-26T23:47:14+08:00">2018-03-26</time>
             
 
             
@@ -373,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-24 03:03:06" itemprop="dateModified" datetime="2018-11-24T03:03:06+08:00">2018-11-24</time>
+                <time title="修改时间：2018-11-25 01:32:51" itemprop="dateModified" datetime="2018-11-25T01:32:51+08:00">2018-11-25</time>
               
             
           </span>
@@ -390,14 +388,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/GitLab-CI-基本介绍/" itemprop="url" rel="index"><span itemprop="name">GitLab CI 基本介绍</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
 
                 
                 
@@ -414,13 +405,13 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
+                <a href="/tags/Node-js/" rel="tag"> Node.js</a>
               
-                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
+                <a href="/tags/V8/" rel="tag"> V8</a>
               
-                <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
+                <a href="/tags/Javascript/" rel="tag"> Javascript</a>
               
-                <a href="/tags/DevOps/" rel="tag"> DevOps</a>
+                <a href="/tags/C-C/" rel="tag"> C/C++</a>
               
             </span>
           
@@ -447,36 +438,13 @@
       
 
       
-        <img src="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<blockquote>
-<p>这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。</p>
-</blockquote>
-<blockquote>
-<p>GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。</p>
-</blockquote>
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>这个代码是基于 v8 (5.8) 的，要编译这个示例请查看<a href="compile-v8-for-embedding-v5.8.md">Javascript Engine V8 Embedding - 编译静态库 (v5.8)</a></p>
 <a id="more"></a>
-<h3 id="前置需求"><a href="#前置需求" class="headerlink" title="前置需求"></a>前置需求</h3><p>当前有 3 台服务器 develop, staging, production 分别对应代码仓库上的三个分支：develop, staging, master。</p>
-<p>要求 push 代码到仓库时会触发 CI 的执行：</p>
-<pre><code>1. build app
-2. testing app
-3. deploy to server
-</code></pre><p>代码 push 到哪个分支，就把项目部署到相应的服务器上。</p>
-<h3 id="GitLab-CI-的重要概念"><a href="#GitLab-CI-的重要概念" class="headerlink" title="GitLab CI 的重要概念"></a>GitLab CI 的重要概念</h3><p>要理解 GitLab CI 的工作方式，必须要理解两个概念：</p>
-<pre><code>- Pipeline
-- Runner
-</code></pre><p>上面说的 CI 执行过程就是 <code>pipeline</code>，它定义了项目的构建、测试、部署等的执行过程。</p>
-<p>我们需要在每个项目上定义一个 <code>pipeline</code>。</p>
-<p>定义一个 <code>pipeline</code> 就是在项目代码根目录创建文件：<code>.gitlab-ci.yml</code>.</p>
-<p>定义好 <code>pipeline</code> 后，GitLab CI 会读取并执行这个 <code>pipeline</code>，执行的程序叫做 <code>Runner</code>。</p>
-<p><code>Runner</code> 是负责执行 <code>pipeline</code> 的程序。</p>
-<p>通常 <code>Runner</code> 需要我们自己安装并运行在自己的服务器上，当然也可以使用 gitlab.com 官方提供的免费的 Shared Runner 服务。</p>
-<h3 id="GitLab-CI-的工作方式"><a href="#GitLab-CI-的工作方式" class="headerlink" title="GitLab CI 的工作方式"></a>GitLab CI 的工作方式</h3><ul>
-<li><p>Pipeline 的触发<br>当开发者 Push 代码到某个分支时，如果我们定义了 Pipeline，也就是代码根目录中有 <code>.gitlab-ci.yml</code> 文件，GitLab 会自动触发 Pipeline 的执行。</p>
-</li>
-<li><p>Pipeline 的执行<br>Pipeline 执行时，首先会 pull 下来被触发分支的代码，然后执行你在 pipline 中定义的 Job，Job 是你指定的一些 shell scripts，它就是你构建项目的逻辑。</p>
-</li>
-</ul>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>简单介绍一下 GitLab CI 的几个重要概念，接下来会通过实例来详细讲解 GitLab CI 的使用。</p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Copyright 2015 the V8 project authors. All rights reserved.</span></span><br><span class="line"><span class="comment">// Use of this source code is governed by a BSD-style license that can be</span></span><br><span class="line"><span class="comment">// found in the LICENSE file.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/libplatform/libplatform.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/v8.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> v8;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Initialize V8.</span></span><br><span class="line">  V8::InitializeICUDefaultLocation(argv[<span class="number">0</span>]);</span><br><span class="line">  V8::InitializeExternalStartupData(argv[<span class="number">0</span>]);</span><br><span class="line">  Platform* platform = platform::CreateDefaultPlatform();</span><br><span class="line">  V8::InitializePlatform(platform);</span><br><span class="line">  V8::Initialize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create a new Isolate and make it the current one.</span></span><br><span class="line">  Isolate::CreateParams create_params;</span><br><span class="line">  create_params.array_buffer_allocator =</span><br><span class="line">      v8::ArrayBuffer::Allocator::NewDefaultAllocator();</span><br><span class="line">  Isolate* isolate = Isolate::New(create_params);</span><br><span class="line">  &#123;</span><br><span class="line">    Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a stack-allocated handle scope.</span></span><br><span class="line">    <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a new context.</span></span><br><span class="line">    Local&lt;Context&gt; context = Context::New(isolate);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enter the context for compiling and running the hello world script.</span></span><br><span class="line">    Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a string containing the JavaScript source code.</span></span><br><span class="line">    Local&lt;String&gt; source =</span><br><span class="line">        String::NewFromUtf8(isolate, <span class="string">"'Hello' + ', World!'"</span>,</span><br><span class="line">                            NewStringType::kNormal).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Compile the source code.</span></span><br><span class="line">    Local&lt;Script&gt; script = Script::Compile(context, source).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Run the script to get the result.</span></span><br><span class="line">    Local&lt;Value&gt; result = script-&gt;Run(context).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Convert the result to an UTF8 string and print it.</span></span><br><span class="line">    String::<span class="function">Utf8Value <span class="title">utf8</span><span class="params">(result)</span></span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, *utf8);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Dispose the isolate and tear down V8.</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  V8::Dispose();</span><br><span class="line">  V8::ShutdownPlatform();</span><br><span class="line">  <span class="keyword">delete</span> platform;</span><br><span class="line">  <span class="keyword">delete</span> create_params.array_buffer_allocator;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><blockquote>
+<p>TODO</p>
+</blockquote>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>Getting started with embedding V8: <a href="https://v8.dev/docs/embed#advanced-guide" target="_blank" rel="noopener">https://v8.dev/docs/embed#advanced-guide</a></p>
 
       
     </div>
@@ -527,7 +495,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://maslow.github.io/2018/11/09/gitlab-ci/index/" title="GitLab CI 基本介绍">http://maslow.github.io/2018/11/09/gitlab-ci/index/</a>
+    <a href="http://maslow.github.io/2018/03/26/nodejs/v8/v8-embedding-hello-world/" title="Javascript Engine V8 Embedding - Hello World 示例介绍">http://maslow.github.io/2018/03/26/nodejs/v8/v8-embedding-hello-world/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -545,8 +513,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/nodejs/v8/v8-embedding-hello-world/" rel="next" title="Javascript Engine V8 Embedding - Hello World 示例介绍">
-                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - Hello World 示例介绍
+              <a href="/2018/03/25/nodejs/v8/compile-v8-for-embedding-v5.8/" rel="next" title="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
+                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - 编译静态库 (v5.8)
               </a>
             
           </div>
@@ -555,8 +523,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/24/gitlab-ci/example-node-js/" rel="prev" title="GitLab CI 示例：构建 & 测试 Node.js 应用">
-                GitLab CI 示例：构建 & 测试 Node.js 应用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/09/gitlab-ci/index/" rel="prev" title="GitLab CI 基本介绍">
+                GitLab CI 基本介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -777,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前置需求"><span class="nav-number">1.</span> <span class="nav-text">前置需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-的重要概念"><span class="nav-number">2.</span> <span class="nav-text">GitLab CI 的重要概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-的工作方式"><span class="nav-number">3.</span> <span class="nav-text">GitLab CI 的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码"><span class="nav-number">2.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念介绍"><span class="nav-number">3.</span> <span class="nav-text">概念介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>

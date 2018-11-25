@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。 这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
+  <meta name="description" content="通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。 这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译">
 <meta name="keywords" content="Node.js,javascript,V8,C&#x2F;C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javascript Engine V8 Embedding - Hello World 示例介绍">
 <meta property="og:url" content="http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。 这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
+<meta property="og:description" content="通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。 这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-25T14:43:23.122Z">
+<meta property="og:updated_time" content="2018-11-25T16:47:45.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript Engine V8 Embedding - Hello World 示例介绍">
-<meta name="twitter:description" content="通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。 这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
+<meta name="twitter:description" content="通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。 这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看Javascript Engine V8 Embedding - 编译">
 
 
 
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-25 22:43:23" itemprop="dateModified" datetime="2018-11-25T22:43:23+08:00">2018-11-25</time>
+                <time title="修改时间：2018-11-26 00:47:45" itemprop="dateModified" datetime="2018-11-26T00:47:45+08:00">2018-11-26</time>
               
             
           </span>
@@ -439,7 +439,7 @@
 
       
         <p>通过官方给的 Hello World sample 来介绍 V8 的几个重要概念。</p>
-<p>这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看<a href="/2018/03/25/v8/compile-v8-v5.8/" title="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">Javascript Engine V8 Embedding - 编译静态库 (v5.8)</a></p>
+<p>这个示例代码是基于 v8 (5.8) 的，要编译这个示例请查看<a href="/2018/03/25/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></p>
 <a id="more"></a>
 <h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Copyright 2015 the V8 project authors. All rights reserved.</span></span><br><span class="line"><span class="comment">// Use of this source code is governed by a BSD-style license that can be</span></span><br><span class="line"><span class="comment">// found in the LICENSE file.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/libplatform/libplatform.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/v8.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Initialize V8.</span></span><br><span class="line">  v8::V8::InitializeICUDefaultLocation(argv[<span class="number">0</span>]);</span><br><span class="line">  v8::V8::InitializeExternalStartupData(argv[<span class="number">0</span>]);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;v8::Platform&gt; platform = v8::platform::NewDefaultPlatform();</span><br><span class="line">  v8::V8::InitializePlatform(platform.get());</span><br><span class="line">  v8::V8::Initialize();</span><br><span class="line">  <span class="comment">// Create a new Isolate and make it the current one.</span></span><br><span class="line">  v8::Isolate::CreateParams create_params;</span><br><span class="line">  create_params.array_buffer_allocator =</span><br><span class="line">      v8::ArrayBuffer::Allocator::NewDefaultAllocator();</span><br><span class="line">  v8::Isolate* isolate = v8::Isolate::New(create_params);</span><br><span class="line">  &#123;</span><br><span class="line">    v8::Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line">    <span class="comment">// Create a stack-allocated handle scope.</span></span><br><span class="line">    v8::<span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line">    <span class="comment">// Create a new context.</span></span><br><span class="line">    v8::Local&lt;v8::Context&gt; context = v8::Context::New(isolate);</span><br><span class="line">    <span class="comment">// Enter the context for compiling and running the hello world script.</span></span><br><span class="line">    v8::Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// Create a string containing the JavaScript source code.</span></span><br><span class="line">      v8::Local&lt;v8::String&gt; source =</span><br><span class="line">          v8::String::NewFromUtf8(isolate, <span class="string">"'Hello' + ', World!'"</span>,</span><br><span class="line">                                  v8::NewStringType::kNormal)</span><br><span class="line">              .ToLocalChecked();</span><br><span class="line">      <span class="comment">// Compile the source code.</span></span><br><span class="line">      v8::Local&lt;v8::Script&gt; script =</span><br><span class="line">          v8::Script::Compile(context, source).ToLocalChecked();</span><br><span class="line">      <span class="comment">// Run the script to get the result.</span></span><br><span class="line">      v8::Local&lt;v8::Value&gt; result = script-&gt;Run(context).ToLocalChecked();</span><br><span class="line">      <span class="comment">// Convert the result to an UTF8 string and print it.</span></span><br><span class="line">      v8::String::<span class="function">Utf8Value <span class="title">utf8</span><span class="params">(isolate, result)</span></span>;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, *utf8);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Dispose the isolate and tear down V8.</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  v8::V8::Dispose();</span><br><span class="line">  v8::V8::ShutdownPlatform();</span><br><span class="line">  <span class="keyword">delete</span> create_params.array_buffer_allocator;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h3><blockquote>
@@ -514,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/25/v8/compile-v8-v5.8/" rel="next" title="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
-                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - 编译静态库 (v5.8)
+              <a href="/2018/03/25/v8/compile-v8/" rel="next" title="Javascript Engine V8 Embedding - 编译">
+                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - 编译
               </a>
             
           </div>

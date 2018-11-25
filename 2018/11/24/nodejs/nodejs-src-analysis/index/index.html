@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="直接 git pull V8 的代码是不行的，需要使用 Google 提供的 depot_tools 工具包来获对代码并配置。 需要翻墙，下载和编译的耗时都很长，分别视你的网络情况和机器配置而定。 为了屏蔽掉不同系统的差异，直接使用 Docker 容器环境来编译。">
-<meta name="keywords" content="Node.js,V8,Javascript,C&#x2F;C++">
+  <meta name="description" content="这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。  适合什么样的读者- 你需要熟悉 C/C++ - 你需要熟悉 Node.js，理解异步编程及原理">
+<meta name="keywords" content="Node.js,Node.js 源码分析,源码分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
-<meta property="og:url" content="http://maslow.github.io/2018/03/25/nodejs/v8/compile-v8-v5.8/index.html">
+<meta property="og:title" content="Node.js 源码分析 - 前言">
+<meta property="og:url" content="http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="直接 git pull V8 的代码是不行的，需要使用 Google 提供的 depot_tools 工具包来获对代码并配置。 需要翻墙，下载和编译的耗时都很长，分别视你的网络情况和机器配置而定。 为了屏蔽掉不同系统的差异，直接使用 Docker 容器环境来编译。">
+<meta property="og:description" content="这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。  适合什么样的读者- 你需要熟悉 C/C++ - 你需要熟悉 Node.js，理解异步编程及原理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-24T17:57:15.984Z">
+<meta property="og:updated_time" content="2018-11-25T12:30:42.501Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">
-<meta name="twitter:description" content="直接 git pull V8 的代码是不行的，需要使用 Google 提供的 depot_tools 工具包来获对代码并配置。 需要翻墙，下载和编译的耗时都很长，分别视你的网络情况和机器配置而定。 为了屏蔽掉不同系统的差异，直接使用 Docker 容器环境来编译。">
+<meta name="twitter:title" content="Node.js 源码分析 - 前言">
+<meta name="twitter:description" content="这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。  适合什么样的读者- 你需要熟悉 C/C++ - 你需要熟悉 Node.js，理解异步编程及原理">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="http://maslow.github.io/2018/03/25/nodejs/v8/compile-v8-v5.8/">
+  <link rel="canonical" href="http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/">
 
 
 
@@ -145,7 +145,7 @@
   };
 </script>
 
-  <title>Javascript Engine V8 Embedding - 编译静态库 (v5.8) | 老根's Blog</title>
+  <title>Node.js 源码分析 - 前言 | 老根's Blog</title>
   
 
 
@@ -253,7 +253,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">5</span></a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">6</span></a>
   </li>
         
         
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/03/25/nodejs/v8/compile-v8-v5.8/">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -329,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Javascript Engine V8 Embedding - 编译静态库 (v5.8)
+          <h2 class="post-title" itemprop="name headline">Node.js 源码分析 - 前言
               
             
           </h2>
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-03-25 23:47:14" itemprop="dateCreated datePublished" datetime="2018-03-25T23:47:14+08:00">2018-03-25</time>
+              <time title="创建时间：2018-11-24 16:30:15" itemprop="dateCreated datePublished" datetime="2018-11-24T16:30:15+08:00">2018-11-24</time>
             
 
             
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-25 01:57:15" itemprop="dateModified" datetime="2018-11-25T01:57:15+08:00">2018-11-25</time>
+                <time title="修改时间：2018-11-25 20:30:42" itemprop="dateModified" datetime="2018-11-25T20:30:42+08:00">2018-11-25</time>
               
             
           </span>
@@ -388,7 +388,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
 
                 
                 
@@ -407,11 +407,9 @@
               
                 <a href="/tags/Node-js/" rel="tag"> Node.js</a>
               
-                <a href="/tags/V8/" rel="tag"> V8</a>
+                <a href="/tags/Node-js-源码分析/" rel="tag"> Node.js 源码分析</a>
               
-                <a href="/tags/Javascript/" rel="tag"> Javascript</a>
-              
-                <a href="/tags/C-C/" rel="tag"> C/C++</a>
+                <a href="/tags/源码分析/" rel="tag"> 源码分析</a>
               
             </span>
           
@@ -438,15 +436,40 @@
       
 
       
-        <p>直接 git pull V8 的代码是不行的，需要使用 Google 提供的 depot_tools 工具包来获对代码并配置。</p>
-<p>需要翻墙，下载和编译的耗时都很长，分别视你的网络情况和机器配置而定。</p>
-<p>为了屏蔽掉不同系统的差异，直接使用 Docker 容器环境来编译。</p>
-<a id="more"></a>
-<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ubuntu bash  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装</span></span><br><span class="line">apt update</span><br><span class="line">apt install -y git curl python xz-utils lbzip2 lsb-release lsb-core sudo vim</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root &amp;&amp; git <span class="built_in">clone</span> https://chromium.googlesource.com/chromium/tools/depot_tools.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/root/depot_tools</span><br><span class="line"></span><br><span class="line">gclient</span><br><span class="line"></span><br><span class="line">fetch v8</span><br><span class="line"><span class="built_in">cd</span> v8</span><br><span class="line"></span><br><span class="line">git checkout -b 5.8 -t branch-heads/5.8</span><br><span class="line"></span><br><span class="line">gclient sync</span><br><span class="line"></span><br><span class="line">./build/install-build-deps.sh --no-prompt</span><br><span class="line"></span><br><span class="line">tools/dev/v8gen.py x64.release</span><br><span class="line"></span><br><span class="line"><span class="comment"># gn args out.gn/x64.release</span></span><br><span class="line"><span class="comment"># Add two lines to your configuration: is_component_build = false and v8_static_library = true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">gn --args=<span class="string">'is_debug=false target_cpu="x64" is_component_build = false v8_static_library = true'</span> gen out.gn/x64.release</span><br><span class="line"></span><br><span class="line">ninja -C out.gn/x64.release</span><br></pre></td></tr></table></figure>
-<h3 id="使用静态库"><a href="#使用静态库" class="headerlink" title="使用静态库"></a>使用静态库</h3><p>等上面 v8 编译完成后，就可以使用编译好的静态库了，我们编译一下 v8 提供的 hello-world 示例：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir ./app</span><br><span class="line"></span><br><span class="line">g++ -I. -Iinclude samples/hello-world.cc -o ./app/hello-world -lrt -ldl -pthread -std=c++0x \</span><br><span class="line">-Wl,--start-group \</span><br><span class="line">out.gn/x64.release/obj/&#123;libv8_&#123;base,libbase,external_snapshot,libplatform,libsampler&#125;,\</span><br><span class="line">third_party/icu/libicu&#123;uc,i18n&#125;,src/inspector/libinspector&#125;.a \</span><br><span class="line">-Wl,--end-group</span><br><span class="line"></span><br><span class="line">cp out.gn/x64.release/*.bin ./app/</span><br><span class="line">cp out.gn/x64.release/icudtl.dat ./app/</span><br></pre></td></tr></table></figure>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://v8.dev/docs/embed" target="_blank" rel="noopener">https://v8.dev/docs/embed</a></p>
-<p><a href="https://v8.dev/docs/source-code#using-git" target="_blank" rel="noopener">https://v8.dev/docs/source-code#using-git</a></p>
+        <blockquote>
+<p>这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。</p>
+</blockquote>
+<h3 id="适合什么样的读者"><a href="#适合什么样的读者" class="headerlink" title="适合什么样的读者"></a>适合什么样的读者</h3><pre><code>- 你需要熟悉 C/C++
+- 你需要熟悉 Node.js，理解异步编程及原理
+</code></pre><a id="more"></a>
+<h3 id="分析方式"><a href="#分析方式" class="headerlink" title="分析方式"></a>分析方式</h3><p>根据执行流程，直接从 main 函数开始走， 然后再单独分析具体模块。</p>
+<p>疏理执行逻辑是这次分析的重点。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><h4 id="V8"><a href="#V8" class="headerlink" title="V8"></a>V8</h4><ul>
+<li><a href="/2018/03/25/v8/compile-v8-v5.8/" title="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">Javascript Engine V8 Embedding - 编译静态库 (v5.8)</a></li>
+<li><a href="/2018/03/26/v8/v8-embedding-hello-world/" title="Javascript Engine V8 Embedding - Hello World 示例介绍">Javascript Engine V8 Embedding - Hello World 示例介绍</a>
+</li>
+</ul>
+<blockquote>
+<p>持续更新中</p>
+</blockquote>
+<h4 id="Libuv"><a href="#Libuv" class="headerlink" title="Libuv"></a>Libuv</h4><blockquote>
+<p>TODO</p>
+</blockquote>
+<h4 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h4><blockquote>
+<p>TODO</p>
+</blockquote>
+<h3 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h3><ul>
+<li><p>Libuv 官网 User Guide 很友好：<a href="http://docs.libuv.org/en/v1.x/guide.html" target="_blank" rel="noopener">http://docs.libuv.org/en/v1.x/guide.html</a></p>
+</li>
+<li><p>Node.js 源码：<a href="https://github.com/nodejs/node" target="_blank" rel="noopener">https://github.com/nodejs/node</a></p>
+</li>
+<li><p>Node.js 源码构建：<a href="https://github.com/nodejs/node/blob/master/BUILDING" target="_blank" rel="noopener">https://github.com/nodejs/node/blob/master/BUILDING</a>.</p>
+</li>
+<li><p>V8 构建：<a href="https://v8.dev/docs/build" target="_blank" rel="noopener">https://v8.dev/docs/build</a></p>
+</li>
+<li><p>V8 Embedding: <a href="https://v8.dev/docs/embed" target="_blank" rel="noopener">https://v8.dev/docs/embed</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -497,7 +520,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://maslow.github.io/2018/03/25/nodejs/v8/compile-v8-v5.8/" title="Javascript Engine V8 Embedding - 编译静态库 (v5.8)">http://maslow.github.io/2018/03/25/nodejs/v8/compile-v8-v5.8/</a>
+    <a href="http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/" title="Node.js 源码分析 - 前言">http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -515,15 +538,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/11/24/javascript/diy-simple-promise-js/" rel="next" title="动手写一个简单的 Promise.js">
+                <i class="fa fa-chevron-left"></i> 动手写一个简单的 Promise.js
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/26/nodejs/v8/v8-embedding-hello-world/" rel="prev" title="Javascript Engine V8 Embedding - Hello World 示例介绍">
-                Javascript Engine V8 Embedding - Hello World 示例介绍 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -602,7 +625,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -627,7 +650,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -664,7 +687,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -743,7 +766,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用静态库"><span class="nav-number">2.</span> <span class="nav-text">使用静态库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#适合什么样的读者"><span class="nav-number">1.</span> <span class="nav-text">适合什么样的读者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析方式"><span class="nav-number">2.</span> <span class="nav-text">分析方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">3.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#V8"><span class="nav-number">3.1.</span> <span class="nav-text">V8</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Libuv"><span class="nav-number">3.2.</span> <span class="nav-text">Libuv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js"><span class="nav-number">3.3.</span> <span class="nav-text">Node.js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关资料"><span class="nav-number">4.</span> <span class="nav-text">相关资料</span></a></li></ol></div>
             
 
           </div>

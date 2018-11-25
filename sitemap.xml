@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://maslow.github.io/2018/03/26/nodejs/v8/v8-embedding-hello-world/</loc>
+    <loc>http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/</loc>
     
-    <lastmod>2018-11-24T17:57:27.123Z</lastmod>
+    <lastmod>2018-11-25T14:43:23.122Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/03/25/nodejs/v8/compile-v8-v5.8/</loc>
+    <loc>http://maslow.github.io/2018/03/25/v8/compile-v8-v5.8/</loc>
     
-    <lastmod>2018-11-24T17:57:15.984Z</lastmod>
+    <lastmod>2018-11-25T14:35:26.852Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/</loc>
+    
+    <lastmod>2018-11-25T12:30:42.501Z</lastmod>
     
   </url>
   

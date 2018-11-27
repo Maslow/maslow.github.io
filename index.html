@@ -249,7 +249,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">6</span></a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">7</span></a>
   </li>
         
         
@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -327,7 +327,188 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/24/nodejs/nodejs-src-analysis/index/" itemprop="url">
+                <a class="post-title-link" href="/2018/11/27/nodejs/nodejs-src/the-main/" itemprop="url">
+                  Node.js 源码分析 - 从 main 函数开始
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-27 21:30:15" itemprop="dateCreated datePublished" datetime="2018-11-27T21:30:15+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 02:35:30" itemprop="dateModified" datetime="2018-11-28T02:35:30+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="小目标"><a href="#小目标" class="headerlink" title="小目标"></a>小目标</h3><blockquote>
+<p>知道程序大概执行逻辑，关键点执行的顺序</p>
+</blockquote>
+<p>我们平时在命令敲下 <code>node app.js</code> 后，发生了什么。</p>
+<p>具体点，知道 node.js 原生(C++)模块什么时候加载的，在哪加载的;<br>知道我们的 js 代码是在哪个环节被加载执行的；<br>知道进程的主循环（事件循环）什么时候启动的；</p>
+<p>有了这个小目标的基础，在接下来的文章中，我们再进一步的探索 node.js 原生模块的注册是怎么实现的，怎么获取 &amp; 初始化的，怎么曝露给 js 环境调用的；再细说 node.js 的模块机制，我们通常的 <code>app.js</code> 怎么被执行的；</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/11/27/nodejs/nodejs-src/the-main/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/24/nodejs/nodejs-src/index/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/24/nodejs/nodejs-src/index/" itemprop="url">
                   Node.js 源码分析 - 前言
                 </a>
               
@@ -371,7 +552,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-27 20:57:43" itemprop="dateModified" datetime="2018-11-27T20:57:43+08:00">2018-11-27</time>
+                <time title="修改时间：2018-11-27 22:58:55" itemprop="dateModified" datetime="2018-11-27T22:58:55+08:00">2018-11-27</time>
               
             
           </span>
@@ -434,7 +615,7 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2018/11/24/nodejs/nodejs-src-analysis/index/" rel="contents">
+              <a class="btn" href="/2018/11/24/nodejs/nodejs-src/index/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1399,7 +1580,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1720,6 +1901,8 @@
 
   
   
+    
+      
     
       
     

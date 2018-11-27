@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="小目标 知道程序大概执行逻辑，关键点执行的顺序  我们平时在命令敲下 node app.js 后，发生了什么。 具体点，知道 node.js 原生(C++)模块什么时候加载的，在哪加载的;知道我们的 js 代码是在哪个环节被加载执行的；知道进程的主循环（事件循环）什么时候启动的； 有了这个小目标的基础，在接下来的文章中，我们再进一步的探索 node.js 原生模块的注册是怎么实现的，怎么获取 &amp;a">
+<meta name="keywords" content="Node.js,Node.js 源码分析,源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 源码分析 - 从 main 函数开始">
+<meta property="og:url" content="http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/index.html">
+<meta property="og:site_name" content="老根&#39;s Blog">
+<meta property="og:description" content="小目标 知道程序大概执行逻辑，关键点执行的顺序  我们平时在命令敲下 node app.js 后，发生了什么。 具体点，知道 node.js 原生(C++)模块什么时候加载的，在哪加载的;知道我们的 js 代码是在哪个环节被加载执行的；知道进程的主循环（事件循环）什么时候启动的； 有了这个小目标的基础，在接下来的文章中，我们再进一步的探索 node.js 原生模块的注册是怎么实现的，怎么获取 &amp;a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-27T18:35:30.192Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js 源码分析 - 从 main 函数开始">
+<meta name="twitter:description" content="小目标 知道程序大概执行逻辑，关键点执行的顺序  我们平时在命令敲下 node app.js 后，发生了什么。 具体点，知道 node.js 原生(C++)模块什么时候加载的，在哪加载的;知道我们的 js 代码是在哪个环节被加载执行的；知道进程的主循环（事件循环）什么时候启动的； 有了这个小目标的基础，在接下来的文章中，我们再进一步的探索 node.js 原生模块的注册是怎么实现的，怎么获取 &amp;a">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="老根's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Node.js 源码分析 - 从 main 函数开始 | 老根's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老根's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Stay hungry, Stay foolish</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">6</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">7</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">12</span></a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Node.js 源码分析 - 从 main 函数开始
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-27 21:30:15" itemprop="dateCreated datePublished" datetime="2018-11-27T21:30:15+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 02:35:30" itemprop="dateModified" datetime="2018-11-28T02:35:30+08:00">2018-11-28</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+            <span class="post-meta-divider">|</span>
+            标签
+            <span class="post-tags">
+              
+                <a href="/tags/Node-js/" rel="tag"> Node.js</a>
+              
+                <a href="/tags/Node-js-源码分析/" rel="tag"> Node.js 源码分析</a>
+              
+                <a href="/tags/源码分析/" rel="tag"> 源码分析</a>
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="小目标"><a href="#小目标" class="headerlink" title="小目标"></a>小目标</h3><blockquote>
+<p>知道程序大概执行逻辑，关键点执行的顺序</p>
+</blockquote>
+<p>我们平时在命令敲下 <code>node app.js</code> 后，发生了什么。</p>
+<p>具体点，知道 node.js 原生(C++)模块什么时候加载的，在哪加载的;<br>知道我们的 js 代码是在哪个环节被加载执行的；<br>知道进程的主循环（事件循环）什么时候启动的；</p>
+<p>有了这个小目标的基础，在接下来的文章中，我们再进一步的探索 node.js 原生模块的注册是怎么实现的，怎么获取 &amp; 初始化的，怎么曝露给 js 环境调用的；再细说 node.js 的模块机制，我们通常的 <code>app.js</code> 怎么被执行的；</p>
+<a id="more"></a>
+<h3 id="贴代码说明"><a href="#贴代码说明" class="headerlink" title="贴代码说明"></a>贴代码说明</h3><p>限于篇幅，本文只先把大体执行流程捋出来，后面再开文一块块的捋。</p>
+<p>原代码太长，先把不影响我们分析的无关代码去掉，贴上来有关整体执行逻辑的代码，代码中的 <code>// ...</code> 注释意思是这个地方有被省略的代码。</p>
+<p>每段代码第一行的注释都会指出源文件位置，一些代码讲解会在代码段中的注释中进行；</p>
+<p>本文不再介绍 V8 和 Libuv 的知识，会开专门的分类写 V8 和 Libuv，参考 <a href="/2018/11/24/nodejs/nodejs-src/index/" title="Node.js 源码分析 - 前言">Node.js 源码分析 - 前言</a></p>
+<h3 id="开捋：从-main-函数到进程主循环"><a href="#开捋：从-main-函数到进程主循环" class="headerlink" title="开捋：从 main 函数到进程主循环"></a>开捋：从 main 函数到进程主循环</h3><h4 id="main-函数"><a href="#main-函数" class="headerlink" title="main 函数"></a>main 函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_main.cc:93 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> node::Start(argc, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>main函数</code> 在 <code>src/node_main.cc</code> 这个文件中，这个文件主要就是存放 <code>main函数</code>。</p>
+<p>很简单，只是调用了 <code>node::Start()</code>，这个函数在 <code>src/node.cc</code> 这个文件中，接下来的核心代码都在这个文件中。</p>
+<h4 id="初始化-V8-引擎"><a href="#初始化-V8-引擎" class="headerlink" title="初始化 V8 引擎"></a>初始化 V8 引擎</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:3011 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Start</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; args(argv, argv + argc);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; exec_args;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// This needs to run *before* V8::Initialize().</span></span><br><span class="line">  Init(&amp;args, &amp;exec_args);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  v8_platform.Initialize(per_process_opts-&gt;v8_thread_pool_size);</span><br><span class="line">  V8::Initialize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">int</span> exit_code = Start(uv_default_loop(), args, exec_args);</span><br><span class="line"></span><br><span class="line">  v8_platform.StopTracingAgent();</span><br><span class="line">  v8_initialized = <span class="literal">false</span>;</span><br><span class="line">  V8::Dispose();</span><br><span class="line">  v8_platform.Dispose();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> exit_code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码，首先进行 V8 的初始化，然后调用了另外一个 <code>Start(uv_loop_t*, ...)</code>函数，最后释放资源，进程结束；</p>
+<p>其中值得注意的一点，在初始化 V8 之前，调用了一个 <code>Init()</code> 函数，这个函数主要完成了 Node.js 原生(C++)模块的注册，就是 <code>fs</code> <code>http</code>等模块的 C++ 实现模块。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:2559 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;* argv, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;* exec_argv)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// Register built-in modules</span></span><br><span class="line">  RegisterBuiltinModules();</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Init()</code> 中调用了 <code>RegisterBuiltinModules()</code>，它注册了所有 Node.js 原生模块，关于原生模块的注册，本文不再继续跟进去，下一篇会单独展开这一块，这里先知道这个流程。</p>
+<blockquote>
+<p>记住这个 <code>RegisterBuiltinModules()</code>，下一篇文章就从这里开始展开。</p>
+</blockquote>
+<h4 id="创建-Isolate-实例"><a href="#创建-Isolate-实例" class="headerlink" title="创建 Isolate 实例"></a>创建 Isolate 实例</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:2964 */</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Start</span><span class="params">(<span class="keyword">uv_loop_t</span>* event_loop,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&amp; args,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&amp; exec_args)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;ArrayBufferAllocator, <span class="keyword">decltype</span>(&amp;FreeArrayBufferAllocator)&gt;</span><br><span class="line">      allocator(CreateArrayBufferAllocator(), &amp;FreeArrayBufferAllocator);</span><br><span class="line">  <span class="comment">// 创建 Isolate 实例</span></span><br><span class="line">  Isolate* <span class="keyword">const</span> isolate = NewIsolate(allocator.get());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">int</span> exit_code;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function">Locker <span class="title">locker</span><span class="params">(isolate)</span></span>;</span><br><span class="line">    Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line">    <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    exit_code = Start(isolate, isolate_data.get(), args, exec_args);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  <span class="keyword">return</span> exit_code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个 <code>Start()</code> 倒也没做什么，主要工作是创建了 Isolate 实例，然后调用了另外一个 <code>Start(Isolate*...)</code>。</p>
+<h4 id="进程主循环"><a href="#进程主循环" class="headerlink" title="进程主循环"></a>进程主循环</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:2868 */</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Start</span><span class="params">(Isolate* isolate, IsolateData* isolate_data,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&amp; args,</span></span></span><br><span class="line"><span class="function"><span class="params">                 <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&amp; exec_args)</span> </span>&#123;</span><br><span class="line">  <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line">  <span class="comment">// 创建 V8 Context 对象</span></span><br><span class="line">  Local&lt;Context&gt; context = NewContext(isolate);</span><br><span class="line">  Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 创建 Environment 对象，这个是 Node.js 的类</span></span><br><span class="line">  <span class="function">Environment <span class="title">env</span><span class="params">(isolate_data, context, v8_platform.GetTracingAgentWriter())</span></span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 这里面主要完成 libuv 的初始化，以及创建 process 对象</span></span><br><span class="line">  <span class="comment">// 就是 Node.js 中那个全局的 process 对象，这里不细展开</span></span><br><span class="line">  env.Start(args, exec_args, v8_is_profiling);</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// LoadEnvironment 是本文重要的关键点</span></span><br><span class="line">    LoadEnvironment(&amp;env);</span><br><span class="line">    env.async_hooks()-&gt;pop_async_id(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 下面就是进程的主循环</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">bool</span> more;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">      uv_run(env.event_loop(), UV_RUN_DEFAULT);</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">      more = uv_loop_alive(env.event_loop());</span><br><span class="line">      <span class="keyword">if</span> (more)</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125; <span class="keyword">while</span> (more == <span class="literal">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> exit_code;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码创建并使用了 js 执行需要的 context，然后创建了 <code>Environment</code> 对象；</p>
+<p>这个 <code>Environment</code> 对象是 Node.js 源码中重要的一个对象，它是一个全局单例，定义和存储了一些重要的全局对象和函数，比如刚开始创建的 Isolate 对象、刚刚创建的 Context 对象等，注意它不是 V8 的，是 Node.js 定义的，对它的使用贯穿整个 Node.js 执行的生命周期。</p>
+<p>再下面是进程的主循环，<code>uv_run()</code> 启动了 <code>Libuv</code> 的事件循环， 它也是 Node.js 进程的主循环，<code>Libuv</code> 会单独写文介绍。</p>
+<p>最后说一下，中间的 <code>LoadEnvironment()</code> 调用，它是在程序进入主循环之前最关键的一环；</p>
+<p><code>LoadEnvironment()</code> 完成了一些 js 文件的加载和执行，其中就包括加载执行通常编写的 <code>app.js</code>。</p>
+<h4 id="主循环之前"><a href="#主循环之前" class="headerlink" title="主循环之前"></a>主循环之前</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:2115 */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LoadEnvironment</span><span class="params">(Environment* env)</span> </span>&#123;</span><br><span class="line">  <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(env-&gt;isolate())</span></span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// The bootstrapper scripts are lib/internal/bootstrap/loaders.js and</span></span><br><span class="line">  <span class="comment">// lib/internal/bootstrap/node.js, each included as a static C string</span></span><br><span class="line">  <span class="comment">// defined in node_javascript.h, generated in node_javascript.cc by</span></span><br><span class="line">  <span class="comment">// node_js2c.</span></span><br><span class="line">  <span class="comment">// 加载两个重要的 js 文件：internal/bootstrap/loaders.js </span></span><br><span class="line">  <span class="comment">// 和 internal/bootstrap/node.js</span></span><br><span class="line">  Local&lt;String&gt; loaders_name =</span><br><span class="line">      FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"internal/bootstrap/loaders.js"</span>);</span><br><span class="line">  MaybeLocal&lt;Function&gt; loaders_bootstrapper =</span><br><span class="line">      GetBootstrapper(env, LoadersBootstrapperSource(env), loaders_name);</span><br><span class="line">  Local&lt;String&gt; node_name =</span><br><span class="line">      FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"internal/bootstrap/node.js"</span>);</span><br><span class="line">  MaybeLocal&lt;Function&gt; node_bootstrapper =</span><br><span class="line">      GetBootstrapper(env, NodeBootstrapperSource(env), node_name);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// Add a reference to the global object</span></span><br><span class="line">  Local&lt;Object&gt; global = env-&gt;context()-&gt;Global();</span><br><span class="line"></span><br><span class="line">  env-&gt;SetMethod(env-&gt;process_object(), <span class="string">"_rawDebug"</span>, RawDebug);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Expose the global object as a property on itself</span></span><br><span class="line">  <span class="comment">// (Allows you to set stuff on `global` from anywhere in JavaScript.)</span></span><br><span class="line">  global-&gt;Set(FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"global"</span>), global);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备 binding 函数，下面调用 js 会作为参数传给 js 环境</span></span><br><span class="line">  <span class="comment">// Create binding loaders</span></span><br><span class="line">  Local&lt;Function&gt; get_binding_fn =</span><br><span class="line">      env-&gt;NewFunctionTemplate(GetBinding)-&gt;GetFunction(env-&gt;context())</span><br><span class="line">          .ToLocalChecked();</span><br><span class="line"></span><br><span class="line">  Local&lt;Function&gt; get_linked_binding_fn =</span><br><span class="line">      env-&gt;NewFunctionTemplate(GetLinkedBinding)-&gt;GetFunction(env-&gt;context())</span><br><span class="line">          .ToLocalChecked();</span><br><span class="line"></span><br><span class="line">  Local&lt;Function&gt; get_internal_binding_fn =</span><br><span class="line">      env-&gt;NewFunctionTemplate(GetInternalBinding)-&gt;GetFunction(env-&gt;context())</span><br><span class="line">          .ToLocalChecked();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备执行 internal/bootstrap/loaders.js 文件的参数</span></span><br><span class="line">  Local&lt;Value&gt; loaders_bootstrapper_args[] = &#123;</span><br><span class="line">    env-&gt;process_object(),</span><br><span class="line">    get_binding_fn,</span><br><span class="line">    get_linked_binding_fn,</span><br><span class="line">    get_internal_binding_fn,</span><br><span class="line">    Boolean::New(env-&gt;isolate(),</span><br><span class="line">                 env-&gt;options()-&gt;debug_options-&gt;break_node_first_line)</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行 internal/bootstrap/loaders.js </span></span><br><span class="line">  <span class="comment">// Bootstrap internal loaders</span></span><br><span class="line">  <span class="comment">// 这个对象是用来接收执行结果的，记住是 bootstrapped_loaders，下面会用到</span></span><br><span class="line">  Local&lt;Value&gt; bootstrapped_loaders;</span><br><span class="line">  <span class="keyword">if</span> (!ExecuteBootstrapper(env, loaders_bootstrapper.ToLocalChecked(),</span><br><span class="line">                           arraysize(loaders_bootstrapper_args),</span><br><span class="line">                           loaders_bootstrapper_args,</span><br><span class="line">                           &amp;bootstrapped_loaders)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 准备执行 internal/bootstrap/node.js 的参数</span></span><br><span class="line">  <span class="comment">// Bootstrap Node.js</span></span><br><span class="line">  Local&lt;Object&gt; bootstrapper = Object::New(env-&gt;isolate());</span><br><span class="line">  SetupBootstrapObject(env, bootstrapper);</span><br><span class="line">  Local&lt;Value&gt; bootstrapped_node;</span><br><span class="line">  Local&lt;Value&gt; node_bootstrapper_args[] = &#123;</span><br><span class="line">    env-&gt;process_object(),</span><br><span class="line">    bootstrapper,</span><br><span class="line">    <span class="comment">// 注意，这里是上面执行 loaders.js 返回的结果对象，</span></span><br><span class="line">    <span class="comment">// 作为执行参数传给 internal/bootstrap/node.js</span></span><br><span class="line">    bootstrapped_loaders  </span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行 internal/bootstrap/node.js</span></span><br><span class="line">  <span class="keyword">if</span> (!ExecuteBootstrapper(env, node_bootstrapper.ToLocalChecked(),</span><br><span class="line">                           arraysize(node_bootstrapper_args),</span><br><span class="line">                           node_bootstrapper_args,</span><br><span class="line">                           &amp;bootstrapped_node)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>LoadEnvironment()</code> 首先加载了两个 js 文件，这两个 js 文件的位置分别在：<br><code>lib/internal/bootstrap/loaders.js</code> 和 <code>lib/internal/bootstrap/node.js</code>。</p>
+<p>我们 Node.js 开发者写的 <code>app.js</code> 其实就是在这两个 js 文件中加载并执行的，这块是最重要的逻辑之一，内容也很多，后面的文章会详细展开。</p>
+<p><code>LoadEnvironment()</code> 接下来创建了三个 binding 函数：</p>
+<ul>
+<li><code>get_binding_fn</code> </li>
+<li><code>get_linked_binding_fn</code></li>
+<li><code>get_internal_binding_fn</code></li>
+</ul>
+<p>这3个 binding 函数是用来获取和加载 Node.js 原生模块的，会传入到 js 执行环境中，也就是你在 js 代码中是可以调用的，比如 <code>process.binding(&#39;fs&#39;)</code>，在我们用 C++ 开发 Node.js 扩展模块的时候，也会用到，以后会详细展开。</p>
+<p><code>LoadEnvironment()</code> 接下来要执行 <code>lib/internal/bootstrap/loaders.js</code>，在这个 js 文件中主要定义了内部(internal)模块加载器(loaders)。</p>
+<p><code>lib/internal/bootstrap/loaders.js</code> 定义的模块加载器(loaders) 接下来做为执行参数，传入了 <code>lib/internal/bootstrap/node.js</code>，在 <code>lib/internal/bootstrap/node.js</code> 中会使用这些 loaders 来加载 internal 模块。</p>
+<p><code>lib/internal/bootstrap/node.js</code> 做了很多工作，这里只需要知道，它最终加载并执行了我们 Node.js 程序员编写的 <code>app.js</code> 就可以了。</p>
+<p>到此为止，我们就知道了在命令行敲下 <code>node app.js</code> 大概发生了哪些事！</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这只是个大概逻辑，可以配合 Node.js 源码，再花时间捋一捋，光靠贴的这点代码，可能还是会迷糊的。</p>
+<p>接下来的文章，就是对这个执行逻辑中的关键点分别展开。</p>
+<p>作者水平有限，写的也仓促，有误之处还请指出。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/donate/wechatpayimg.png" alt="Maslow 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/donate/alipayimg.png" alt="Maslow 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Maslow</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/" title="Node.js 源码分析 - 从 main 函数开始">http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/nodejs/nodejs-src/index/" rel="next" title="Node.js 源码分析 - 前言">
+                <i class="fa fa-chevron-left"></i> Node.js 源码分析 - 前言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Maslow">
+            
+              <p class="site-author-name" itemprop="name">Maslow</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/maslow" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wangfugen@126.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.step8step.com/" title="在线编程练习平台" target="_blank">在线编程练习平台</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lunaragon.top/" title="lunaragon's blog" target="_blank">lunaragon's blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.codingnow.com/" title="云风的博客" target="_blank">云风的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#小目标"><span class="nav-number">1.</span> <span class="nav-text">小目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贴代码说明"><span class="nav-number">2.</span> <span class="nav-text">贴代码说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开捋：从-main-函数到进程主循环"><span class="nav-number">3.</span> <span class="nav-text">开捋：从 main 函数到进程主循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#main-函数"><span class="nav-number">3.1.</span> <span class="nav-text">main 函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化-V8-引擎"><span class="nav-number">3.2.</span> <span class="nav-text">初始化 V8 引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-Isolate-实例"><span class="nav-number">3.3.</span> <span class="nav-text">创建 Isolate 实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程主循环"><span class="nav-number">3.4.</span> <span class="nav-text">进程主循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主循环之前"><span class="nav-number">3.5.</span> <span class="nav-text">主循环之前</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maslow</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'maslow',
+            repo: 'maslow.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: '84722b58219b2ad7b7b18850d5ff9ef159730845',
+            
+                client_id: 'fb9bfe1eab30371079e2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

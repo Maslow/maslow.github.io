@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://maslow.github.io/"/>
-  <updated>2018-11-27T04:17:15.872Z</updated>
+  <updated>2018-11-27T12:53:40.395Z</updated>
   <id>http://maslow.github.io/</id>
   
   <author>
@@ -17,13 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Node.js 源码分析 - 从 main 函数开始</title>
+    <link href="http://maslow.github.io/2018/11/27/nodejs/nodejs-src-analysis/the-main/"/>
+    <id>http://maslow.github.io/2018/11/27/nodejs/nodejs-src-analysis/the-main/</id>
+    <published>2018-11-27T13:30:15.000Z</published>
+    <updated>2018-11-27T12:53:40.395Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>src/node_main.cc</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"node.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> node::Start(argc, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;code&gt;src/node_main.cc&lt;/code&gt;&lt;br&gt;&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span clas
+      
+    
+    </summary>
+    
+      <category term="Node.js 源码分析" scheme="http://maslow.github.io/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="Node.js" scheme="http://maslow.github.io/tags/Node-js/"/>
+    
+      <category term="Node.js 源码分析" scheme="http://maslow.github.io/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+      <category term="源码分析" scheme="http://maslow.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Node.js 源码分析 - 前言</title>
     <link href="http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/"/>
     <id>http://maslow.github.io/2018/11/24/nodejs/nodejs-src-analysis/index/</id>
-    <published>2018-11-24T08:30:15.000Z</published>
-    <updated>2018-11-27T04:17:15.872Z</updated>
+    <published>2018-11-24T14:30:15.000Z</published>
+    <updated>2018-11-27T12:57:43.189Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。</p></blockquote><h3 id="适合什么样的读者"><a href="#适合什么样的读者" class="headerlink" title="适合什么样的读者"></a>适合什么样的读者</h3><pre><code>- 你需要熟悉 C/C++- 你需要熟悉 Node.js，理解异步编程及原理</code></pre><a id="more"></a><h3 id="分析方式"><a href="#分析方式" class="headerlink" title="分析方式"></a>分析方式</h3><p>根据执行流程，直接从 main 函数开始走， 然后再单独分析具体模块。</p><p>疏理执行逻辑是这次分析的重点。</p><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>V8 Embedding:</p><ul><li><a href="/2018/03/25/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></li><li><a href="/2018/03/26/v8/v8-embedding-hello-world/" title="Javascript Engine V8 Embedding - Hello World 讲解">Javascript Engine V8 Embedding - Hello World 讲解</a></li></ul><blockquote><p>持续更新中</p></blockquote><p>Node.js:</p><blockquote><p>TODO</p></blockquote><h3 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h3><ul><li><p>Libuv 官网 User Guide 很友好：<a href="http://docs.libuv.org/en/v1.x/guide.html" target="_blank" rel="noopener">http://docs.libuv.org/en/v1.x/guide.html</a></p></li><li><p>Node.js 源码：<a href="https://github.com/nodejs/node" target="_blank" rel="noopener">https://github.com/nodejs/node</a></p></li><li><p>Node.js 源码构建：<a href="https://github.com/nodejs/node/blob/master/BUILDING" target="_blank" rel="noopener">https://github.com/nodejs/node/blob/master/BUILDING</a>.</p></li><li><p>V8 构建：<a href="https://v8.dev/docs/build" target="_blank" rel="noopener">https://v8.dev/docs/build</a></p></li><li><p>V8 Embedding: <a href="https://v8.dev/docs/embed" target="_blank" rel="noopener">https://v8.dev/docs/embed</a></p></li></ul>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。</p></blockquote><h3 id="适合什么样的读者"><a href="#适合什么样的读者" class="headerlink" title="适合什么样的读者"></a>适合什么样的读者</h3><pre><code>- 你需要熟悉 C/C++- 你需要熟悉 Node.js，理解异步编程及原理</code></pre><a id="more"></a><h3 id="分析方式"><a href="#分析方式" class="headerlink" title="分析方式"></a>分析方式</h3><p>根据执行流程，直接从 main 函数开始走， 然后再单独分析具体模块。</p><p>疏理执行逻辑是这次分析的重点。</p><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>我使用的版本是 node.js 仓库里 v10.x 分支。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:nodejs/node.git </span><br><span class="line">git checout v10.x</span><br></pre></td></tr></table></figure></p><h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>V8 Embedding:</p><ul><li><a href="/2018/03/25/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></li><li><a href="/2018/03/26/v8/v8-embedding-hello-world/" title="Javascript Engine V8 Embedding - Hello World 讲解">Javascript Engine V8 Embedding - Hello World 讲解</a></li></ul><blockquote><p>持续更新中</p></blockquote><p>Node.js:</p><blockquote><p>TODO</p></blockquote><h3 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h3><ul><li><p>Libuv 官网 User Guide 很友好：<a href="http://docs.libuv.org/en/v1.x/guide.html" target="_blank" rel="noopener">http://docs.libuv.org/en/v1.x/guide.html</a></p></li><li><p>Node.js 源码：<a href="https://github.com/nodejs/node" target="_blank" rel="noopener">https://github.com/nodejs/node</a></p></li><li><p>Node.js 源码构建：<a href="https://github.com/nodejs/node/blob/master/BUILDING" target="_blank" rel="noopener">https://github.com/nodejs/node/blob/master/BUILDING</a>.</p></li><li><p>V8 构建：<a href="https://v8.dev/docs/build" target="_blank" rel="noopener">https://v8.dev/docs/build</a></p></li><li><p>V8 Embedding: <a href="https://v8.dev/docs/embed" target="_blank" rel="noopener">https://v8.dev/docs/embed</a></p></li></ul>]]></content>
     
     <summary type="html">
     

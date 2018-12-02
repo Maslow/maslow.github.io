@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="上一篇提到 RegisterBuiltinModules() 注册了原生 C++ 模块没有详细展开，这里就从这个函数展开。">
+<meta name="keywords" content="Node.js,Node.js 源码分析,源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 源码分析 - 原生模块的注册">
+<meta property="og:url" content="http://maslow.github.io/2018/11/28/nodejs/nodejs-src/register-builtin-modules/index.html">
+<meta property="og:site_name" content="老根&#39;s Blog">
+<meta property="og:description" content="上一篇提到 RegisterBuiltinModules() 注册了原生 C++ 模块没有详细展开，这里就从这个函数展开。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-02T15:05:40.104Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js 源码分析 - 原生模块的注册">
+<meta name="twitter:description" content="上一篇提到 RegisterBuiltinModules() 注册了原生 C++ 模块没有详细展开，这里就从这个函数展开。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="老根's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://maslow.github.io/2018/11/28/nodejs/nodejs-src/register-builtin-modules/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Node.js 源码分析 - 原生模块的注册 | 老根's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">老根's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">Stay hungry, Stay foolish</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">6</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">8</span></a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">11</span></a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/11/28/nodejs/nodejs-src/register-builtin-modules/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Node.js 源码分析 - 原生模块的注册
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-28 21:04:49" itemprop="dateCreated datePublished" datetime="2018-11-28T21:04:49+08:00">2018-11-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-02 23:05:40" itemprop="dateModified" datetime="2018-12-02T23:05:40+08:00">2018-12-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+            <span class="post-meta-divider">|</span>
+            标签
+            <span class="post-tags">
+              
+                <a href="/tags/Node-js/" rel="tag"> Node.js</a>
+              
+                <a href="/tags/Node-js-源码分析/" rel="tag"> Node.js 源码分析</a>
+              
+                <a href="/tags/源码分析/" rel="tag"> 源码分析</a>
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上一篇提到 <code>RegisterBuiltinModules()</code> 注册了原生 C++ 模块没有详细展开，这里就从这个函数展开。</p>
+<a id="more"></a>
+<h3 id="将-RegisterBuiltinModules-层层展开"><a href="#将-RegisterBuiltinModules-层层展开" class="headerlink" title="将 RegisterBuiltinModules() 层层展开"></a>将 RegisterBuiltinModules() 层层展开</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:3066 */</span></span><br><span class="line"><span class="comment">// Call built-in modules' _register_&lt;module name&gt; function to</span></span><br><span class="line"><span class="comment">// do module registration explicitly.</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RegisterBuiltinModules</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> V(modname) _register_##modname();</span></span><br><span class="line">  NODE_BUILTIN_MODULES(V)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> V</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先定义了一个宏 <code>V</code> 为 <code>_register_##modname()</code>，可以看出 <code>V</code> 展开后是一个函数调用类似这样： <code>_register_xx()</code>；</p>
+<p>随后，<code>RegisterBuiltinModules()</code> 实际是宏 <code>NODE_BUILTIN_MODULES(V)</code> 来实现的，我们看看它的定义：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_internals.h:147 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NODE_BUILTIN_MODULES(V)    \</span></span><br><span class="line">  NODE_BUILTIN_STANDARD_MODULES(V)</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure></p>
+<p>进一步查看 <code>NODE_BUILTIN_STANDARD_MODULES(V)</code> 的定义：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_internals.h:106 */</span></span><br><span class="line"><span class="comment">// A list of built-in modules. In order to do module registration</span></span><br><span class="line"><span class="comment">// in node::Init(), need to add built-in modules in the following list.</span></span><br><span class="line"><span class="comment">// Then in node::RegisterBuiltinModules(), it calls modules' registration</span></span><br><span class="line"><span class="comment">// function. This helps the built-in modules are loaded properly when</span></span><br><span class="line"><span class="comment">// node is built as static library. No need to depend on the</span></span><br><span class="line"><span class="comment">// __attribute__((constructor)) like mechanism in GCC.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NODE_BUILTIN_STANDARD_MODULES(V)  \</span></span><br><span class="line">    V(async_wrap)       \</span><br><span class="line">    V(buffer)           \</span><br><span class="line">    V(cares_wrap)       \</span><br><span class="line">    V(config)           \</span><br><span class="line">    V(contextify)       \</span><br><span class="line">    V(domain)           \</span><br><span class="line">    V(fs)               \</span><br><span class="line">    V(fs_event_wrap)    \</span><br><span class="line">    V(heap_utils)       \</span><br><span class="line">    V(http2)            \</span><br><span class="line">    V(http_parser)      \</span><br><span class="line">    V(inspector)        \</span><br><span class="line">    V(js_stream)        \</span><br><span class="line">    V(messaging)        \</span><br><span class="line">    V(module_wrap)      \</span><br><span class="line">    V(options)          \</span><br><span class="line">    V(os)               \</span><br><span class="line">    V(performance)      \</span><br><span class="line">    V(pipe_wrap)        \</span><br><span class="line">    V(process_wrap)     \</span><br><span class="line">    V(serdes)           \</span><br><span class="line">    V(signal_wrap)      \</span><br><span class="line">    V(spawn_sync)       \</span><br><span class="line">    V(stream_pipe)      \</span><br><span class="line">    V(stream_wrap)      \</span><br><span class="line">    V(string_decoder)   \</span><br><span class="line">    V(symbols)          \</span><br><span class="line">    V(tcp_wrap)         \</span><br><span class="line">    V(timer_wrap)       \</span><br><span class="line">    V(trace_events)     \</span><br><span class="line">    V(tty_wrap)         \</span><br><span class="line">    V(types)            \</span><br><span class="line">    V(udp_wrap)         \</span><br><span class="line">    V(url)              \</span><br><span class="line">    V(util)             \</span><br><span class="line">    V(uv)               \</span><br><span class="line">    V(v8)               \</span><br><span class="line">    V(worker)           \</span><br><span class="line">    V(zlib)</span><br></pre></td></tr></table></figure></p>
+<p>这个宏定义中多次调用宏 <code>V</code>，还记得这个宏吗，在上面定义的：<code>#define V(modname) _register_##modname();</code>，那我们把它展开后就是：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_internals.h:106 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NODE_BUILTIN_STANDARD_MODULES(V)  \</span></span><br><span class="line">    _register_async_wrap();</span><br><span class="line">    _register_buffer();</span><br><span class="line">    _register_cares_wrap();</span><br><span class="line">    _register_config();</span><br><span class="line">    _register_contextify();</span><br><span class="line">    _register_domain();</span><br><span class="line">    _register_fs();</span><br><span class="line">    _register_fs_event_wrap();</span><br><span class="line">    _register_heap_utils();</span><br><span class="line">    _register_http2();</span><br><span class="line">    _register_http_parser();</span><br><span class="line">    _register_inspector();</span><br><span class="line">    _register_js_stream();</span><br><span class="line">    _register_messaging();</span><br><span class="line">    _register_module_wrap();</span><br><span class="line">    _register_options();</span><br><span class="line">    _register_os();</span><br><span class="line">    _register_performance();</span><br><span class="line">    _register_pipe_wrap();</span><br><span class="line">    _register_process_wrap();</span><br><span class="line">    _register_serdes();</span><br><span class="line">    _register_signal_wrap();</span><br><span class="line">    _register_spawn_sync();</span><br><span class="line">    _register_stream_pipe();</span><br><span class="line">    _register_stream_wrap();</span><br><span class="line">    _register_string_decoder();</span><br><span class="line">    _register_symbols();</span><br><span class="line">    _register_tcp_wrap();</span><br><span class="line">    _register_timer_wrap();</span><br><span class="line">    _register_trace_events();</span><br><span class="line">    _register_tty_wrap();</span><br><span class="line">    _register_types();</span><br><span class="line">    _register_udp_wrap();</span><br><span class="line">    _register_url();</span><br><span class="line">    _register_util();</span><br><span class="line">    _register_uv();</span><br><span class="line">    _register_v8();</span><br><span class="line">    _register_worker();</span><br><span class="line">    _register_zlib();</span><br></pre></td></tr></table></figure></p>
+<p>最终，<code>RegisterBuiltinModules()</code> 展开后大概是这样的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RegisterBuiltinModules</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  _register_async_wrap();</span><br><span class="line">  _register_buffer();</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  _register_os();</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>经过层层的宏展开，我们看到 <code>RegisterBuiltinModules()</code> 的原貌，就是调用了一些全局注册函数，这样就能理解了。</p>
+<p>接下来，我们打算看看这些注册函数是在哪里定义的。 我刚开始全局搜索了整个代码目录，也没找到这些函数中的任何一个，看来又是通过宏定义的。</p>
+<p>我打算挑一个原生模块的源码，来看看里面有没有上面注册函数的定义，我挑了模块名为 <code>os</code> 的模块，它的源码位于 <code>src/node_os.cc</code>：</p>
+<h3 id="查看一个原生模块的源码"><a href="#查看一个原生模块的源码" class="headerlink" title="查看一个原生模块的源码"></a>查看一个原生模块的源码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_os.cc */</span></span><br><span class="line"><span class="keyword">namespace</span> node &#123;</span><br><span class="line"><span class="keyword">namespace</span> os &#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetHostname</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetOSType</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetOSRelease</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetCPUInfo</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetFreeMemory</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetTotalMemory</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetUptime</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetLoadAvg</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetInterfaceAddresses</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetHomeDirectory</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetUserInfo</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetPriority</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">GetPriority</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个初始化函数是每个原生模块都会定义的，它的参数也是一致的</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Initialize</span><span class="params">(Local&lt;Object&gt; target,</span></span></span><br><span class="line"><span class="function"><span class="params">                Local&lt;Value&gt; unused,</span></span></span><br><span class="line"><span class="function"><span class="params">                Local&lt;Context&gt; context)</span> </span>&#123;</span><br><span class="line">  Environment* env = Environment::GetCurrent(context);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getHostname"</span>, GetHostname);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getLoadAvg"</span>, GetLoadAvg);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getUptime"</span>, GetUptime);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getTotalMem"</span>, GetTotalMemory);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getFreeMem"</span>, GetFreeMemory);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getCPUs"</span>, GetCPUInfo);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getOSType"</span>, GetOSType);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getOSRelease"</span>, GetOSRelease);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getInterfaceAddresses"</span>, GetInterfaceAddresses);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getHomeDirectory"</span>, GetHomeDirectory);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getUserInfo"</span>, GetUserInfo);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"setPriority"</span>, SetPriority);</span><br><span class="line">  env-&gt;SetMethod(target, <span class="string">"getPriority"</span>, GetPriority);</span><br><span class="line">  target-&gt;Set(FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"isBigEndian"</span>),</span><br><span class="line">              Boolean::New(env-&gt;isolate(), IsBigEndian()));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;  <span class="comment">// namespace os</span></span><br><span class="line">&#125;  <span class="comment">// namespace node</span></span><br><span class="line"></span><br><span class="line">NODE_BUILTIN_MODULE_CONTEXT_AWARE(os, node::os::Initialize)</span><br></pre></td></tr></table></figure>
+<p>这个 <code>os</code> 模块先是定义了一些函数，代码的最后是一个宏，这个宏把模块名 <code>os</code> 和 <code>Initialize</code> 函数做为其参数，我们找到它的定义如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_internals.h:169 */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NODE_BUILTIN_MODULE_CONTEXT_AWARE(modname, regfunc)   \</span></span><br><span class="line">  NODE_MODULE_CONTEXT_AWARE_CPP(modname, regfunc, <span class="literal">nullptr</span>, NM_F_BUILTIN)</span><br></pre></td></tr></table></figure></p>
+<p>又是一个宏定义，继续跟下去：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_internals.h:152*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NODE_MODULE_CONTEXT_AWARE_CPP(modname, regfunc, priv, flags) \</span></span><br><span class="line">  <span class="keyword">static</span> node::node_module _module = &#123; \</span><br><span class="line">    NODE_MODULE_VERSION,    \</span><br><span class="line">    flags,      \</span><br><span class="line">    <span class="literal">nullptr</span>,    \</span><br><span class="line">    __FILE__,   \</span><br><span class="line">    <span class="literal">nullptr</span>,    \</span><br><span class="line">    (node::addon_context_register_func) (regfunc),  \</span><br><span class="line">    NODE_STRINGIFY(modname),    \</span><br><span class="line">    priv,   \</span><br><span class="line">    <span class="literal">nullptr</span> \</span><br><span class="line">  &#125;;    \</span><br><span class="line">  <span class="keyword">void</span> _register_ #<span class="meta"># modname() &#123;    \</span></span><br><span class="line">    node_module_register(&amp;_module); \</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个宏的定义里好像看到了我们要找的代码，我们在这里就可以把 <code>NODE_BUILTIN_MODULE_CONTEXT_AWARE(os, node::os::Initialize)</code> 完全展开了：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 node_module 对象 _module</span></span><br><span class="line"><span class="keyword">static</span> node::node_module _module = &#123;</span><br><span class="line">    NODE_MODULE_VERSION,    </span><br><span class="line">    NM_F_BUILTIN,      </span><br><span class="line">    <span class="literal">nullptr</span>,    </span><br><span class="line">    __FILE__,   </span><br><span class="line">    <span class="literal">nullptr</span>,    </span><br><span class="line">    (node::addon_context_register_func) (node::os::Initialize),  </span><br><span class="line">    NODE_STRINGIFY(os),    </span><br><span class="line">    <span class="literal">nullptr</span>,   </span><br><span class="line">    <span class="literal">nullptr</span> </span><br><span class="line">&#125;;    </span><br><span class="line"><span class="comment">// 定义我们要找的 _register_os() 函数</span></span><br><span class="line"><span class="keyword">void</span> _register_os() &#123;    </span><br><span class="line">  node_module_register(&amp;_module); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>到此，我们就明白了 <code>RegisterBuiltinModules()</code> 函数中调用的 <code>_register_os()</code> 是在哪里定义的了，随后查看了所有原生模块的代码，最后一行都是相同的作法声明相应的 <code>_register_xx()</code>。</p>
+<p>其中 <code>node::node_module</code> 类型就代表一个模块的信息。</p>
+<p>所谓注册 <code>os</code> 模块实际是调用了 <code>node_module_register(node_module *)</code> 函数完成的，我们继续来看看 <code>node_module_register()</code> 函数和 <code>node::node_module</code>：</p>
+<h3 id="模块注册实现"><a href="#模块注册实现" class="headerlink" title="模块注册实现"></a>模块注册实现</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.h:518*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node_module</span> &#123;</span></span><br><span class="line">  <span class="keyword">int</span> nm_version;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> nm_flags;</span><br><span class="line">  <span class="keyword">void</span>* nm_dso_handle;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* nm_filename;</span><br><span class="line">  <span class="comment">// 上例中 Initialize 函数被赋到 nm_register_func 里</span></span><br><span class="line">  node::addon_register_func nm_register_func;  </span><br><span class="line">  node::addon_context_register_func nm_context_register_func;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span>* nm_modname; <span class="comment">// 模块的名字</span></span><br><span class="line">  <span class="keyword">void</span>* nm_priv;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">node_module</span>* <span class="title">nm_link</span>;</span>  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node.cc:1094 */</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function"><span class="keyword">void</span> <span class="title">node_module_register</span><span class="params">(<span class="keyword">void</span>* m)</span> </span>&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">node_module</span>* <span class="title">mp</span> = <span class="title">reinterpret_cast</span>&lt;struct node_module*&gt;(<span class="title">m</span>);</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (mp-&gt;nm_flags &amp; NM_F_BUILTIN) &#123;</span><br><span class="line">    <span class="comment">// 链表操作</span></span><br><span class="line">    mp-&gt;nm_link = modlist_builtin;</span><br><span class="line">    modlist_builtin = mp;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mp-&gt;nm_flags &amp; NM_F_INTERNAL) &#123;</span><br><span class="line">    <span class="comment">// 链表操作</span></span><br><span class="line">    mp-&gt;nm_link = modlist_internal;</span><br><span class="line">    modlist_internal = mp;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!node_is_initialized) &#123;</span><br><span class="line">    <span class="comment">// "Linked" modules are included as part of the node project.</span></span><br><span class="line">    <span class="comment">// Like builtins they are registered *before* node::Init runs.</span></span><br><span class="line">    mp-&gt;nm_flags = NM_F_LINKED;</span><br><span class="line">    mp-&gt;nm_link = modlist_linked;</span><br><span class="line">    modlist_linked = mp;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    uv_key_set(&amp;thread_local_modpending, mp);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里就清晰了， 所谓原生模块的注册，实际上就是将一个类型为 <code>node::node_module</code> 的模块对象，添加到不同类别的全局链表中。</p>
+<p>上述代码中用3个全局链表：<code>modlist_builtin</code> <code>modlist_internal</code> <code>modlist_linked</code> 分别保存不同类型的模块，本文我们说的是 <code>BUILTIN</code> 类型的，也就是第一个。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/uploads/donate/wechatpayimg.png" alt="Maslow 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/donate/alipayimg.png" alt="Maslow 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Maslow</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://maslow.github.io/2018/11/28/nodejs/nodejs-src/register-builtin-modules/" title="Node.js 源码分析 - 原生模块的注册">http://maslow.github.io/2018/11/28/nodejs/nodejs-src/register-builtin-modules/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/27/nodejs/nodejs-src/the-main/" rel="next" title="Node.js 源码分析 - 从 main 函数开始">
+                <i class="fa fa-chevron-left"></i> Node.js 源码分析 - 从 main 函数开始
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="Maslow">
+            
+              <p class="site-author-name" itemprop="name">Maslow</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/maslow" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wangfugen@126.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.step8step.com/" title="在线编程练习平台" target="_blank">在线编程练习平台</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://lunaragon.top/" title="lunaragon's blog" target="_blank">lunaragon's blog</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blog.codingnow.com/" title="云风的博客" target="_blank">云风的博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#将-RegisterBuiltinModules-层层展开"><span class="nav-number">1.</span> <span class="nav-text">将 RegisterBuiltinModules() 层层展开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看一个原生模块的源码"><span class="nav-number">2.</span> <span class="nav-text">查看一个原生模块的源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块注册实现"><span class="nav-number">3.</span> <span class="nav-text">模块注册实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maslow</span>
+
+  
+
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+        <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitment({
+            id: window.location.pathname,
+            owner: 'maslow',
+            repo: 'maslow.github.io',
+            
+            oauth: {
+            
+            
+                client_secret: '84722b58219b2ad7b7b18850d5ff9ef159730845',
+            
+                client_id: 'fb9bfe1eab30371079e2'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+
+</body>
+</html>

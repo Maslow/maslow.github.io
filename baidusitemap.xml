@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://maslow.github.io/nodejs/nodejs-src/register-builtin-modules/</loc>
+    <lastmod>2018-12-03T15:01:32.998Z</lastmod>
+  </url>  <url>
     <loc>http://maslow.github.io/nodejs/nodejs-src/index/</loc>
     <lastmod>2018-12-02T15:07:12.020Z</lastmod>
-  </url>  <url>
-    <loc>http://maslow.github.io/nodejs/nodejs-src/register-builtin-modules/</loc>
-    <lastmod>2018-12-02T15:05:40.104Z</lastmod>
   </url>  <url>
     <loc>http://maslow.github.io/nodejs/nodejs-src/the-main/</loc>
     <lastmod>2018-11-27T18:35:30.192Z</lastmod>

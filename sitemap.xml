@@ -2,56 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://maslow.github.io/2018/11/24/nodejs/nodejs-src/index/</loc>
+    <loc>http://maslow.github.io/nodejs/nodejs-src/index/</loc>
     
     <lastmod>2018-12-02T15:07:12.020Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/11/28/nodejs/nodejs-src/register-builtin-modules/</loc>
+    <loc>http://maslow.github.io/nodejs/nodejs-src/register-builtin-modules/</loc>
     
     <lastmod>2018-12-02T15:05:40.104Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/11/27/nodejs/nodejs-src/the-main/</loc>
+    <loc>http://maslow.github.io/nodejs/nodejs-src/the-main/</loc>
     
     <lastmod>2018-11-27T18:35:30.192Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/</loc>
+    <loc>http://maslow.github.io/v8/v8-embedding-hello-world/</loc>
     
     <lastmod>2018-11-27T04:26:03.018Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/03/25/v8/compile-v8/</loc>
+    <loc>http://maslow.github.io/v8/compile-v8/</loc>
     
     <lastmod>2018-11-27T02:47:20.705Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/11/24/gitlab-ci/example-node-js/</loc>
+    <loc>http://maslow.github.io/gitlab-ci/example-node-js/</loc>
     
     <lastmod>2018-11-23T19:11:53.509Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/11/09/gitlab-ci/index/</loc>
+    <loc>http://maslow.github.io/gitlab-ci/index/</loc>
     
     <lastmod>2018-11-23T19:03:06.360Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://maslow.github.io/2018/11/24/javascript/diy-simple-promise-js/</loc>
+    <loc>http://maslow.github.io/javascript/diy-simple-promise-js/</loc>
     
     <lastmod>2018-11-23T19:00:16.701Z</lastmod>
     

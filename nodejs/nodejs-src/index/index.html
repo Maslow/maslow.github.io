@@ -115,20 +115,18 @@
 
 
 
-  <meta name="description" content="通过一个 Hello World 示例来介绍 V8 的几个重要概念。 这个示例代码是基于 V8 (7.1) 的，要编译这个示例请查看 Javascript Engine V8 Embedding - 编译">
-<meta name="keywords" content="javascript,V8,Node.js,C&#x2F;C++">
+  <meta name="description" content="这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。虽然是为了备忘，我会尽量以读者的角度去写，希望能给想了解 Node.js 源码的朋友节省一些时间。  适合谁- 你需要熟悉 C/C++ - 你需要熟悉 Node.js，理解异步编程及原理">
+<meta name="keywords" content="Node.js,Node.js 源码分析,源码分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript Engine V8 Embedding - Hello World 讲解">
-<meta property="og:url" content="http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/index.html">
+<meta property="og:title" content="Node.js 源码分析 - 前言">
+<meta property="og:url" content="http://maslow.github.io/nodejs/nodejs-src/index/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="通过一个 Hello World 示例来介绍 V8 的几个重要概念。 这个示例代码是基于 V8 (7.1) 的，要编译这个示例请查看 Javascript Engine V8 Embedding - 编译">
+<meta property="og:description" content="这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。虽然是为了备忘，我会尽量以读者的角度去写，希望能给想了解 Node.js 源码的朋友节省一些时间。  适合谁- 你需要熟悉 C/C++ - 你需要熟悉 Node.js，理解异步编程及原理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://v8.dev/_img/docs/embed/local-persist-handles-review.png">
-<meta property="og:updated_time" content="2018-11-27T04:26:03.018Z">
+<meta property="og:updated_time" content="2018-12-02T15:07:12.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript Engine V8 Embedding - Hello World 讲解">
-<meta name="twitter:description" content="通过一个 Hello World 示例来介绍 V8 的几个重要概念。 这个示例代码是基于 V8 (7.1) 的，要编译这个示例请查看 Javascript Engine V8 Embedding - 编译">
-<meta name="twitter:image" content="https://v8.dev/_img/docs/embed/local-persist-handles-review.png">
+<meta name="twitter:title" content="Node.js 源码分析 - 前言">
+<meta name="twitter:description" content="这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。虽然是为了备忘，我会尽量以读者的角度去写，希望能给想了解 Node.js 源码的朋友节省一些时间。  适合谁- 你需要熟悉 C/C++ - 你需要熟悉 Node.js，理解异步编程及原理">
 
 
 
@@ -137,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/">
+  <link rel="canonical" href="http://maslow.github.io/nodejs/nodejs-src/index/">
 
 
 
@@ -147,7 +145,7 @@
   };
 </script>
 
-  <title>Javascript Engine V8 Embedding - Hello World 讲解 | 老根's Blog</title>
+  <title>Node.js 源码分析 - 前言 | 老根's Blog</title>
   
 
 
@@ -314,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/nodejs/nodejs-src/index/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -331,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Javascript Engine V8 Embedding - Hello World 讲解
+          <h2 class="post-title" itemprop="name headline">Node.js 源码分析 - 前言
               
             
           </h2>
@@ -356,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-03-26 23:47:14" itemprop="dateCreated datePublished" datetime="2018-03-26T23:47:14+08:00">2018-03-26</time>
+              <time title="创建时间：2018-11-24 22:30:15" itemprop="dateCreated datePublished" datetime="2018-11-24T22:30:15+08:00">2018-11-24</time>
             
 
             
@@ -373,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-27 12:26:03" itemprop="dateModified" datetime="2018-11-27T12:26:03+08:00">2018-11-27</time>
+                <time title="修改时间：2018-12-02 23:07:12" itemprop="dateModified" datetime="2018-12-02T23:07:12+08:00">2018-12-02</time>
               
             
           </span>
@@ -390,7 +388,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
 
                 
                 
@@ -407,13 +405,11 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/javascript/" rel="tag"> javascript</a>
-              
-                <a href="/tags/V8/" rel="tag"> V8</a>
-              
                 <a href="/tags/Node-js/" rel="tag"> Node.js</a>
               
-                <a href="/tags/C-C/" rel="tag"> C/C++</a>
+                <a href="/tags/Node-js-源码分析/" rel="tag"> Node.js 源码分析</a>
+              
+                <a href="/tags/源码分析/" rel="tag"> 源码分析</a>
               
             </span>
           
@@ -440,23 +436,42 @@
       
 
       
-        <p>通过一个 Hello World 示例来介绍 V8 的几个重要概念。</p>
-<p>这个示例代码是基于 V8 (7.1) 的，要编译这个示例请查看 <a href="/2018/03/25/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></p>
-<a id="more"></a>
-<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/libplatform/libplatform.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/v8.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 初始化 V8</span></span><br><span class="line">  v8::V8::InitializeICUDefaultLocation(argv[<span class="number">0</span>]);</span><br><span class="line">  v8::V8::InitializeExternalStartupData(argv[<span class="number">0</span>]);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;v8::Platform&gt; platform = v8::platform::NewDefaultPlatform();</span><br><span class="line">  v8::V8::InitializePlatform(platform.get());</span><br><span class="line">  v8::V8::Initialize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建一个 Isolate 实例, 它代表一个 JS VM 实例</span></span><br><span class="line">  v8::Isolate::CreateParams create_params;</span><br><span class="line">  create_params.array_buffer_allocator =</span><br><span class="line">      v8::ArrayBuffer::Allocator::NewDefaultAllocator();</span><br><span class="line"></span><br><span class="line">  v8::Isolate* isolate = v8::Isolate::New(create_params);</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 使用 isolate</span></span><br><span class="line">    v8::Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 HandleScope，用于管理 Handle 的生命周期 </span></span><br><span class="line">    v8::<span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 Context，它是 javascript 代码执行的环境上下文对象</span></span><br><span class="line">    v8::Local&lt;v8::Context&gt; context = v8::Context::New(isolate);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进入 or 使用 context</span></span><br><span class="line">    v8::Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 定义 JS 代码字符串</span></span><br><span class="line">      v8::Local&lt;v8::String&gt; source =</span><br><span class="line">          v8::String::NewFromUtf8(isolate, <span class="string">"'Hello' + ', World!'"</span>,</span><br><span class="line">                                  v8::NewStringType::kNormal).ToLocalChecked();</span><br><span class="line">      <span class="comment">// 编译 JS 代码</span></span><br><span class="line">      v8::Local&lt;v8::Script&gt; script =</span><br><span class="line">          v8::Script::Compile(context, source).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 运行 JS 代码，并获取结果</span></span><br><span class="line">      v8::Local&lt;v8::Value&gt; result = script-&gt;Run(context).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 将运行结果转换为 UTF8 字符串，并打印</span></span><br><span class="line">      v8::String::<span class="function">Utf8Value <span class="title">utf8</span><span class="params">(isolate, result)</span></span>;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, *utf8);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 释放 V8 相关资源</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  v8::V8::Dispose();</span><br><span class="line">  v8::V8::ShutdownPlatform();</span><br><span class="line">  <span class="keyword">delete</span> create_params.array_buffer_allocator;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="V8-重要概念"><a href="#V8-重要概念" class="headerlink" title="V8 重要概念"></a>V8 重要概念</h3><h4 id="Isolate"><a href="#Isolate" class="headerlink" title="Isolate"></a>Isolate</h4><p>一个 Isolate 就是一个 VM 实例，它有自己独立的 Heap。</p>
-<h4 id="Handle"><a href="#Handle" class="headerlink" title="Handle"></a>Handle</h4><p>一个 <code>Handle</code> 就是对一个 V8 object 的引用， V8 objects 都是分配在 Heap 中的，所有 V8 objects 都需要通过一个<code>Handle</code> 引用来访问，才能保证 V8 garbage collector 能工作。</p>
-<p><code>Handle</code> 又分 <code>Local</code>（局部） 和 <code>Persistent</code>（全局）两种。 </p>
-<p><code>Local Handle</code> 的生命周期 使用 <code>HandleScope</code> 来管理，而 <code>Persistent</code> 是全局的 <code>Handle</code>， 需要通过 <code>Persistent::New()</code> 和 <code>Persistent::Release()</code> 来创建和释放。 </p>
-<h4 id="Handle-Scope"><a href="#Handle-Scope" class="headerlink" title="Handle Scope"></a>Handle Scope</h4><p>一个 <code>Handle Scope</code> 可以理解为用来批量管理 <code>Handle</code> 的容器，这样我们就不用一个个的去释放 <code>Handle</code>，只要把它们的 <code>Handle Scope</code> 释放掉就可以了。</p>
-<p><code>Handle Scope</code> 相当于提供了 <code>Handle Stack</code> 机制来管理 Handles，当一个 <code>Handle Scope</code> 本身被释放的时候，会从 <code>Handle Stack</code> 上弹出所有基于它的 <code>Local Handles</code>。</p>
-<p>注意：这个 <code>Handle Stack</code> 并不是 <code>C++ 调用栈</code>， <code>Handle Scope</code> 是在 <code>C++ 调用栈</code> 中的分配的，<code>Handle Scope</code> 必须创建在栈上，不能用 <code>new</code> 创建！</p>
-<img src="https://v8.dev/_img/docs/embed/local-persist-handles-review.png">
-<h4 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h4><p><code>Context</code> 是 javascript 代码的执行环境；</p>
-<p>想像一下，你有多个不相关的 js 代码要运行，这些代码运行的过程中可能会修改 V8 全局的一些状态，就需要给他们指定不同的 <code>context</code> 才能相互独立的隔离运行。</p>
-<p>另外，我们可以为一个 <code>context</code> 设置预定义的全局属性，这个属性可以是 C++ 写的对象或方法，这样在 js 环境中，就能够调用 C++ 对象了，相当于扩充了 js 的能力。</p>
-<p>比如，<code>Node.js</code> 中的 <code>process</code> 对象，就是一个预定义到 <code>context</code> 的对象，所以在 <code>Node.js</code> 中可以直接使用。同样的，浏览器中的 <code>window</code> <code>document</code> 等全局对象，也是预定义到 <code>context</code> 上的。</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>Getting started with embedding V8: <a href="https://v8.dev/docs/embed#advanced-guide" target="_blank" rel="noopener">https://v8.dev/docs/embed#advanced-guide</a></p>
+        <blockquote>
+<p>这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，免得以后再费时间从头看。虽然是为了备忘，我会尽量以读者的角度去写，希望能给想了解 Node.js 源码的朋友节省一些时间。</p>
+</blockquote>
+<h3 id="适合谁"><a href="#适合谁" class="headerlink" title="适合谁"></a>适合谁</h3><pre><code>- 你需要熟悉 C/C++
+- 你需要熟悉 Node.js，理解异步编程及原理
+</code></pre><a id="more"></a>
+<h3 id="分析方式"><a href="#分析方式" class="headerlink" title="分析方式"></a>分析方式</h3><p>根据执行流程，直接从 main 函数开始走， 然后再单独分析具体模块。</p>
+<p>疏理执行逻辑是这次分析的重点。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>我使用的版本是 node.js 仓库里 v10.x 分支。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:nodejs/node.git </span><br><span class="line"><span class="built_in">cd</span> node</span><br><span class="line">git checkout v10.x</span><br></pre></td></tr></table></figure></p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>V8 Embedding:</p>
+<ul>
+<li><a href="/2018/03/25/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></li>
+<li><a href="/2018/03/26/v8/v8-embedding-hello-world/" title="Javascript Engine V8 Embedding - Hello World 讲解">Javascript Engine V8 Embedding - Hello World 讲解</a>
+</li>
+</ul>
+<p>Node.js 源码分析:</p>
+<ul>
+<li><a href="/2018/11/27/nodejs/nodejs-src/the-main/" title="从 main 函数开始">从 main 函数开始</a></li>
+<li><a href="/2018/11/28/nodejs/nodejs-src/register-builtin-modules/" title="原生模块的注册">原生模块的注册</a>
+</li>
+</ul>
+<blockquote>
+<p>持续更新中</p>
+</blockquote>
+<h3 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h3><ul>
+<li><p>Libuv 官网 User Guide 很友好：<a href="http://docs.libuv.org/en/v1.x/guide.html" target="_blank" rel="noopener">http://docs.libuv.org/en/v1.x/guide.html</a></p>
+</li>
+<li><p>Node.js 源码：<a href="https://github.com/nodejs/node" target="_blank" rel="noopener">https://github.com/nodejs/node</a></p>
+</li>
+<li><p>Node.js 源码构建：<a href="https://github.com/nodejs/node/blob/master/BUILDING" target="_blank" rel="noopener">https://github.com/nodejs/node/blob/master/BUILDING</a>.</p>
+</li>
+<li><p>V8 构建：<a href="https://v8.dev/docs/build" target="_blank" rel="noopener">https://v8.dev/docs/build</a></p>
+</li>
+<li><p>V8 Embedding: <a href="https://v8.dev/docs/embed" target="_blank" rel="noopener">https://v8.dev/docs/embed</a></p>
+</li>
+</ul>
 
       
     </div>
@@ -507,7 +522,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/" title="Javascript Engine V8 Embedding - Hello World 讲解">http://maslow.github.io/2018/03/26/v8/v8-embedding-hello-world/</a>
+    <a href="http://maslow.github.io/nodejs/nodejs-src/index/" title="Node.js 源码分析 - 前言">http://maslow.github.io/nodejs/nodejs-src/index/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -525,8 +540,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/25/v8/compile-v8/" rel="next" title="Javascript Engine V8 Embedding - 编译">
-                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - 编译
+              <a href="/javascript/diy-simple-promise-js/" rel="next" title="动手写一个简单的 Promise.js">
+                <i class="fa fa-chevron-left"></i> 动手写一个简单的 Promise.js
               </a>
             
           </div>
@@ -535,8 +550,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/09/gitlab-ci/index/" rel="prev" title="GitLab CI 基本介绍">
-                GitLab CI 基本介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/nodejs/nodejs-src/the-main/" rel="prev" title="Node.js 源码分析 - 从 main 函数开始">
+                Node.js 源码分析 - 从 main 函数开始 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -755,7 +770,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码"><span class="nav-number">1.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8-重要概念"><span class="nav-number">2.</span> <span class="nav-text">V8 重要概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Isolate"><span class="nav-number">2.1.</span> <span class="nav-text">Isolate</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handle"><span class="nav-number">2.2.</span> <span class="nav-text">Handle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handle-Scope"><span class="nav-number">2.3.</span> <span class="nav-text">Handle Scope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Context"><span class="nav-number">2.4.</span> <span class="nav-text">Context</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#适合谁"><span class="nav-number">1.</span> <span class="nav-text">适合谁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析方式"><span class="nav-number">2.</span> <span class="nav-text">分析方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录"><span class="nav-number">4.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关资料"><span class="nav-number">5.</span> <span class="nav-text">相关资料</span></a></li></ol></div>
             
 
           </div>

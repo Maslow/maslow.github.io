@@ -446,7 +446,7 @@
 <h3 id="贴代码说明"><a href="#贴代码说明" class="headerlink" title="贴代码说明"></a>贴代码说明</h3><p>限于篇幅，本文只先把大体执行流程捋出来，后面再开文一块块的捋。</p>
 <p>原代码太长，先把不影响我们分析的无关代码去掉，贴上来有关整体执行逻辑的代码，代码中的 <code>// ...</code> 注释意思是这个地方有被省略的代码。</p>
 <p>每段代码第一行的注释都会指出源文件位置，一些代码讲解会在代码段中的注释中进行；</p>
-<p>本文不再介绍 V8 和 Libuv 的知识，会开专门的分类写 V8 和 Libuv，参考 <a href="/2018/11/24/nodejs/nodejs-src/index/" title="Node.js 源码分析 - 前言">Node.js 源码分析 - 前言</a></p>
+<p>本文不再介绍 V8 和 Libuv 的知识，会开专门的分类写 V8 和 Libuv，参考 <a href="/nodejs/nodejs-src/index/" title="Node.js 源码分析 - 前言">Node.js 源码分析 - 前言</a></p>
 <h3 id="开捋：从-main-函数到进程主循环"><a href="#开捋：从-main-函数到进程主循环" class="headerlink" title="开捋：从 main 函数到进程主循环"></a>开捋：从 main 函数到进程主循环</h3><h4 id="main-函数"><a href="#main-函数" class="headerlink" title="main 函数"></a>main 函数</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* src/node_main.cc:93 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">return</span> node::Start(argc, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>main函数</code> 在 <code>src/node_main.cc</code> 这个文件中，这个文件主要就是存放 <code>main函数</code>。</p>
 <p>很简单，只是调用了 <code>node::Start()</code>，这个函数在 <code>src/node.cc</code> 这个文件中，接下来的核心代码都在这个文件中。</p>

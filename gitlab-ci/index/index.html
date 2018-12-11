@@ -124,7 +124,7 @@
 <meta property="og:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<meta property="og:updated_time" content="2018-12-10T13:45:39.614Z">
+<meta property="og:updated_time" content="2018-12-11T02:16:36.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitLab CI 基本介绍">
 <meta name="twitter:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
@@ -373,7 +373,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-10 21:45:39" itemprop="dateModified" datetime="2018-12-10T21:45:39+08:00">2018-12-10</time>
+                <time title="修改时间：2018-12-11 10:16:36" itemprop="dateModified" datetime="2018-12-11T10:16:36+08:00">2018-12-11</time>
               
             
           </span>
@@ -441,7 +441,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">973</span>
+                <span title="本文字数">975</span>
               
 
               
@@ -500,11 +500,13 @@
 <p><code>Runner</code> 是负责执行 <code>pipeline</code> 的程序。</p>
 <p>通常 <code>Runner</code> 需要我们自己安装并运行在自己的服务器上，当然也可以使用 gitlab.com 官方提供的免费的 Shared Runner 服务。</p>
 <h3 id="GitLab-CI-的工作方式"><a href="#GitLab-CI-的工作方式" class="headerlink" title="GitLab CI 的工作方式"></a>GitLab CI 的工作方式</h3><ul>
-<li><p>Pipeline 的触发<br>当开发者 Push 代码到某个分支时，如果我们定义了 Pipeline，也就是代码根目录中有 <code>.gitlab-ci.yml</code> 文件，GitLab 会自动触发 Pipeline 的执行。</p>
-</li>
-<li><p>Pipeline 的执行<br>Pipeline 执行时，首先会 pull 下来被触发分支的代码，然后执行你在 pipline 中定义的 Job，Job 是你指定的一些 shell scripts，它就是你构建项目的逻辑。</p>
-</li>
+<li>Pipeline 的触发</li>
 </ul>
+<p>当开发者 Push 代码到某个分支时，如果我们定义了 Pipeline，也就是代码根目录中有 <code>.gitlab-ci.yml</code> 文件，GitLab 会自动触发 Pipeline 的执行。</p>
+<ul>
+<li>Pipeline 的执行</li>
+</ul>
+<p>Pipeline 执行时，首先会 pull 下来被触发分支的代码，然后执行你在 pipline 中定义的 Job，Job 是你指定的一些 shell scripts，它就是你构建项目的逻辑。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>简单介绍一下 GitLab CI 的几个重要概念，接下来会通过实例来详细讲解 GitLab CI 的使用。</p>
 
       

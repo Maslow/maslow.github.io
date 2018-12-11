@@ -4,7 +4,14 @@
   <url>
     <loc>http://maslow.github.io/gitlab-ci/example-docker-ssh-deploy/</loc>
     
-    <lastmod>2018-12-11T02:15:36.822Z</lastmod>
+    <lastmod>2018-12-11T02:17:44.046Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://maslow.github.io/gitlab-ci/index/</loc>
+    
+    <lastmod>2018-12-11T02:16:36.620Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://maslow.github.io/gitlab-ci/example-node-js/</loc>
     
     <lastmod>2018-12-10T14:26:28.529Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://maslow.github.io/gitlab-ci/index/</loc>
-    
-    <lastmod>2018-12-10T13:45:39.614Z</lastmod>
     
   </url>
   

@@ -241,7 +241,7 @@
           
           <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">6</span></a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">4</span></a>
   </li>
         
         
@@ -249,7 +249,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">8</span></a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">9</span></a>
   </li>
         
         
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-05 23:10:00" itemprop="dateModified" datetime="2018-12-05T23:10:00+08:00">2018-12-05</time>
+                <time title="修改时间：2018-12-10 21:41:42" itemprop="dateModified" datetime="2018-12-10T21:41:42+08:00">2018-12-10</time>
               
             
           </span>
@@ -418,7 +418,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.1k</span>
+                <span title="本文字数">9k</span>
               
 
               
@@ -1126,6 +1126,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maslow.github.io/gitlab-ci/example-docker-ssh-deploy/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/gitlab-ci/example-docker-ssh-deploy/" itemprop="url">
+                  GitLab CI 示例：Docker 镜像打包发布 & SSH 部署
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-18 21:44:35" itemprop="dateCreated datePublished" datetime="2018-11-18T21:44:35+08:00">2018-11-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-11 10:15:36" itemprop="dateModified" datetime="2018-12-11T10:15:36+08:00">2018-12-11</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+        <div class="new-line">
+          
+
+          
+            <span class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </span>
+          
+          </div>
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>当我们 push 代码到 git 仓库时，将项目部署到目标服务器上，具体步骤：</p>
+<pre><code>- 基于代码仓库中的 Dockerfile 构建代码镜像
+- 将构建的代码镜像推送到我们的私有镜像仓库
+- 通过 ssh 连接目标服务器，远程执行部署指令，基于代码镜像启动容器
+</code></pre><h3 id="示例代码说明"><a href="#示例代码说明" class="headerlink" title="示例代码说明"></a>示例代码说明</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">deploy</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line"><span class="attr">  TARGET_IMAGE:</span> <span class="string">$REGISTRY_ADDR/maslow/ci-example-app:latest</span></span><br><span class="line"><span class="attr">  DOCKER_DRIVER:</span> <span class="string">overlay2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">docker:stable</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">login</span> <span class="bullet">-u</span> <span class="string">$REGISTRY_USER</span> <span class="bullet">-p</span> <span class="string">$REGISTRY_PASSWORD</span> <span class="string">$REGISTRY_ADDR</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">pull</span> <span class="string">$TARGET_IMAGE</span> <span class="string">||</span> <span class="literal">true</span>   <span class="comment"># for docker build caching</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">build</span> <span class="bullet">--cache-from</span> <span class="string">$TARGET_IMAGE</span> <span class="bullet">--tag</span> <span class="string">$TARGET_IMAGE</span> <span class="string">.</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">$TARGET_IMAGE</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">ubuntu:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">'which ssh-agent || (apt-get update -y &amp;&amp; apt-get install openssh-client -y)'</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">eval</span> <span class="string">$(ssh-agent</span> <span class="bullet">-s)</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"$SERVER_SSH_PRIV_KEY"</span> <span class="string">&gt; deploy.key</span></span><br><span class="line"><span class="string">    - mkdir -p ~/.ssh</span></span><br><span class="line"><span class="string">    - chmod 0600 deploy.key</span></span><br><span class="line"><span class="string">    - ssh-add deploy.key</span></span><br><span class="line"><span class="string">    - '[[ -f /.dockerenv ]] &amp;&amp; echo -e "Host *\n\tStrictHostKeyChecking no\n\n" &gt; ~/.ssh/config'</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_ADDR "docker run -d -P $&#123;TARGET_IMAGE&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>这段 CI 脚本有两个 stage:</p>
+<pre><code>- build  # 根据代码目录下的 Dockerfile 构建镜像，并 push 到镜像仓库
+- deploy # 通过 ssh 连接目标服务器，远程执行部署指令
+</code></pre><p>其中用到了一些预定义了一些环境变量：</p>
+<pre><code>- REGISTRY_ADDR   # 私有镜像仓库的地址，例如：registry.cn-hangzhou.aliyuncs.com
+- REGISTRY_USER   # 私有镜像仓库用户名
+- REGISTRY_PASSWORD     # 私有镜像仓库密码
+- SERVER_SSH_PRIV_KEY   # 登陆目标服务器的私钥
+- SERVER_ADDR           # 目标服务器的地址
+</code></pre><p>预定义的环境变量并不在 <code>.gitlab-ci.yml</code> 中定义，因为它们往往是一些敏感信息，具体的设置方式是提前在 GitLab Web 端代码仓库设置页面填写：<code>Settings &gt; CI/CD &gt; Variables</code>。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li>GitLab Variables: <a href="https://docs.gitlab.com/ee/ci/variables/README.html#variables" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/variables/README.html#variables</a></li>
+<li>Using SSH keys with GitLab CI/CD: <a href="https://docs.gitlab.com/ee/ci/ssh_keys/README.html" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/ssh_keys/README.html</a></li>
+<li>Building Docker images with GitLab CI/CD:<br><a href="https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#making-docker-in-docker-builds-faster-with-docker-layer-caching" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#making-docker-in-docker-builds-faster-with-docker-layer-caching</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://maslow.github.io/gitlab-ci/example-node-js/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1172,12 +1372,24 @@
                 
               
 
-              <time title="创建时间：2018-11-24 00:18:13 / 修改时间：03:11:53" itemprop="dateCreated datePublished" datetime="2018-11-24T00:18:13+08:00">2018-11-24</time>
+              <time title="创建时间：2018-11-14 00:18:13" itemprop="dateCreated datePublished" datetime="2018-11-14T00:18:13+08:00">2018-11-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-10 22:26:28" itemprop="dateModified" datetime="2018-12-10T22:26:28+08:00">2018-12-10</time>
               
             
           </span>
@@ -1195,13 +1407,6 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/GitLab-CI-Examples/" itemprop="url" rel="index"><span itemprop="name">GitLab CI Examples</span></a></span>
 
                 
                 
@@ -1390,7 +1595,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-24 03:03:06" itemprop="dateModified" datetime="2018-11-24T03:03:06+08:00">2018-11-24</time>
+                <time title="修改时间：2018-12-10 21:45:39" itemprop="dateModified" datetime="2018-12-10T21:45:39+08:00">2018-12-10</time>
               
             
           </span>
@@ -1408,13 +1613,6 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/GitLab-CI-基本介绍/" itemprop="url" rel="index"><span itemprop="name">GitLab CI 基本介绍</span></a></span>
 
                 
                 
@@ -1988,7 +2186,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2009,11 +2207,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2152,7 +2346,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">28k</span>
+    <span title="站点总字数">29k</span>
   
 
   
@@ -2163,7 +2357,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">25 分钟</span>
+    <span title="站点阅读时长">27 分钟</span>
   
 </div>
 
@@ -2347,6 +2541,8 @@
 
   
   
+    
+      
     
       
     

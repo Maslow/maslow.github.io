@@ -5,9 +5,9 @@
   <subtitle>Stay hungry, Stay foolish</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://maslow.github.io/"/>
+  <link href="http://laogen.site/"/>
   <updated>2018-12-10T13:41:42.214Z</updated>
-  <id>http://maslow.github.io/</id>
+  <id>http://laogen.site/</id>
   
   <author>
     <name>Maslow</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Node.js 源码分析 - 原生模块的注册</title>
-    <link href="http://maslow.github.io/nodejs/nodejs-src/register-builtin-modules/"/>
-    <id>http://maslow.github.io/nodejs/nodejs-src/register-builtin-modules/</id>
+    <link href="http://laogen.site/nodejs/nodejs-src/register-builtin-modules/"/>
+    <id>http://laogen.site/nodejs/nodejs-src/register-builtin-modules/</id>
     <published>2018-11-28T13:04:49.000Z</published>
     <updated>2018-12-10T13:41:42.214Z</updated>
     
@@ -31,21 +31,21 @@
     
     </summary>
     
-      <category term="Node.js 源码分析" scheme="http://maslow.github.io/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="http://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Node.js" scheme="http://maslow.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
     
-      <category term="Node.js 源码分析" scheme="http://maslow.github.io/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="http://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
-      <category term="源码分析" scheme="http://maslow.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="http://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Node.js 源码分析 - 从 main 函数开始</title>
-    <link href="http://maslow.github.io/nodejs/nodejs-src/the-main/"/>
-    <id>http://maslow.github.io/nodejs/nodejs-src/the-main/</id>
+    <link href="http://laogen.site/nodejs/nodejs-src/the-main/"/>
+    <id>http://laogen.site/nodejs/nodejs-src/the-main/</id>
     <published>2018-11-27T13:30:15.000Z</published>
     <updated>2018-11-27T18:35:30.192Z</updated>
     
@@ -62,21 +62,21 @@
     
     </summary>
     
-      <category term="Node.js 源码分析" scheme="http://maslow.github.io/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="http://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Node.js" scheme="http://maslow.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
     
-      <category term="Node.js 源码分析" scheme="http://maslow.github.io/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="http://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
-      <category term="源码分析" scheme="http://maslow.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="http://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Node.js 源码分析 - 前言</title>
-    <link href="http://maslow.github.io/nodejs/nodejs-src/index/"/>
-    <id>http://maslow.github.io/nodejs/nodejs-src/index/</id>
+    <link href="http://laogen.site/nodejs/nodejs-src/index/"/>
+    <id>http://laogen.site/nodejs/nodejs-src/index/</id>
     <published>2018-11-24T14:30:15.000Z</published>
     <updated>2018-12-02T15:07:12.020Z</updated>
     
@@ -93,21 +93,21 @@
     
     </summary>
     
-      <category term="Node.js 源码分析" scheme="http://maslow.github.io/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="http://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Node.js" scheme="http://maslow.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
     
-      <category term="Node.js 源码分析" scheme="http://maslow.github.io/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="http://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
-      <category term="源码分析" scheme="http://maslow.github.io/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="http://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>动手写一个简单的 Promise.js</title>
-    <link href="http://maslow.github.io/javascript/diy-simple-promise-js/"/>
-    <id>http://maslow.github.io/javascript/diy-simple-promise-js/</id>
+    <link href="http://laogen.site/javascript/diy-simple-promise-js/"/>
+    <id>http://laogen.site/javascript/diy-simple-promise-js/</id>
     <published>2018-11-23T18:07:14.000Z</published>
     <updated>2018-11-23T19:00:16.701Z</updated>
     
@@ -119,19 +119,19 @@
     
     </summary>
     
-      <category term="Javascript" scheme="http://maslow.github.io/categories/Javascript/"/>
+      <category term="Javascript" scheme="http://laogen.site/categories/Javascript/"/>
     
     
-      <category term="javascript" scheme="http://maslow.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://laogen.site/tags/javascript/"/>
     
-      <category term="promise" scheme="http://maslow.github.io/tags/promise/"/>
+      <category term="promise" scheme="http://laogen.site/tags/promise/"/>
     
   </entry>
   
   <entry>
     <title>GitLab CI 示例：Docker 镜像打包发布 &amp; SSH 部署</title>
-    <link href="http://maslow.github.io/gitlab-ci/example-docker-ssh-deploy/"/>
-    <id>http://maslow.github.io/gitlab-ci/example-docker-ssh-deploy/</id>
+    <link href="http://laogen.site/gitlab-ci/example-docker-ssh-deploy/"/>
+    <id>http://laogen.site/gitlab-ci/example-docker-ssh-deploy/</id>
     <published>2018-11-18T13:44:35.000Z</published>
     <updated>2018-12-11T02:20:48.861Z</updated>
     
@@ -147,23 +147,23 @@
     
     </summary>
     
-      <category term="GitLab CI/CD" scheme="http://maslow.github.io/categories/GitLab-CI-CD/"/>
+      <category term="GitLab CI/CD" scheme="http://laogen.site/categories/GitLab-CI-CD/"/>
     
     
-      <category term="gitlab" scheme="http://maslow.github.io/tags/gitlab/"/>
+      <category term="gitlab" scheme="http://laogen.site/tags/gitlab/"/>
     
-      <category term="gitlab-ci" scheme="http://maslow.github.io/tags/gitlab-ci/"/>
+      <category term="gitlab-ci" scheme="http://laogen.site/tags/gitlab-ci/"/>
     
-      <category term="CI/CD" scheme="http://maslow.github.io/tags/CI-CD/"/>
+      <category term="CI/CD" scheme="http://laogen.site/tags/CI-CD/"/>
     
-      <category term="DevOps" scheme="http://maslow.github.io/tags/DevOps/"/>
+      <category term="DevOps" scheme="http://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>GitLab CI 示例：构建 &amp; 测试 Node.js 应用</title>
-    <link href="http://maslow.github.io/gitlab-ci/example-node-js/"/>
-    <id>http://maslow.github.io/gitlab-ci/example-node-js/</id>
+    <link href="http://laogen.site/gitlab-ci/example-node-js/"/>
+    <id>http://laogen.site/gitlab-ci/example-node-js/</id>
     <published>2018-11-13T16:18:13.000Z</published>
     <updated>2018-12-10T14:26:28.529Z</updated>
     
@@ -176,23 +176,23 @@
     
     </summary>
     
-      <category term="GitLab CI/CD" scheme="http://maslow.github.io/categories/GitLab-CI-CD/"/>
+      <category term="GitLab CI/CD" scheme="http://laogen.site/categories/GitLab-CI-CD/"/>
     
     
-      <category term="gitlab" scheme="http://maslow.github.io/tags/gitlab/"/>
+      <category term="gitlab" scheme="http://laogen.site/tags/gitlab/"/>
     
-      <category term="gitlab-ci" scheme="http://maslow.github.io/tags/gitlab-ci/"/>
+      <category term="gitlab-ci" scheme="http://laogen.site/tags/gitlab-ci/"/>
     
-      <category term="CI/CD" scheme="http://maslow.github.io/tags/CI-CD/"/>
+      <category term="CI/CD" scheme="http://laogen.site/tags/CI-CD/"/>
     
-      <category term="DevOps" scheme="http://maslow.github.io/tags/DevOps/"/>
+      <category term="DevOps" scheme="http://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>GitLab CI 基本介绍</title>
-    <link href="http://maslow.github.io/gitlab-ci/index/"/>
-    <id>http://maslow.github.io/gitlab-ci/index/</id>
+    <link href="http://laogen.site/gitlab-ci/index/"/>
+    <id>http://laogen.site/gitlab-ci/index/</id>
     <published>2018-11-08T16:03:53.000Z</published>
     <updated>2018-12-11T02:16:36.620Z</updated>
     
@@ -210,23 +210,23 @@
     
     </summary>
     
-      <category term="GitLab CI/CD" scheme="http://maslow.github.io/categories/GitLab-CI-CD/"/>
+      <category term="GitLab CI/CD" scheme="http://laogen.site/categories/GitLab-CI-CD/"/>
     
     
-      <category term="gitlab" scheme="http://maslow.github.io/tags/gitlab/"/>
+      <category term="gitlab" scheme="http://laogen.site/tags/gitlab/"/>
     
-      <category term="gitlab-ci" scheme="http://maslow.github.io/tags/gitlab-ci/"/>
+      <category term="gitlab-ci" scheme="http://laogen.site/tags/gitlab-ci/"/>
     
-      <category term="CI/CD" scheme="http://maslow.github.io/tags/CI-CD/"/>
+      <category term="CI/CD" scheme="http://laogen.site/tags/CI-CD/"/>
     
-      <category term="DevOps" scheme="http://maslow.github.io/tags/DevOps/"/>
+      <category term="DevOps" scheme="http://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>Javascript Engine V8 Embedding - Hello World 讲解</title>
-    <link href="http://maslow.github.io/v8/v8-embedding-hello-world/"/>
-    <id>http://maslow.github.io/v8/v8-embedding-hello-world/</id>
+    <link href="http://laogen.site/v8/v8-embedding-hello-world/"/>
+    <id>http://laogen.site/v8/v8-embedding-hello-world/</id>
     <published>2018-03-26T15:47:14.000Z</published>
     <updated>2018-11-27T04:26:03.018Z</updated>
     
@@ -239,23 +239,23 @@
     
     </summary>
     
-      <category term="Javascript Engine V8" scheme="http://maslow.github.io/categories/Javascript-Engine-V8/"/>
+      <category term="Javascript Engine V8" scheme="http://laogen.site/categories/Javascript-Engine-V8/"/>
     
     
-      <category term="javascript" scheme="http://maslow.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://laogen.site/tags/javascript/"/>
     
-      <category term="V8" scheme="http://maslow.github.io/tags/V8/"/>
+      <category term="V8" scheme="http://laogen.site/tags/V8/"/>
     
-      <category term="Node.js" scheme="http://maslow.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
     
-      <category term="C/C++" scheme="http://maslow.github.io/tags/C-C/"/>
+      <category term="C/C++" scheme="http://laogen.site/tags/C-C/"/>
     
   </entry>
   
   <entry>
     <title>Javascript Engine V8 Embedding - 编译</title>
-    <link href="http://maslow.github.io/v8/compile-v8/"/>
-    <id>http://maslow.github.io/v8/compile-v8/</id>
+    <link href="http://laogen.site/v8/compile-v8/"/>
+    <id>http://laogen.site/v8/compile-v8/</id>
     <published>2018-03-25T15:47:14.000Z</published>
     <updated>2018-11-27T02:47:20.705Z</updated>
     
@@ -269,16 +269,16 @@
     
     </summary>
     
-      <category term="Javascript Engine V8" scheme="http://maslow.github.io/categories/Javascript-Engine-V8/"/>
+      <category term="Javascript Engine V8" scheme="http://laogen.site/categories/Javascript-Engine-V8/"/>
     
     
-      <category term="javascript" scheme="http://maslow.github.io/tags/javascript/"/>
+      <category term="javascript" scheme="http://laogen.site/tags/javascript/"/>
     
-      <category term="V8" scheme="http://maslow.github.io/tags/V8/"/>
+      <category term="V8" scheme="http://laogen.site/tags/V8/"/>
     
-      <category term="Node.js" scheme="http://maslow.github.io/tags/Node-js/"/>
+      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
     
-      <category term="C/C++" scheme="http://maslow.github.io/tags/C-C/"/>
+      <category term="C/C++" scheme="http://laogen.site/tags/C-C/"/>
     
   </entry>
   

@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>老根&#39;s Blog</title>
   
-  <subtitle>Stay hungry, Stay foolish</subtitle>
+  <subtitle>stay hungry, stay foolish</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://laogen.site/"/>
+  <link href="https://laogen.site/"/>
   <updated>2018-12-10T13:41:42.214Z</updated>
-  <id>http://laogen.site/</id>
+  <id>https://laogen.site/</id>
   
   <author>
     <name>Maslow</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Node.js 源码分析 - 原生模块的注册</title>
-    <link href="http://laogen.site/nodejs/nodejs-src/register-builtin-modules/"/>
-    <id>http://laogen.site/nodejs/nodejs-src/register-builtin-modules/</id>
+    <link href="https://laogen.site/nodejs/nodejs-src/register-builtin-modules/"/>
+    <id>https://laogen.site/nodejs/nodejs-src/register-builtin-modules/</id>
     <published>2018-11-28T13:04:49.000Z</published>
     <updated>2018-12-10T13:41:42.214Z</updated>
     
@@ -31,21 +31,21 @@
     
     </summary>
     
-      <category term="Node.js 源码分析" scheme="http://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="https://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://laogen.site/tags/Node-js/"/>
     
-      <category term="Node.js 源码分析" scheme="http://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="https://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
-      <category term="源码分析" scheme="http://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Node.js 源码分析 - 从 main 函数开始</title>
-    <link href="http://laogen.site/nodejs/nodejs-src/the-main/"/>
-    <id>http://laogen.site/nodejs/nodejs-src/the-main/</id>
+    <link href="https://laogen.site/nodejs/nodejs-src/the-main/"/>
+    <id>https://laogen.site/nodejs/nodejs-src/the-main/</id>
     <published>2018-11-27T13:30:15.000Z</published>
     <updated>2018-11-27T18:35:30.192Z</updated>
     
@@ -62,21 +62,21 @@
     
     </summary>
     
-      <category term="Node.js 源码分析" scheme="http://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="https://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://laogen.site/tags/Node-js/"/>
     
-      <category term="Node.js 源码分析" scheme="http://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="https://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
-      <category term="源码分析" scheme="http://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>Node.js 源码分析 - 前言</title>
-    <link href="http://laogen.site/nodejs/nodejs-src/index/"/>
-    <id>http://laogen.site/nodejs/nodejs-src/index/</id>
+    <link href="https://laogen.site/nodejs/nodejs-src/index/"/>
+    <id>https://laogen.site/nodejs/nodejs-src/index/</id>
     <published>2018-11-24T14:30:15.000Z</published>
     <updated>2018-12-02T15:07:12.020Z</updated>
     
@@ -93,21 +93,21 @@
     
     </summary>
     
-      <category term="Node.js 源码分析" scheme="http://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="https://laogen.site/categories/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
     
-      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://laogen.site/tags/Node-js/"/>
     
-      <category term="Node.js 源码分析" scheme="http://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="Node.js 源码分析" scheme="https://laogen.site/tags/Node-js-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
-      <category term="源码分析" scheme="http://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
+      <category term="源码分析" scheme="https://laogen.site/tags/%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     
   </entry>
   
   <entry>
     <title>动手写一个简单的 Promise.js</title>
-    <link href="http://laogen.site/javascript/diy-simple-promise-js/"/>
-    <id>http://laogen.site/javascript/diy-simple-promise-js/</id>
+    <link href="https://laogen.site/javascript/diy-simple-promise-js/"/>
+    <id>https://laogen.site/javascript/diy-simple-promise-js/</id>
     <published>2018-11-23T18:07:14.000Z</published>
     <updated>2018-11-23T19:00:16.701Z</updated>
     
@@ -119,19 +119,61 @@
     
     </summary>
     
-      <category term="Javascript" scheme="http://laogen.site/categories/Javascript/"/>
+      <category term="Javascript" scheme="https://laogen.site/categories/Javascript/"/>
     
     
-      <category term="javascript" scheme="http://laogen.site/tags/javascript/"/>
+      <category term="javascript" scheme="https://laogen.site/tags/javascript/"/>
     
-      <category term="promise" scheme="http://laogen.site/tags/promise/"/>
+      <category term="promise" scheme="https://laogen.site/tags/promise/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GitLab CI 示例：利用 CI 同步生产环境数据库到开发环境</title>
+    <link href="https://laogen.site/gitlab-ci/example-db-sync/"/>
+    <id>https://laogen.site/gitlab-ci/example-db-sync/</id>
+    <published>2018-11-20T12:58:19.000Z</published>
+    <updated>2018-12-14T15:54:15.539Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们通常需要频繁的将生产环境(production)的数据库同步到 develop 和 staging 环境。</p><p>之前我们的做法是写了一个 shell 在服务器上手动运行，这个需要测试人员和开发人员拥有服务器权限，甚至是生产环境的权限，风险较大且 “不够 CI/CD 化”。</p><p>后来是想写一个 HTTP 服务来触发这样的数据库同步操作，增加了额外的工作开销，还要为这个服务配相应的 CI/CD，不如直接使用 GitLab CI 来完成这个工作。</p><p>GitLab CI Pipeline 不仅可以在用户 push 代码的时候被触发，还可以通过 HTTP 调用的形式主动触发。</p><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>开发 &amp; 测试人员将 production 环境的数据库同步到 develop / staging 环境：</p><pre><code>- 无需接触服务器环境- 任意时间可主动进行同步（相对于计划任务而言）- 可指定同步某个项目相关的数据库- 可指定同步到某个服务器环境 ( develop / staging )</code></pre><p>预设场景：</p><pre><code>- 有三个数据库项目：project-a  project-b  project-c- 有三个服务器环境：production  develop  staging- 通过 GitLab CI Pipeline Triggers 来触发执行(HTTP方式)- 我们可任意指定同步某一个项目的 production 数据库到 develop 或 staging</code></pre><a id="more"></a><p>首先，我们建了一个新的 GitLab Repo，可以叫作 <code>db-sync</code>，并开始配置其 CI Pipeline。</p><h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .gitlab-ci.yml</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">dump</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">upload</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">restore</span></span><br><span class="line"></span><br><span class="line"><span class="attr">before_script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$TO</span> <span class="string">=</span> <span class="string">dev</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">SERVER_HOST=$DEV_SERVER_HOST;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$TO</span> <span class="string">=</span> <span class="string">stg</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">SERVER_HOST=$STG_SERVER_HOST;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$PROJECT</span> <span class="string">=</span> <span class="string">project-a</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">MONGO_DB=project-a-db;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$PROJECT</span> <span class="string">=</span> <span class="string">project-b</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">MONGO_DB=project-b-db;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$PROJECT</span> <span class="string">=</span> <span class="string">project-c</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">MONGO_DB=project-c-db;fi</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">tmp_data</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dump_db:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">mongo:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">dump</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">rm</span> <span class="bullet">-rf</span> <span class="string">tmp_data</span> <span class="string">||</span> <span class="literal">true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">mkdir</span> <span class="string">tmp_data</span> <span class="string">||</span> <span class="literal">true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">&gt;</span></span><br><span class="line"><span class="string">      mongodump -h $MONGO_HOST --port=$MONGO_PORT -u $MONGO_USER</span></span><br><span class="line"><span class="string">       -p $MONGO_PASSWORD -d $MONGO_DB --out=tmp_data</span></span><br><span class="line"><span class="string">    - cd tmp_data/$MONGO_DB &amp;&amp; tar -zcvf ./../data.tar.gz ./*</span></span><br><span class="line"><span class="string"></span><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    variables:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PROJECT</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$TO</span></span><br><span class="line"></span><br><span class="line"><span class="attr">upload_db:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">laogen/openssh-client:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">upload</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">eval</span> <span class="string">$(ssh-agent</span> <span class="bullet">-s)</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"$SERVER_SSH_PRIV_KEY"</span> <span class="string">&gt; deploy.key</span></span><br><span class="line"><span class="string">    - mkdir -p ~/.ssh</span></span><br><span class="line"><span class="string">    - chmod 0600 deploy.key</span></span><br><span class="line"><span class="string">    - ssh-add deploy.key</span></span><br><span class="line"><span class="string">    - '[[ -f /.dockerenv ]] &amp;&amp; echo -e "Host *\n\tStrictHostKeyChecking no\n\n" &gt; ~/.ssh/config'</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "rm -rf /srv/db-data/$PROJECT/_data/ || true"</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "rm -rf /srv/db-data/$PROJECT/data.tar.gz || true"</span></span><br><span class="line"><span class="string">    - scp tmp_data/data.tar.gz root@$SERVER_HOST:/srv/db-data/$PROJECT/data.tar.gz</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "mkdir -p /srv/db-data/$PROJECT/_data || true"</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "tar zxvf /srv/db-data/$PROJECT/data.tar.gz -C /srv/db-data/$PROJECT/_data"</span></span><br><span class="line"><span class="string"></span><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    variables:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PROJECT</span></span><br><span class="line"></span><br><span class="line"><span class="attr">restore:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">laogen/openssh-client:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">restore</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">eval</span> <span class="string">$(ssh-agent</span> <span class="bullet">-s)</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"$SERVER_SSH_PRIV_KEY"</span> <span class="string">&gt; deploy.key</span></span><br><span class="line"><span class="string">    - mkdir -p ~/.ssh</span></span><br><span class="line"><span class="string">    - chmod 0600 deploy.key</span></span><br><span class="line"><span class="string">    - ssh-add deploy.key</span></span><br><span class="line"><span class="string">    - '[[ -f /.dockerenv ]] &amp;&amp; echo -e "Host *\n\tStrictHostKeyChecking no\n\n" &gt; ~/.ssh/config'</span></span><br><span class="line"><span class="string">    - scp restore.sh root@$SERVER_HOST:/srv/db-bak/$PROJECT/restore.sh</span></span><br><span class="line"><span class="string">    - export CONTAINER_ID='$(docker ps -f name='$PROJECT' -f ancestor=bitnami/mongodb -q)'</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "docker exec $CONTAINER_ID sh /bitnami/restore.sh"</span></span><br><span class="line"><span class="string"></span><span class="attr">  only:</span></span><br><span class="line"><span class="attr">    variables:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$TO</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">$PROJECT</span></span><br></pre></td></tr></table></figure><p>这个 Pipeline 有三个 stages：</p><pre><code>- dump 从 prod 数据库中把数据导出为文件- upload 将数据文件上传到 dev/stg 目标服务器- restore 通过 ssh 远程连接到目标服务器，将数据文件导入(restore)到 mongo 中</code></pre><p>其中涉及的 ssh 等操作前文具体讲过，不了解的话可移步 <a href="/gitlab-ci/example-docker-ssh-deploy/" title="GitLab CI 示例：Docker 镜像打包发布 & SSH 部署">GitLab CI 示例：Docker 镜像打包发布 & SSH 部署</a>。</p><p>这段 CI 脚本是我在实际工作中使用的，其中 mongodb 是使用 <code>bitnami/mongodb</code> 镜像启动的，所以会有 <code>bitnami</code> 相关的字眼，需要了解的话请查看文末的相关链接。</p><p>如果使用其它 <code>mongo</code> 镜像或者其它数据库（ <code>mysql</code> 等）需要做相应的调整，这里只是提供一个思路作为参考。</p><p><code>restore.sh</code> 这个文件在 git repo中，它被挂载到数据库容器中执行的：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># restore.sh</span></span><br><span class="line">mongorestore --drop -u <span class="variable">$MONGODB_USERNAME</span> -p <span class="variable">$MONGODB_PASSWORD</span> -d <span class="variable">$MONGODB_DATABASE</span> /bitnami/_data</span><br></pre></td></tr></table></figure></p><h2 id="触发同步"><a href="#触发同步" class="headerlink" title="触发同步"></a>触发同步</h2><p>我们通过 <code>$PROJECT</code> 来控制要同步哪个项目的数据库；<br>通过 <code>$TO</code> 控制要同步到哪个服务器环境(develop / staging)。</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同步 project-a 项目的数据库到 dev 环境</span></span><br><span class="line">curl -X POST -F token=XXXXXXX \</span><br><span class="line">    -F ref=master -F <span class="string">"variables[TO]=dev"</span> \</span><br><span class="line">    -F <span class="string">"variables[PROJECT]=project-a"</span> \</span><br><span class="line">    https://gitlab.com/api/v4/projects/xxxxxx/trigger/pipeline</span><br></pre></td></tr></table></figure><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同步 project-b 项目的数据库到 stg 环境</span></span><br><span class="line">curl -X POST -F token=XXXXXXX \</span><br><span class="line">    -F ref=master -F <span class="string">"variables[TO]=stg"</span> \</span><br><span class="line">    -F <span class="string">"variables[PROJECT]=project-b"</span> \</span><br><span class="line">    https://gitlab.com/api/v4/projects/xxxxxx/trigger/pipeline</span><br></pre></td></tr></table></figure><p>我们通过 GitLab CI 的 HTTP 触发机制触发 Pipeline 的执行。<br>其中 <code>token</code> 和 <code>url</code> 在 GitLab 仓库的设置页面获取 <code>Settings &gt; CI/CD &gt; Pipeline triggers &gt; Add trigger</code>，该页面中有详情的使用说明。</p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>上面触发的例子是通过 <code>curl</code> 发送请求完成的，也可以使用 Webhook 的方式，这样可以把请求链接加入到浏览器的书签中，需要同步数据库的时候，直接打开相应的书签即可快捷完成。</p><p>这种方式不仅可以用来同步数据库，还可以用来同步其它生产环境的数据，比如文件资源等。</p><p>同时，除去用来同步数据，也可用于备份数据等工作。</p><h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul><li>bitnami/mongodb: <a href="https://github.com/bitnami/bitnami-docker-mongodb" target="_blank" rel="noopener">https://github.com/bitnami/bitnami-docker-mongodb</a></li><li>MongoDB 备份(mongodump)与恢复(mongorestore)<br><a href="http://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;我们通常需要频繁的将生产环境(production)的数据库同步到 develop 和 staging 环境。&lt;/p&gt;
+&lt;p&gt;之前我们的做法是写了一个 shell 在服务器上手动运行，这个需要测试人员和开发人员拥有服务器权限，甚至是生产环境的权限，风险较大且 “不够 CI/CD 化”。&lt;/p&gt;
+&lt;p&gt;后来是想写一个 HTTP 服务来触发这样的数据库同步操作，增加了额外的工作开销，还要为这个服务配相应的 CI/CD，不如直接使用 GitLab CI 来完成这个工作。&lt;/p&gt;
+&lt;p&gt;GitLab CI Pipeline 不仅可以在用户 push 代码的时候被触发，还可以通过 HTTP 调用的形式主动触发。&lt;/p&gt;
+&lt;h2 id=&quot;目标&quot;&gt;&lt;a href=&quot;#目标&quot; class=&quot;headerlink&quot; title=&quot;目标&quot;&gt;&lt;/a&gt;目标&lt;/h2&gt;&lt;p&gt;开发 &amp;amp; 测试人员将 production 环境的数据库同步到 develop / staging 环境：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- 无需接触服务器环境
+- 任意时间可主动进行同步（相对于计划任务而言）
+- 可指定同步某个项目相关的数据库
+- 可指定同步到某个服务器环境 ( develop / staging )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;预设场景：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- 有三个数据库项目：project-a  project-b  project-c
+- 有三个服务器环境：production  develop  staging
+- 通过 GitLab CI Pipeline Triggers 来触发执行(HTTP方式)
+- 我们可任意指定同步某一个项目的 production 数据库到 develop 或 staging
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="GitLab CI/CD" scheme="https://laogen.site/categories/GitLab-CI-CD/"/>
+    
+    
+      <category term="gitlab" scheme="https://laogen.site/tags/gitlab/"/>
+    
+      <category term="gitlab-ci" scheme="https://laogen.site/tags/gitlab-ci/"/>
+    
+      <category term="CI/CD" scheme="https://laogen.site/tags/CI-CD/"/>
+    
+      <category term="DevOps" scheme="https://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>GitLab CI 示例：Docker 镜像打包发布 &amp; SSH 部署</title>
-    <link href="http://laogen.site/gitlab-ci/example-docker-ssh-deploy/"/>
-    <id>http://laogen.site/gitlab-ci/example-docker-ssh-deploy/</id>
+    <link href="https://laogen.site/gitlab-ci/example-docker-ssh-deploy/"/>
+    <id>https://laogen.site/gitlab-ci/example-docker-ssh-deploy/</id>
     <published>2018-11-18T13:44:35.000Z</published>
     <updated>2018-12-11T02:20:48.861Z</updated>
     
@@ -147,23 +189,23 @@
     
     </summary>
     
-      <category term="GitLab CI/CD" scheme="http://laogen.site/categories/GitLab-CI-CD/"/>
+      <category term="GitLab CI/CD" scheme="https://laogen.site/categories/GitLab-CI-CD/"/>
     
     
-      <category term="gitlab" scheme="http://laogen.site/tags/gitlab/"/>
+      <category term="gitlab" scheme="https://laogen.site/tags/gitlab/"/>
     
-      <category term="gitlab-ci" scheme="http://laogen.site/tags/gitlab-ci/"/>
+      <category term="gitlab-ci" scheme="https://laogen.site/tags/gitlab-ci/"/>
     
-      <category term="CI/CD" scheme="http://laogen.site/tags/CI-CD/"/>
+      <category term="CI/CD" scheme="https://laogen.site/tags/CI-CD/"/>
     
-      <category term="DevOps" scheme="http://laogen.site/tags/DevOps/"/>
+      <category term="DevOps" scheme="https://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>GitLab CI 示例：构建 &amp; 测试 Node.js 应用</title>
-    <link href="http://laogen.site/gitlab-ci/example-node-js/"/>
-    <id>http://laogen.site/gitlab-ci/example-node-js/</id>
+    <link href="https://laogen.site/gitlab-ci/example-node-js/"/>
+    <id>https://laogen.site/gitlab-ci/example-node-js/</id>
     <published>2018-11-13T16:18:13.000Z</published>
     <updated>2018-12-10T14:26:28.529Z</updated>
     
@@ -176,23 +218,23 @@
     
     </summary>
     
-      <category term="GitLab CI/CD" scheme="http://laogen.site/categories/GitLab-CI-CD/"/>
+      <category term="GitLab CI/CD" scheme="https://laogen.site/categories/GitLab-CI-CD/"/>
     
     
-      <category term="gitlab" scheme="http://laogen.site/tags/gitlab/"/>
+      <category term="gitlab" scheme="https://laogen.site/tags/gitlab/"/>
     
-      <category term="gitlab-ci" scheme="http://laogen.site/tags/gitlab-ci/"/>
+      <category term="gitlab-ci" scheme="https://laogen.site/tags/gitlab-ci/"/>
     
-      <category term="CI/CD" scheme="http://laogen.site/tags/CI-CD/"/>
+      <category term="CI/CD" scheme="https://laogen.site/tags/CI-CD/"/>
     
-      <category term="DevOps" scheme="http://laogen.site/tags/DevOps/"/>
+      <category term="DevOps" scheme="https://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>GitLab CI 基本介绍</title>
-    <link href="http://laogen.site/gitlab-ci/index/"/>
-    <id>http://laogen.site/gitlab-ci/index/</id>
+    <link href="https://laogen.site/gitlab-ci/index/"/>
+    <id>https://laogen.site/gitlab-ci/index/</id>
     <published>2018-11-08T16:03:53.000Z</published>
     <updated>2018-12-11T02:16:36.620Z</updated>
     
@@ -210,23 +252,23 @@
     
     </summary>
     
-      <category term="GitLab CI/CD" scheme="http://laogen.site/categories/GitLab-CI-CD/"/>
+      <category term="GitLab CI/CD" scheme="https://laogen.site/categories/GitLab-CI-CD/"/>
     
     
-      <category term="gitlab" scheme="http://laogen.site/tags/gitlab/"/>
+      <category term="gitlab" scheme="https://laogen.site/tags/gitlab/"/>
     
-      <category term="gitlab-ci" scheme="http://laogen.site/tags/gitlab-ci/"/>
+      <category term="gitlab-ci" scheme="https://laogen.site/tags/gitlab-ci/"/>
     
-      <category term="CI/CD" scheme="http://laogen.site/tags/CI-CD/"/>
+      <category term="CI/CD" scheme="https://laogen.site/tags/CI-CD/"/>
     
-      <category term="DevOps" scheme="http://laogen.site/tags/DevOps/"/>
+      <category term="DevOps" scheme="https://laogen.site/tags/DevOps/"/>
     
   </entry>
   
   <entry>
     <title>Javascript Engine V8 Embedding - Hello World 讲解</title>
-    <link href="http://laogen.site/v8/v8-embedding-hello-world/"/>
-    <id>http://laogen.site/v8/v8-embedding-hello-world/</id>
+    <link href="https://laogen.site/v8/v8-embedding-hello-world/"/>
+    <id>https://laogen.site/v8/v8-embedding-hello-world/</id>
     <published>2018-03-26T15:47:14.000Z</published>
     <updated>2018-11-27T04:26:03.018Z</updated>
     
@@ -239,23 +281,23 @@
     
     </summary>
     
-      <category term="Javascript Engine V8" scheme="http://laogen.site/categories/Javascript-Engine-V8/"/>
+      <category term="Javascript Engine V8" scheme="https://laogen.site/categories/Javascript-Engine-V8/"/>
     
     
-      <category term="javascript" scheme="http://laogen.site/tags/javascript/"/>
+      <category term="javascript" scheme="https://laogen.site/tags/javascript/"/>
     
-      <category term="V8" scheme="http://laogen.site/tags/V8/"/>
+      <category term="V8" scheme="https://laogen.site/tags/V8/"/>
     
-      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://laogen.site/tags/Node-js/"/>
     
-      <category term="C/C++" scheme="http://laogen.site/tags/C-C/"/>
+      <category term="C/C++" scheme="https://laogen.site/tags/C-C/"/>
     
   </entry>
   
   <entry>
     <title>Javascript Engine V8 Embedding - 编译</title>
-    <link href="http://laogen.site/v8/compile-v8/"/>
-    <id>http://laogen.site/v8/compile-v8/</id>
+    <link href="https://laogen.site/v8/compile-v8/"/>
+    <id>https://laogen.site/v8/compile-v8/</id>
     <published>2018-03-25T15:47:14.000Z</published>
     <updated>2018-11-27T02:47:20.705Z</updated>
     
@@ -269,16 +311,16 @@
     
     </summary>
     
-      <category term="Javascript Engine V8" scheme="http://laogen.site/categories/Javascript-Engine-V8/"/>
+      <category term="Javascript Engine V8" scheme="https://laogen.site/categories/Javascript-Engine-V8/"/>
     
     
-      <category term="javascript" scheme="http://laogen.site/tags/javascript/"/>
+      <category term="javascript" scheme="https://laogen.site/tags/javascript/"/>
     
-      <category term="V8" scheme="http://laogen.site/tags/V8/"/>
+      <category term="V8" scheme="https://laogen.site/tags/V8/"/>
     
-      <category term="Node.js" scheme="http://laogen.site/tags/Node-js/"/>
+      <category term="Node.js" scheme="https://laogen.site/tags/Node-js/"/>
     
-      <category term="C/C++" scheme="http://laogen.site/tags/C-C/"/>
+      <category term="C/C++" scheme="https://laogen.site/tags/C-C/"/>
     
   </entry>
   

@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="通过解释说明一个简单的 Node.js 应用的 Pipeline 示例来介绍 GitLab CI 的工作方式和使用。 其中会重点介绍 GitLab CI 的执行过程，Stage Job 等基础概念，以及缓存策略。">
-<meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
+  <meta name="description" content="目标上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。">
+<meta name="keywords" content="V8,javascript,Node.js,C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitLab CI 示例：构建 &amp; 测试 Node.js 应用">
-<meta property="og:url" content="https://laogen.site/gitlab-ci/example-node-js/index.html">
+<meta property="og:title" content="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">
+<meta property="og:url" content="https://laogen.site/v8/expose-cpp-var/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="通过解释说明一个简单的 Node.js 应用的 Pipeline 示例来介绍 GitLab CI 的工作方式和使用。 其中会重点介绍 GitLab CI 的执行过程，Stage Job 等基础概念，以及缓存策略。">
+<meta property="og:description" content="目标上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-10T14:26:28.529Z">
+<meta property="og:updated_time" content="2018-12-20T08:06:20.768Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitLab CI 示例：构建 &amp; 测试 Node.js 应用">
-<meta name="twitter:description" content="通过解释说明一个简单的 Node.js 应用的 Pipeline 示例来介绍 GitLab CI 的工作方式和使用。 其中会重点介绍 GitLab CI 的执行过程，Stage Job 等基础概念，以及缓存策略。">
+<meta name="twitter:title" content="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">
+<meta name="twitter:description" content="目标上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://laogen.site/gitlab-ci/example-node-js/">
+  <link rel="canonical" href="https://laogen.site/v8/expose-cpp-var/">
 
 
 
@@ -145,7 +145,7 @@
   };
 </script>
 
-  <title>GitLab CI 示例：构建 & 测试 Node.js 应用 | 老根's Blog</title>
+  <title>Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境 | 老根's Blog</title>
   
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-node-js/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/expose-cpp-var/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -329,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GitLab CI 示例：构建 & 测试 Node.js 应用
+          <h2 class="post-title" itemprop="name headline">Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境
               
             
           </h2>
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-11-14 00:18:13" itemprop="dateCreated datePublished" datetime="2018-11-14T00:18:13+08:00">2018-11-14</time>
+              <time title="创建时间：2018-03-27 08:14:42" itemprop="dateCreated datePublished" datetime="2018-03-27T08:14:42+08:00">2018-03-27</time>
             
 
             
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-10 22:26:28" itemprop="dateModified" datetime="2018-12-10T22:26:28+08:00">2018-12-10</time>
+                <time title="修改时间：2018-12-20 16:06:20" itemprop="dateModified" datetime="2018-12-20T16:06:20+08:00">2018-12-20</time>
               
             
           </span>
@@ -388,7 +388,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
 
                 
                 
@@ -405,13 +405,13 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
+                <a href="/tags/V8/" rel="tag"> V8</a>
               
-                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
+                <a href="/tags/javascript/" rel="tag"> javascript</a>
               
-                <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
+                <a href="/tags/Node-js/" rel="tag"> Node.js</a>
               
-                <a href="/tags/DevOps/" rel="tag"> DevOps</a>
+                <a href="/tags/C-C/" rel="tag"> C/C++</a>
               
             </span>
           
@@ -439,7 +439,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.2k</span>
+                <span title="本文字数">3.5k</span>
               
 
               
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </span>
           
@@ -474,47 +474,18 @@
       
 
       
-        <p>通过解释说明一个简单的 Node.js 应用的 <code>Pipeline</code> 示例来介绍 GitLab CI 的工作方式和使用。</p>
-<p>其中会重点介绍 GitLab CI 的执行过程，<code>Stage</code> <code>Job</code> 等基础概念，以及缓存策略。<br><a id="more"></a></p>
-<h2 id="示例定义"><a href="#示例定义" class="headerlink" title="示例定义"></a>示例定义</h2><p>下面是一个简单的 Node.js 应用的 pipeline 定义：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .gitlab-ci.yml</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">version</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">test</span></span><br></pre></td></tr></table></figure>
-<h2 id="解释说明"><a href="#解释说明" class="headerlink" title="解释说明"></a>解释说明</h2><p>逐一介绍一下这几个字段：</p>
-<h3 id="stages"><a href="#stages" class="headerlink" title="stages"></a>stages</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span></span><br></pre></td></tr></table></figure>
-<p>stage 定义了 pipeline 的执行步骤，也就是说 stages 是有序执行的。每个 stages 可包括多个 Job，Job 才是 CI Runner 要执行的任务。</p>
-<p>上面的 pipeline 包括 build 和 test 两个步骤，先执行完所有 build 阶段的 Job，才会执行 test 阶段的 Job。</p>
-<p>如果 build 阶段的 Job 执行失败了，则整个 pipeline 失败并中断执行，不会继续执行 test stage 了。</p>
-<p>下面就来介绍什么是 Job.</p>
-<h3 id="build-job"><a href="#build-job" class="headerlink" title="build_job"></a>build_job</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">build_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span> </span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">version</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br></pre></td></tr></table></figure>
-<p><code>build_job</code> 是 Job 的名称，可以自由定义；</p>
-<p><code>stage</code> 字段指定该 Job 属于 <code>build</code> 阶段的；</p>
-<p><code>script</code> 就是自定义的构建脚本了，这里就是简单的 <code>npm install</code>；</p>
-<p><code>image</code> 这个是指定 <code>script</code> 脚本的执行环境，它的值应该是一个 Docker 镜像。</p>
-<p>Runner 开始执行这个 Job 时，首先会 pull 项目的最新代码，然后基于这个镜像启动一个容器并把代码挂载到容器里，最后在这个容器里面执行 <code>script</code> 定义的脚本。因为我们这里使用的是 node:10 作为作业的镜像，所以在 <code>script</code> 里才可以直接用 npm。</p>
-<h3 id="test-job"><a href="#test-job" class="headerlink" title="test_job"></a>test_job</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">test_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">test</span></span><br></pre></td></tr></table></figure>
-<p><code>test_job</code> 同样是一个 Job，它属于 <code>test stage</code>，在上面的 <code>stages</code> 定义中 <code>test</code> 是在 <code>build</code> 之后的，所以它会等所有 <code>build</code> 阶段的 Job 执行完之后才会被执行。</p>
-<blockquote>
-<p>重点来了：每个 Job 是独立执行的，互相隔离的。 Runner 在执行 <code>test_job</code> 的时候，会重新 pull 应用的最新代码，然后启动一个新容器并挂载代码，再在里面执行 script 脚本。 </p>
-</blockquote>
-<p>这就会导致一个问题： 在 <code>test_job</code> 中我们并没有执行 <code>npm install</code> 就直接执行了 <code>npm run test</code>，理论上会是报错的！</p>
-<p>这就要介绍最后一个未介绍的字段 <code>cache</code>.</p>
-<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br></pre></td></tr></table></figure>
-<p><code>cache</code> 是 pipeline 中定义 Job 之间的缓存的；</p>
-<p>我们这里定义的 <code>cache</code> 是全局的，即作用于所有 Job 的；</p>
-<p><code>paths</code> 定义需要缓存的目录，若需要，你可以指定多个；</p>
-<p>缓存的逻辑是这样的：</p>
-<pre><code>- 执行 build_job 时会检查之前无有缓存
-- 如果有缓存就下载到 `paths` 指定的缓存目录，无则忽略
-- build_job 执行结束之前，会重新把缓存目录缓存起来
-- test_job 执行之前，同样检查有无缓存，有则下载
-</code></pre><p>所以，test_job 的 script 中没有执行 <code>npm install</code> 是因为我们将 <code>node_modules</code> 目录缓存了。</p>
-<p>缓存是提高 Job 执行效率的策略，不仅仅是多个 Job 之间； </p>
-<p>同一个 Job 在多次 pipeline 中也会共用缓存，意思是：</p>
-<pre><code>- build_job 第一次运行时并没有缓存
-- 下次 pipeline 执行时，npm install 就会基于缓存的 node_modules 更新，而不是全量下载了
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个示例，基本就了解 GitLab CI 的工作过程和定义方式了；</p>
-<p>其中缓存策略是非常常用的，这里使用的是全局缓存，还可以指定某个 Job 特有有缓存策略。</p>
-<p>想进一步了解缓存，请查看官方文档关于缓存的详细说明:<br><a href="https://docs.gitlab.com/ee/ci/yaml/README.html#cache" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/yaml/README.html#cache</a></p>
-<p>这个简单的示例，只是展示了 Node.js 应用的构建和测试，一个更完整的 CI 流程通常还会包括 <code>部署(deploy)</code>，接下来会继续通过示例讲解使用 GitLab CI 的更多使用。</p>
+        <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。</p>
+<a id="more"></a>
+<h2 id="代码-amp-说明"><a href="#代码-amp-说明" class="headerlink" title="代码 &amp; 说明"></a>代码 &amp; 说明</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expose-var.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/libplatform/libplatform.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/v8.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> v8;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 初始化 V8</span></span><br><span class="line">  V8::InitializeICUDefaultLocation(argv[<span class="number">0</span>]);</span><br><span class="line">  V8::InitializeExternalStartupData(argv[<span class="number">0</span>]);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Platform&gt; platform = platform::NewDefaultPlatform();</span><br><span class="line">  V8::InitializePlatform(platform.get());</span><br><span class="line">  V8::Initialize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建 Isolate 实例</span></span><br><span class="line">  Isolate::CreateParams create_params;</span><br><span class="line">  create_params.array_buffer_allocator =</span><br><span class="line">      ArrayBuffer::Allocator::NewDefaultAllocator();</span><br><span class="line">  Isolate* isolate = Isolate::New(create_params);</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 使 `isolate` 成为当前 Isolate</span></span><br><span class="line">    Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 HandleScope，用于管理 Handle 的生命周期</span></span><br><span class="line">    <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义三个 v8 变量</span></span><br><span class="line">    Local&lt;String&gt; myname = String::NewFromUtf8(isolate, <span class="string">"Maslow"</span>);</span><br><span class="line">    Local&lt;String&gt; myblog = String::NewFromUtf8(isolate, <span class="string">"https://laogen.site"</span>);</span><br><span class="line">    Local&lt;Number&gt; myage = Number::New(isolate, <span class="number">25</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 v8 对象模板 `author`，将上面的三个变量设为 `author` 的属性</span></span><br><span class="line">    Local&lt;ObjectTemplate&gt; author = ObjectTemplate::New(isolate);</span><br><span class="line">    author-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"name"</span>), myname);</span><br><span class="line">    author-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"age"</span>), myage);</span><br><span class="line">    author-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"blog"</span>), myblog);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 v8 对象模板 `global_template`，将上面的 `author` 设为其属性</span></span><br><span class="line">    Local&lt;ObjectTemplate&gt; global_template = ObjectTemplate::New(isolate);</span><br><span class="line">    global_template-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"author"</span>), author);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 v8 Context，将 `global_template` 做为它的 global 对象模板</span></span><br><span class="line">    Local&lt;Context&gt; context = Context::New(isolate, <span class="literal">NULL</span>, global_template);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  进入 or 使用 context</span></span><br><span class="line">    Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 在 js 代码中就可以直接访问 global 中的对象了</span></span><br><span class="line">      <span class="keyword">const</span> <span class="keyword">char</span>* js_code =</span><br><span class="line">        <span class="string">"`My Info: $&#123;author.name&#125;, $&#123;author.age&#125; years old, visit $&#123;author.blog&#125;`"</span>;</span><br><span class="line"></span><br><span class="line">      Local&lt;String&gt; source = String::NewFromUtf8(isolate, js_code);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 编译 JS 代码</span></span><br><span class="line">      Local&lt;Script&gt; script = Script::Compile(context, source).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 运行 JS 代码，并获取结果</span></span><br><span class="line">      Local&lt;Value&gt; result = script-&gt;Run(context).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 将运行结果转换为 UTF8 字符串，并打印</span></span><br><span class="line">      String::<span class="function">Utf8Value <span class="title">utf8</span><span class="params">(isolate, result)</span></span>;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, *utf8);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 释放 V8 相关资源</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  V8::Dispose();</span><br><span class="line">  V8::ShutdownPlatform();</span><br><span class="line">  <span class="keyword">delete</span> create_params.array_buffer_allocator;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在我们创建一个 <code>Context</code> 对象时，可以指定一个 <code>ObjectTemplate</code> 做为它的全局对象模板（ Global ObjectTemplate )，我们只需要将 C++ 的变量挂（设置）到 <code>Global ObjectTemplate</code> 上，在 js 环境中就可以全局访问它们。</p>
+<p>比如，浏览器中的 <code>window</code> <code>document</code> 等对象就是以这种方式提供给 js 执行环境的。</p>
+<h3 id="ObjectTemplate-与-Object-的区别"><a href="#ObjectTemplate-与-Object-的区别" class="headerlink" title="ObjectTemplate 与 Object 的区别"></a>ObjectTemplate 与 Object 的区别</h3><p>在 v8 中，一个 <code>Object</code> 对象代表一个 js 对象；<br>而 <code>ObjectTemplate</code> 对象，官方文档说它是 <code>Object</code> 对象的 “Blueprint”，简单的说，<code>ObjectTemplate</code> 是 <code>Object</code> 对象的 “定义”，可以用它来生成相应的 <code>Object</code>。</p>
+<h3 id="Gobal-ObjectTemplate"><a href="#Gobal-ObjectTemplate" class="headerlink" title="Gobal ObjectTemplate"></a>Gobal ObjectTemplate</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Local&lt;ObjectTemplate&gt; global_template = ObjectTemplate::New(isolate);</span><br></pre></td></tr></table></figure>
+<p>这个 <code>global_template</code> 就是一个 <code>ObjectTemplate</code>，<code>context</code> 根据这它来生成 <code>Global</code> 对象，而 <code>Global</code> 对象里面的属性，我们在 js 环境中是可以全局访问的。</p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li>Getting started with embedding V8: <a href="https://v8.dev/docs/embed#advanced-guide" target="_blank" rel="noopener">https://v8.dev/docs/embed#advanced-guide</a></li>
+<li>Node.js C++ Addons: <a href="https://nodejs.org/dist/latest-v10.x/docs/api/addons.html" target="_blank" rel="noopener">https://nodejs.org/dist/latest-v10.x/docs/api/addons.html</a></li>
+</ul>
 
       
     </div>
@@ -565,7 +536,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://laogen.site/gitlab-ci/example-node-js/" title="GitLab CI 示例：构建 & 测试 Node.js 应用">https://laogen.site/gitlab-ci/example-node-js/</a>
+    <a href="https://laogen.site/v8/expose-cpp-var/" title="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">https://laogen.site/v8/expose-cpp-var/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -583,8 +554,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/gitlab-ci/index/" rel="next" title="GitLab CI 基本介绍">
-                <i class="fa fa-chevron-left"></i> GitLab CI 基本介绍
+              <a href="/v8/v8-embedding-hello-world/" rel="next" title="Javascript Engine V8 Embedding - Hello World 讲解">
+                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - Hello World 讲解
               </a>
             
           </div>
@@ -593,8 +564,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/gitlab-ci/example-docker-ssh-deploy/" rel="prev" title="GitLab CI 示例：Docker 镜像打包发布 & SSH 部署">
-                GitLab CI 示例：Docker 镜像打包发布 & SSH 部署 <i class="fa fa-chevron-right"></i>
+              <a href="/gitlab-ci/index/" rel="prev" title="GitLab CI 基本介绍">
+                GitLab CI 基本介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -809,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例定义"><span class="nav-number">1.</span> <span class="nav-text">示例定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解释说明"><span class="nav-number">2.</span> <span class="nav-text">解释说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stages"><span class="nav-number">2.1.</span> <span class="nav-text">stages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-job"><span class="nav-number">2.2.</span> <span class="nav-text">build_job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test-job"><span class="nav-number">2.3.</span> <span class="nav-text">test_job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache"><span class="nav-number">2.4.</span> <span class="nav-text">cache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码-amp-说明"><span class="nav-number">2.</span> <span class="nav-text">代码 &amp; 说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectTemplate-与-Object-的区别"><span class="nav-number">2.1.</span> <span class="nav-text">ObjectTemplate 与 Object 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gobal-ObjectTemplate"><span class="nav-number">2.2.</span> <span class="nav-text">Gobal ObjectTemplate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">3.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
             
 
           </div>

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://laogen.site/gitlab-ci/example-web-front-end/</loc>
+    
+    <lastmod>2018-12-28T11:16:20.539Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://laogen.site/nodejs/nodejs-src/register-builtin-modules/</loc>
+    
+    <lastmod>2018-12-22T02:55:00.314Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://laogen.site/nodejs/nodejs-src/the-main/</loc>
     
     <lastmod>2018-12-21T02:44:08.888Z</lastmod>
@@ -54,13 +68,6 @@
     <loc>https://laogen.site/gitlab-ci/example-node-js/</loc>
     
     <lastmod>2018-12-10T14:26:28.529Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://laogen.site/nodejs/nodejs-src/register-builtin-modules/</loc>
-    
-    <lastmod>2018-12-10T13:41:42.214Z</lastmod>
     
   </url>
   

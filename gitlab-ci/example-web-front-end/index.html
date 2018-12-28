@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="通过解释说明一个简单的 Node.js 应用的 Pipeline 示例来介绍 GitLab CI 的工作方式和使用。 其中会重点介绍 GitLab CI 的执行过程，Stage Job 等基础概念，以及缓存策略。">
+  <meta name="description" content="问题Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node； TL;DR所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage">
 <meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitLab CI 示例：构建 &amp; 测试 Node.js 应用">
-<meta property="og:url" content="https://laogen.site/gitlab-ci/example-node-js/index.html">
+<meta property="og:title" content="GitLab CI 示例：构建 &amp; 部署 Web 前端项目（部署到 Swarm）">
+<meta property="og:url" content="https://laogen.site/gitlab-ci/example-web-front-end/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="通过解释说明一个简单的 Node.js 应用的 Pipeline 示例来介绍 GitLab CI 的工作方式和使用。 其中会重点介绍 GitLab CI 的执行过程，Stage Job 等基础概念，以及缓存策略。">
+<meta property="og:description" content="问题Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node； TL;DR所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-10T14:26:28.529Z">
+<meta property="og:updated_time" content="2018-12-28T11:16:20.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitLab CI 示例：构建 &amp; 测试 Node.js 应用">
-<meta name="twitter:description" content="通过解释说明一个简单的 Node.js 应用的 Pipeline 示例来介绍 GitLab CI 的工作方式和使用。 其中会重点介绍 GitLab CI 的执行过程，Stage Job 等基础概念，以及缓存策略。">
+<meta name="twitter:title" content="GitLab CI 示例：构建 &amp; 部署 Web 前端项目（部署到 Swarm）">
+<meta name="twitter:description" content="问题Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node； TL;DR所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://laogen.site/gitlab-ci/example-node-js/">
+  <link rel="canonical" href="https://laogen.site/gitlab-ci/example-web-front-end/">
 
 
 
@@ -145,7 +145,7 @@
   };
 </script>
 
-  <title>GitLab CI 示例：构建 & 测试 Node.js 应用 | 老根's Blog</title>
+  <title>GitLab CI 示例：构建 & 部署 Web 前端项目（部署到 Swarm） | 老根's Blog</title>
   
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-node-js/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-web-front-end/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -329,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GitLab CI 示例：构建 & 测试 Node.js 应用
+          <h2 class="post-title" itemprop="name headline">GitLab CI 示例：构建 & 部署 Web 前端项目（部署到 Swarm）
               
             
           </h2>
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-11-14 00:18:13" itemprop="dateCreated datePublished" datetime="2018-11-14T00:18:13+08:00">2018-11-14</time>
+              <time title="创建时间：2018-11-22 09:51:04" itemprop="dateCreated datePublished" datetime="2018-11-22T09:51:04+08:00">2018-11-22</time>
             
 
             
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-10 22:26:28" itemprop="dateModified" datetime="2018-12-10T22:26:28+08:00">2018-12-10</time>
+                <time title="修改时间：2018-12-28 19:16:20" itemprop="dateModified" datetime="2018-12-28T19:16:20+08:00">2018-12-28</time>
               
             
           </span>
@@ -439,7 +439,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.2k</span>
+                <span title="本文字数">2.7k</span>
               
 
               
@@ -474,47 +474,22 @@
       
 
       
-        <p>通过解释说明一个简单的 Node.js 应用的 <code>Pipeline</code> 示例来介绍 GitLab CI 的工作方式和使用。</p>
-<p>其中会重点介绍 GitLab CI 的执行过程，<code>Stage</code> <code>Job</code> 等基础概念，以及缓存策略。<br><a id="more"></a></p>
-<h2 id="示例定义"><a href="#示例定义" class="headerlink" title="示例定义"></a>示例定义</h2><p>下面是一个简单的 Node.js 应用的 pipeline 定义：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .gitlab-ci.yml</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">version</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"><span class="attr">test_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">test</span></span><br></pre></td></tr></table></figure>
-<h2 id="解释说明"><a href="#解释说明" class="headerlink" title="解释说明"></a>解释说明</h2><p>逐一介绍一下这几个字段：</p>
-<h3 id="stages"><a href="#stages" class="headerlink" title="stages"></a>stages</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">test</span></span><br></pre></td></tr></table></figure>
-<p>stage 定义了 pipeline 的执行步骤，也就是说 stages 是有序执行的。每个 stages 可包括多个 Job，Job 才是 CI Runner 要执行的任务。</p>
-<p>上面的 pipeline 包括 build 和 test 两个步骤，先执行完所有 build 阶段的 Job，才会执行 test 阶段的 Job。</p>
-<p>如果 build 阶段的 Job 执行失败了，则整个 pipeline 失败并中断执行，不会继续执行 test stage 了。</p>
-<p>下面就来介绍什么是 Job.</p>
-<h3 id="build-job"><a href="#build-job" class="headerlink" title="build_job"></a>build_job</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">build_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span> </span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">version</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br></pre></td></tr></table></figure>
-<p><code>build_job</code> 是 Job 的名称，可以自由定义；</p>
-<p><code>stage</code> 字段指定该 Job 属于 <code>build</code> 阶段的；</p>
-<p><code>script</code> 就是自定义的构建脚本了，这里就是简单的 <code>npm install</code>；</p>
-<p><code>image</code> 这个是指定 <code>script</code> 脚本的执行环境，它的值应该是一个 Docker 镜像。</p>
-<p>Runner 开始执行这个 Job 时，首先会 pull 项目的最新代码，然后基于这个镜像启动一个容器并把代码挂载到容器里，最后在这个容器里面执行 <code>script</code> 定义的脚本。因为我们这里使用的是 node:10 作为作业的镜像，所以在 <code>script</code> 里才可以直接用 npm。</p>
-<h3 id="test-job"><a href="#test-job" class="headerlink" title="test_job"></a>test_job</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">test_job:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">test</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">test</span></span><br></pre></td></tr></table></figure>
-<p><code>test_job</code> 同样是一个 Job，它属于 <code>test stage</code>，在上面的 <code>stages</code> 定义中 <code>test</code> 是在 <code>build</code> 之后的，所以它会等所有 <code>build</code> 阶段的 Job 执行完之后才会被执行。</p>
-<blockquote>
-<p>重点来了：每个 Job 是独立执行的，互相隔离的。 Runner 在执行 <code>test_job</code> 的时候，会重新 pull 应用的最新代码，然后启动一个新容器并挂载代码，再在里面执行 script 脚本。 </p>
-</blockquote>
-<p>这就会导致一个问题： 在 <code>test_job</code> 中我们并没有执行 <code>npm install</code> 就直接执行了 <code>npm run test</code>，理论上会是报错的！</p>
-<p>这就要介绍最后一个未介绍的字段 <code>cache</code>.</p>
-<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br></pre></td></tr></table></figure>
-<p><code>cache</code> 是 pipeline 中定义 Job 之间的缓存的；</p>
-<p>我们这里定义的 <code>cache</code> 是全局的，即作用于所有 Job 的；</p>
-<p><code>paths</code> 定义需要缓存的目录，若需要，你可以指定多个；</p>
-<p>缓存的逻辑是这样的：</p>
-<pre><code>- 执行 build_job 时会检查之前无有缓存
-- 如果有缓存就下载到 `paths` 指定的缓存目录，无则忽略
-- build_job 执行结束之前，会重新把缓存目录缓存起来
-- test_job 执行之前，同样检查有无缓存，有则下载
-</code></pre><p>所以，test_job 的 script 中没有执行 <code>npm install</code> 是因为我们将 <code>node_modules</code> 目录缓存了。</p>
-<p>缓存是提高 Job 执行效率的策略，不仅仅是多个 Job 之间； </p>
-<p>同一个 Job 在多次 pipeline 中也会共用缓存，意思是：</p>
-<pre><code>- build_job 第一次运行时并没有缓存
-- 下次 pipeline 执行时，npm install 就会基于缓存的 node_modules 更新，而不是全量下载了
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这个示例，基本就了解 GitLab CI 的工作过程和定义方式了；</p>
-<p>其中缓存策略是非常常用的，这里使用的是全局缓存，还可以指定某个 Job 特有有缓存策略。</p>
-<p>想进一步了解缓存，请查看官方文档关于缓存的详细说明:<br><a href="https://docs.gitlab.com/ee/ci/yaml/README.html#cache" target="_blank" rel="noopener">https://docs.gitlab.com/ee/ci/yaml/README.html#cache</a></p>
-<p>这个简单的示例，只是展示了 Node.js 应用的构建和测试，一个更完整的 CI 流程通常还会包括 <code>部署(deploy)</code>，接下来会继续通过示例讲解使用 GitLab CI 的更多使用。</p>
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node；</p>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage) 可以使用。</p>
+<p>这里我所谓的 release 是指发布 docker image ，所以需要一个 Dockerfile，并且是以 nginx image 为基础镜像构建的。</p>
+<p>我这里是部署到 swarm 集群上，所以会首先把 <code>docker-stack.yml</code> 文件 scp 到目标服务器上。</p>
+<a id="more"></a>
+<h2 id="例说"><a href="#例说" class="headerlink" title="例说"></a>例说</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile</span></span><br><span class="line">FROM bitnami/nginx:latest</span><br><span class="line">COPY ./dist /app</span><br><span class="line">EXPOSE <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .gitlab-ci.yml</span></span><br><span class="line"><span class="attr">image:</span> <span class="attr">node:10</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">release</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">deploy</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line"><span class="attr">  paths:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules/</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">dist/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">before_script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=</span> <span class="string">master</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">SERVER_HOST=$DEV_SERVER_HOST;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=</span> <span class="string">prod</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">SERVER_HOST=$PROD_SERVER_HOST;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=</span> <span class="string">master</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">BUILD_VERSION=dev;fi</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">if</span> <span class="string">[</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=</span> <span class="string">prod</span> <span class="string">];then</span> <span class="string">export</span> <span class="string">BUILD_VERSION=prod;fi</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line"><span class="attr">  CONTAINER_IMAGE:</span> <span class="string">$REGISTRY_ADDR/$REGISTRY_NAMESPACE/$CI_PROJECT_NAME</span></span><br><span class="line"><span class="attr">  CONTAINER_IMAGE_VERSION:</span> <span class="string">"$&#123;CI_COMMIT_REF_NAME&#125;_latest"</span></span><br><span class="line"><span class="attr">  CONTAINER_IMAGE_VERSION_HASH:</span> <span class="string">"$&#123;CI_COMMIT_REF_NAME&#125;_$&#123;CI_COMMIT_SHA&#125;"</span></span><br><span class="line"><span class="attr">  DOCKER_DRIVER:</span> <span class="string">overlay2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build:</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">build</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">npm</span> <span class="string">run</span> <span class="attr">build:$BUILD_VERSION</span></span><br><span class="line"></span><br><span class="line"><span class="attr">release:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="attr">docker:dind</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">release</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ls</span> <span class="bullet">-lh</span> <span class="string">dist</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">login</span> <span class="bullet">-u</span> <span class="string">$REGISTRY_USER</span> <span class="bullet">-p</span> <span class="string">$REGISTRY_PASSWORD</span> <span class="string">$REGISTRY_ADDR</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">pull</span> <span class="string">$CONTAINER_IMAGE:$CONTAINER_IMAGE_VERSION</span> <span class="string">||</span> <span class="literal">true</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">build</span> <span class="bullet">--cache-from</span> <span class="string">$CONTAINER_IMAGE:$CONTAINER_IMAGE_VERSION</span> <span class="bullet">--tag</span> <span class="string">$CONTAINER_IMAGE:$CONTAINER_IMAGE_VERSION_HASH</span> <span class="bullet">--tag</span> <span class="string">$CONTAINER_IMAGE:$CONTAINER_IMAGE_VERSION</span> <span class="string">.</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">$CONTAINER_IMAGE:$CONTAINER_IMAGE_VERSION</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">docker</span> <span class="string">push</span> <span class="string">$CONTAINER_IMAGE:$CONTAINER_IMAGE_VERSION_HASH</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">laogen/openssh-client:latest</span></span><br><span class="line"><span class="attr">  stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">  script:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">eval</span> <span class="string">$(ssh-agent</span> <span class="bullet">-s)</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">echo</span> <span class="string">"$SERVER_SSH_PRIV_KEY"</span> <span class="string">&gt; deploy.key</span></span><br><span class="line"><span class="string">    - mkdir -p ~/.ssh</span></span><br><span class="line"><span class="string">    - chmod 0600 deploy.key</span></span><br><span class="line"><span class="string">    - ssh-add deploy.key</span></span><br><span class="line"><span class="string">    - '[[ -f /.dockerenv ]] &amp;&amp; echo -e "Host *\n\tStrictHostKeyChecking no\n\n" &gt; ~/.ssh/config'</span></span><br><span class="line"><span class="string">    - scp docker-stack.$&#123;BUILD_VERSION&#125;.yml root@$SERVER_HOST:/srv/web/docker-stack.yml</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY_ADDR"</span></span><br><span class="line"><span class="string">    - ssh root@$SERVER_HOST "cd /srv/web &amp;&amp; docker stack deploy -c docker-stack.yml ProjectName --with-registry-auth"</span></span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这个例子是从实际工作项目中略删减得来的，更完整综合一些。</p>
+<p>这个 Pipeline 一共三个阶段：</p>
+<ul>
+<li>build   # 构建前端项目</li>
+<li>release # 发布 Docker 镜像</li>
+<li>deploy  # 部署到 Swarm 上</li>
+</ul>
+<p>在 build 阶段完成后，将 build 的结果 <code>dist</code> 缓存起来，这样到 realse 阶段时，就可以把它们打包到镜像里了，然后 push 到镜像仓库；</p>
+<p>deploy 阶段就是 ssh 连接远程执行命令部署，与之前不同的是，这次是部署在 swarm 上，我们先将 <code>docker-stack.yml</code> 上传到目标服务器，然后远程执行部署指令，这块没什么可说的。</p>
 
       
     </div>
@@ -565,7 +540,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://laogen.site/gitlab-ci/example-node-js/" title="GitLab CI 示例：构建 & 测试 Node.js 应用">https://laogen.site/gitlab-ci/example-node-js/</a>
+    <a href="https://laogen.site/gitlab-ci/example-web-front-end/" title="GitLab CI 示例：构建 & 部署 Web 前端项目（部署到 Swarm）">https://laogen.site/gitlab-ci/example-web-front-end/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -583,8 +558,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/gitlab-ci/index/" rel="next" title="GitLab CI 基本介绍">
-                <i class="fa fa-chevron-left"></i> GitLab CI 基本介绍
+              <a href="/gitlab-ci/example-db-sync/" rel="next" title="GitLab CI 示例：利用 CI 同步生产环境数据库到开发环境">
+                <i class="fa fa-chevron-left"></i> GitLab CI 示例：利用 CI 同步生产环境数据库到开发环境
               </a>
             
           </div>
@@ -593,8 +568,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/gitlab-ci/example-docker-ssh-deploy/" rel="prev" title="GitLab CI 示例：Docker 镜像打包发布 & SSH 部署">
-                GitLab CI 示例：Docker 镜像打包发布 & SSH 部署 <i class="fa fa-chevron-right"></i>
+              <a href="/javascript/diy-simple-promise-js/" rel="prev" title="动手写一个简单的 Promise.js">
+                动手写一个简单的 Promise.js <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -809,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例定义"><span class="nav-number">1.</span> <span class="nav-text">示例定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解释说明"><span class="nav-number">2.</span> <span class="nav-text">解释说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stages"><span class="nav-number">2.1.</span> <span class="nav-text">stages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-job"><span class="nav-number">2.2.</span> <span class="nav-text">build_job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test-job"><span class="nav-number">2.3.</span> <span class="nav-text">test_job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache"><span class="nav-number">2.4.</span> <span class="nav-text">cache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-number">2.</span> <span class="nav-text">TL;DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例说"><span class="nav-number">3.</span> <span class="nav-text">例说</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>

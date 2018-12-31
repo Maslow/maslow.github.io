@@ -115,20 +115,18 @@
 
 
 
-  <meta name="description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
-<meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
+  <meta name="description" content="目标上一篇我们把 C++ 环境中的对象暴露到 Javascript 环境中，这篇我们要将 C++ 环境中的 函数 暴露到 Javascript 环境中，写一个简单 console.log 函数传给 js 环境，使以下代码可运行： 12// app.jsconsole.log(&apos;Hi, 老根!&apos;)">
+<meta name="keywords" content="javascript,V8,Node.js,C&#x2F;C++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitLab CI 基本介绍">
-<meta property="og:url" content="https://laogen.site/gitlab-ci/index/index.html">
+<meta property="og:title" content="Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境">
+<meta property="og:url" content="https://laogen.site/v8/expose-cpp-function/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
-<meta property="og:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
+<meta property="og:description" content="目标上一篇我们把 C++ 环境中的对象暴露到 Javascript 环境中，这篇我们要将 C++ 环境中的 函数 暴露到 Javascript 环境中，写一个简单 console.log 函数传给 js 环境，使以下代码可运行： 12// app.jsconsole.log(&apos;Hi, 老根!&apos;)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<meta property="og:updated_time" content="2018-12-11T02:16:36.620Z">
+<meta property="og:updated_time" content="2018-12-31T13:30:21.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitLab CI 基本介绍">
-<meta name="twitter:description" content="这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。   GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。">
-<meta name="twitter:image" content="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
+<meta name="twitter:title" content="Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境">
+<meta name="twitter:description" content="目标上一篇我们把 C++ 环境中的对象暴露到 Javascript 环境中，这篇我们要将 C++ 环境中的 函数 暴露到 Javascript 环境中，写一个简单 console.log 函数传给 js 环境，使以下代码可运行： 12// app.jsconsole.log(&apos;Hi, 老根!&apos;)">
 
 
 
@@ -137,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://laogen.site/gitlab-ci/index/">
+  <link rel="canonical" href="https://laogen.site/v8/expose-cpp-function/">
 
 
 
@@ -147,7 +145,7 @@
   };
 </script>
 
-  <title>GitLab CI 基本介绍 | 老根's Blog</title>
+  <title>Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境 | 老根's Blog</title>
   
 
 
@@ -314,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/index/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/expose-cpp-function/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -331,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GitLab CI 基本介绍
+          <h2 class="post-title" itemprop="name headline">Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境
               
             
           </h2>
@@ -356,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-11-09 00:03:53" itemprop="dateCreated datePublished" datetime="2018-11-09T00:03:53+08:00">2018-11-09</time>
+              <time title="创建时间：2018-12-13 21:07:07" itemprop="dateCreated datePublished" datetime="2018-12-13T21:07:07+08:00">2018-12-13</time>
             
 
             
@@ -373,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-12-11 10:16:36" itemprop="dateModified" datetime="2018-12-11T10:16:36+08:00">2018-12-11</time>
+                <time title="修改时间：2018-12-31 21:30:21" itemprop="dateModified" datetime="2018-12-31T21:30:21+08:00">2018-12-31</time>
               
             
           </span>
@@ -390,7 +388,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
 
                 
                 
@@ -407,13 +405,13 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
+                <a href="/tags/javascript/" rel="tag"> javascript</a>
               
-                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
+                <a href="/tags/V8/" rel="tag"> V8</a>
               
-                <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
+                <a href="/tags/Node-js/" rel="tag"> Node.js</a>
               
-                <a href="/tags/DevOps/" rel="tag"> DevOps</a>
+                <a href="/tags/C-C/" rel="tag"> C/C++</a>
               
             </span>
           
@@ -441,7 +439,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">975</span>
+                <span title="本文字数">3.6k</span>
               
 
               
@@ -455,7 +453,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </span>
           
@@ -476,38 +474,18 @@
       
 
       
-        <img src="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<blockquote>
-<p>这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。</p>
-</blockquote>
-<blockquote>
-<p>GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。</p>
-</blockquote>
+        <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>上一篇我们把 C++ 环境中的对象暴露到 Javascript 环境中，这篇我们要将 C++ 环境中的 <code>函数</code> 暴露到 Javascript 环境中，写一个简单 <code>console.log</code> 函数传给 js 环境，使以下代码可运行：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hi, 老根!'</span>)</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h3 id="前置需求"><a href="#前置需求" class="headerlink" title="前置需求"></a>前置需求</h3><p>当前有 3 台服务器 develop, staging, production 分别对应代码仓库上的三个分支：develop, staging, master。</p>
-<p>要求 push 代码到仓库时会触发 CI 的执行：</p>
-<pre><code>1. build app
-2. testing app
-3. deploy to server
-</code></pre><p>代码 push 到哪个分支，就把项目部署到相应的服务器上。</p>
-<h3 id="GitLab-CI-的重要概念"><a href="#GitLab-CI-的重要概念" class="headerlink" title="GitLab CI 的重要概念"></a>GitLab CI 的重要概念</h3><p>要理解 GitLab CI 的工作方式，必须要理解两个概念：</p>
-<pre><code>- Pipeline
-- Runner
-</code></pre><p>上面说的 CI 执行过程就是 <code>pipeline</code>，它定义了项目的构建、测试、部署等的执行过程。</p>
-<p>我们需要在每个项目上定义一个 <code>pipeline</code>。</p>
-<p>定义一个 <code>pipeline</code> 就是在项目代码根目录创建文件：<code>.gitlab-ci.yml</code>.</p>
-<p>定义好 <code>pipeline</code> 后，GitLab CI 会读取并执行这个 <code>pipeline</code>，执行的程序叫做 <code>Runner</code>。</p>
-<p><code>Runner</code> 是负责执行 <code>pipeline</code> 的程序。</p>
-<p>通常 <code>Runner</code> 需要我们自己安装并运行在自己的服务器上，当然也可以使用 gitlab.com 官方提供的免费的 Shared Runner 服务。</p>
-<h3 id="GitLab-CI-的工作方式"><a href="#GitLab-CI-的工作方式" class="headerlink" title="GitLab CI 的工作方式"></a>GitLab CI 的工作方式</h3><ul>
-<li>Pipeline 的触发</li>
+<h2 id="代码-amp-说明"><a href="#代码-amp-说明" class="headerlink" title="代码 &amp; 说明"></a>代码 &amp; 说明</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expose-func.cc</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/libplatform/libplatform.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/v8.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> v8;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::ifstream;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">string</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">stringstream</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">strcpy</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个函数，用来读取 js 代码</span></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">ReadSourceCodeFile</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* path)</span> </span>&#123;</span><br><span class="line">  <span class="function">ifstream <span class="title">f</span><span class="params">(path)</span></span>;</span><br><span class="line">  <span class="built_in">stringstream</span> buffer;</span><br><span class="line">  buffer &lt;&lt; f.rdbuf();</span><br><span class="line">  <span class="keyword">const</span> <span class="built_in">string</span> str = buffer.str();</span><br><span class="line">  <span class="keyword">char</span>* cstr = <span class="keyword">new</span> <span class="keyword">char</span>[str.length() + <span class="number">1</span>];</span><br><span class="line">  <span class="built_in">strcpy</span>(cstr, str.c_str());</span><br><span class="line">  <span class="keyword">return</span> cstr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个函数会被暴露给 js 执行环境</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ConsoleLog</span><span class="params">(<span class="keyword">const</span> FunctionCallbackInfo&lt;Value&gt;&amp; args)</span> </span>&#123;</span><br><span class="line">  Isolate* isolate = args.GetIsolate();</span><br><span class="line">  Local&lt;String&gt; str = Local&lt;String&gt;::Cast(args[<span class="number">0</span>]);</span><br><span class="line">  String::<span class="function">Utf8Value <span class="title">utf8</span><span class="params">(isolate, str)</span></span>;</span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; *utf8 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">  args.GetReturnValue().SetUndefined();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 初始化 V8</span></span><br><span class="line">  V8::InitializeICUDefaultLocation(argv[<span class="number">0</span>]);</span><br><span class="line">  V8::InitializeExternalStartupData(argv[<span class="number">0</span>]);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Platform&gt; platform = platform::NewDefaultPlatform();</span><br><span class="line">  V8::InitializePlatform(platform.get());</span><br><span class="line">  V8::Initialize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建 Isolate 实例</span></span><br><span class="line">  Isolate::CreateParams create_params;</span><br><span class="line">  create_params.array_buffer_allocator =</span><br><span class="line">      ArrayBuffer::Allocator::NewDefaultAllocator();</span><br><span class="line">  Isolate* isolate = Isolate::New(create_params);</span><br><span class="line">  &#123;</span><br><span class="line">    Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 HandleScope，用于管理 Handle 的生命周期</span></span><br><span class="line">    <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 v8 对象模板 `console_tpl`</span></span><br><span class="line">    Local&lt;ObjectTemplate&gt; console_tpl = ObjectTemplate::New(isolate);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 `ConsoleLog` 函数设置为 `console_tpl` 的 `log` 方法</span></span><br><span class="line">    console_tpl-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"log"</span>), FunctionTemplate::New(isolate, ConsoleLog));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 v8 对象模板 `global_template`</span></span><br><span class="line">    <span class="comment">// 将上面的 `console_tpl` 设为其 `console` 属性</span></span><br><span class="line">    Local&lt;ObjectTemplate&gt; global_template = ObjectTemplate::New(isolate);</span><br><span class="line">    global_template-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"console"</span>), console_tpl);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 v8 Context，将 `global_template` 做为它的 global 对象模板</span></span><br><span class="line">    Local&lt;Context&gt; context = Context::New(isolate, <span class="literal">NULL</span>, global_template);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  进入 or 使用 context</span></span><br><span class="line">    Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// js 文件通过命令行第一个参数传递进来，读取 js 文件代码</span></span><br><span class="line">      <span class="keyword">const</span> <span class="keyword">char</span>* js_code = ReadSourceCodeFile(argv[<span class="number">1</span>]);</span><br><span class="line">      Local&lt;String&gt; source = String::NewFromUtf8(isolate, js_code);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 编译</span></span><br><span class="line">      Local&lt;Script&gt; script = Script::Compile(context, source).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 执行</span></span><br><span class="line">      Local&lt;Value&gt; result = script-&gt;Run(context).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="keyword">delete</span> js_code;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 释放 V8 相关资源</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  V8::Dispose();</span><br><span class="line">  V8::ShutdownPlatform();</span><br><span class="line">  <span class="keyword">delete</span> create_params.array_buffer_allocator;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>v8 编译相关请查看 <a href="/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -I. -Iinclude expose-func.cc -lv8_monolith -Lout.gn/x64.release.sample/obj/ -pthread -std=c++0x -o inode</span><br></pre></td></tr></table></figure>
+<h3 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./inode app.js   <span class="comment"># output: `Hi, 老根!`</span></span><br></pre></td></tr></table></figure>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>和上一篇同理，将函数暴露给 js 和 将变量暴露给 js 是类似的。都是将 C++ 对象绑定到 Context Global 对象上，通过这种方式，我们就可以扩展 js 的能力了。</p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li>Getting started with embedding V8: <a href="https://v8.dev/docs/embed#advanced-guide" target="_blank" rel="noopener">https://v8.dev/docs/embed#advanced-guide</a></li>
+<li>Node.js C++ Addons: <a href="https://nodejs.org/dist/latest-v10.x/docs/api/addons.html" target="_blank" rel="noopener">https://nodejs.org/dist/latest-v10.x/docs/api/addons.html</a></li>
 </ul>
-<p>当开发者 Push 代码到某个分支时，如果我们定义了 Pipeline，也就是代码根目录中有 <code>.gitlab-ci.yml</code> 文件，GitLab 会自动触发 Pipeline 的执行。</p>
-<ul>
-<li>Pipeline 的执行</li>
-</ul>
-<p>Pipeline 执行时，首先会 pull 下来被触发分支的代码，然后执行你在 pipline 中定义的 Job，Job 是你指定的一些 shell scripts，它就是你构建项目的逻辑。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>简单介绍一下 GitLab CI 的几个重要概念，接下来会通过实例来详细讲解 GitLab CI 的使用。</p>
 
       
     </div>
@@ -558,7 +536,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://laogen.site/gitlab-ci/index/" title="GitLab CI 基本介绍">https://laogen.site/gitlab-ci/index/</a>
+    <a href="https://laogen.site/v8/expose-cpp-function/" title="Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境">https://laogen.site/v8/expose-cpp-function/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -576,15 +554,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/v8/expose-cpp-var/" rel="next" title="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">
+                <i class="fa fa-chevron-left"></i> Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/gitlab-ci/example-node-js/" rel="prev" title="GitLab CI 示例：构建 & 测试 Node.js 应用">
-                GitLab CI 示例：构建 & 测试 Node.js 应用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -798,7 +776,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前置需求"><span class="nav-number">1.</span> <span class="nav-text">前置需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-的重要概念"><span class="nav-number">2.</span> <span class="nav-text">GitLab CI 的重要概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab-CI-的工作方式"><span class="nav-number">3.</span> <span class="nav-text">GitLab CI 的工作方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码-amp-说明"><span class="nav-number">2.</span> <span class="nav-text">代码 &amp; 说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译"><span class="nav-number">2.1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行"><span class="nav-number">2.2.</span> <span class="nav-text">执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说明"><span class="nav-number">2.3.</span> <span class="nav-text">说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">3.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
             
 
           </div>

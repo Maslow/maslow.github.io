@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://laogen.site/nodejs/nodejs-src/index/</loc>
+    <lastmod>2019-01-02T15:01:16.444Z</lastmod>
+  </url>  <url>
     <loc>https://laogen.site/v8/expose-cpp-function/</loc>
     <lastmod>2018-12-31T13:30:21.536Z</lastmod>
   </url>  <url>
@@ -21,9 +24,6 @@
   </url>  <url>
     <loc>https://laogen.site/nodejs/nodejs-src/the-main/</loc>
     <lastmod>2018-12-21T02:44:08.888Z</lastmod>
-  </url>  <url>
-    <loc>https://laogen.site/nodejs/nodejs-src/index/</loc>
-    <lastmod>2018-12-21T02:43:40.248Z</lastmod>
   </url>  <url>
     <loc>https://laogen.site/gitlab-ci/example-db-sync/</loc>
     <lastmod>2018-12-15T00:13:25.660Z</lastmod>

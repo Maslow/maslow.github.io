@@ -116,14 +116,14 @@
 
 
   <meta name="description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
-<meta name="keywords" content="javascript,promise">
+<meta name="keywords" content="javascript,constructor,new,call(),bind()">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javascript 构造函数、new、bind()、call() 原理理解">
 <meta property="og:url" content="https://laogen.site/javascript/constructor-bind-call-apply/index.html">
 <meta property="og:site_name" content="老根&#39;s Blog">
 <meta property="og:description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-28T07:50:14.583Z">
+<meta property="og:updated_time" content="2019-02-28T14:33:49.949Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript 构造函数、new、bind()、call() 原理理解">
 <meta name="twitter:description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
@@ -253,7 +253,7 @@
           
           <li class="menu-item menu-item-archives">
     <a href="/archives/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">16</span></a>
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">17</span></a>
   </li>
         
         
@@ -261,7 +261,7 @@
           
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">11</span></a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">21</span></a>
   </li>
 
       
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2019-02-28 14:11:14 / 修改时间：15:50:14" itemprop="dateCreated datePublished" datetime="2019-02-28T14:11:14+08:00">2019-02-28</time>
+              <time title="创建时间：2019-02-28 14:11:14 / 修改时间：22:33:49" itemprop="dateCreated datePublished" datetime="2019-02-28T14:11:14+08:00">2019-02-28</time>
             
 
             
@@ -395,7 +395,13 @@
               
                 <a href="/tags/javascript/" rel="tag"> javascript</a>
               
-                <a href="/tags/promise/" rel="tag"> promise</a>
+                <a href="/tags/constructor/" rel="tag"> constructor</a>
+              
+                <a href="/tags/new/" rel="tag"> new</a>
+              
+                <a href="/tags/call/" rel="tag"> call()</a>
+              
+                <a href="/tags/bind/" rel="tag"> bind()</a>
               
             </span>
           
@@ -574,6 +580,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/javascript/deep-into-async-await/" rel="prev" title="Javascript async/await 原理 & 实现">
+                Javascript async/await 原理 & 实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -651,7 +661,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -709,7 +719,27 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -825,7 +855,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">56k</span>
+    <span title="站点总字数">59k</span>
   
 
   
@@ -836,7 +866,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">51 分钟</span>
+    <span title="站点阅读时长">54 分钟</span>
   
 </div>
 

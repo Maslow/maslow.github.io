@@ -123,7 +123,7 @@
 <meta property="og:site_name" content="老根&#39;s Blog">
 <meta property="og:description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-28T07:43:08.805Z">
+<meta property="og:updated_time" content="2019-02-28T07:50:14.583Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript 构造函数、new、bind()、call() 原理理解">
 <meta name="twitter:description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2019-02-28 14:11:14 / 修改时间：15:43:08" itemprop="dateCreated datePublished" datetime="2019-02-28T14:11:14+08:00">2019-02-28</time>
+              <time title="创建时间：2019-02-28 14:11:14 / 修改时间：15:50:14" itemprop="dateCreated datePublished" datetime="2019-02-28T14:11:14+08:00">2019-02-28</time>
             
 
             
@@ -491,7 +491,7 @@
 <p>通过这段代码可以看出， <code>call()</code> 把它的第一个参数以某种方式传给了被调用的函数 <code>Person()</code>，并作用 <code>Person()</code> 函数的 <code>this</code> （也就是代码中的 <code>that</code>)。</p>
 <p>这段代码只是模拟过程，实际上 <code>this</code> 对象并不是通过被调用函数的最后一个传数来传递的，这个是 Js 编译器层面去实现的，这里不细究。</p>
 <h3 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.bind(target, ...args)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> Person.call(target, ...args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj4 = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> func = Person.bind(obj4, <span class="string">'laogen4'</span>)</span><br><span class="line">func()</span><br><span class="line"><span class="built_in">console</span>.log(obj4)  <span class="comment">// &#123; name: 'laogen4' &#125;</span></span><br></pre></td></tr></table></figure>
-<p>这段代码模拟实现了 <code>bind()</code> 函数的逻辑，<code>bind()</code> 与 <code>call()</code> 的区别在于： <code>bind()</code> 并不调用 <code>Person()</code> 函数，它只是返回一个新函数，在这个新函数里调用用了 <code>call()</code>。</p>
+<p>这段代码模拟实现了 <code>bind()</code> 函数的逻辑，<code>bind()</code> 与 <code>call()</code> 的区别在于： <code>bind()</code> 并不调用 <code>Person()</code> 函数，它只是返回一个新函数，在这个新函数里调用了 <code>call()</code>。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这篇文主要说明了 Js 构造函数只是普通的函数，和其它 OO 语言不同的是，它并没有很特别的地方，构造函数的主要作用就是初始化实例对象；</p>
 <p>通过模拟代码解释了 <code>new</code> 关键字的内部逻辑，以更好的理解构造函数的工作原理； </p>
 <p>通过模拟 <code>this</code> 更进一步的理解 <code>执行环境</code> 的概念；</p>

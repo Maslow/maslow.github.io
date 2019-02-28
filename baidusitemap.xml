@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://laogen.site/nodejs/nodejs-src/register-builtin-modules/</loc>
+    <loc>https://laogen.site/javascript/constructor-bind-call-apply/</loc>
+    <lastmod>2019-02-28T07:43:08.805Z</lastmod>
+  </url>  <url>
+    <loc>https://laogen.site/nodejs/nodejs-src/index/</loc>
+    <lastmod>2019-02-21T07:40:05.415Z</lastmod>
+  </url>  <url>
+    <loc>https://laogen.site/nodejs/nodejs-src/register-builtin-modules/</loc>
     <lastmod>2019-02-11T14:25:49.009Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/nodejs/nodejs-src/the-main/</loc>
+    <loc>https://laogen.site/nodejs/nodejs-src/the-main/</loc>
     <lastmod>2019-02-11T14:15:38.483Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/v8/compile-v8/</loc>
+    <loc>https://laogen.site/v8/compile-v8/</loc>
     <lastmod>2019-01-20T07:13:22.804Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/v8/expose-cpp-func-callback/</loc>
+    <loc>https://laogen.site/v8/expose-cpp-func-callback/</loc>
     <lastmod>2019-01-20T07:13:19.457Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/v8/expose-cpp-func-params/</loc>
+    <loc>https://laogen.site/v8/expose-cpp-func-params/</loc>
     <lastmod>2019-01-20T07:13:15.952Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/v8/expose-cpp-function/</loc>
+    <loc>https://laogen.site/v8/expose-cpp-function/</loc>
     <lastmod>2019-01-20T07:13:12.699Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/v8/expose-cpp-var/</loc>
+    <loc>https://laogen.site/v8/expose-cpp-var/</loc>
     <lastmod>2019-01-20T07:13:06.525Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/v8/v8-embedding-hello-world/</loc>
+    <loc>https://laogen.site/v8/v8-embedding-hello-world/</loc>
     <lastmod>2019-01-20T07:12:37.136Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/nodejs/nodejs-src/index/</loc>
-    <lastmod>2019-01-13T14:02:18.120Z</lastmod>
-  </url>  <url>
-    <loc>http://laogen.site/gitlab-ci/example-web-front-end/</loc>
+    <loc>https://laogen.site/gitlab-ci/example-web-front-end/</loc>
     <lastmod>2018-12-28T11:16:20.539Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/gitlab-ci/example-db-sync/</loc>
+    <loc>https://laogen.site/gitlab-ci/example-db-sync/</loc>
     <lastmod>2018-12-15T00:13:25.660Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/gitlab-ci/example-docker-ssh-deploy/</loc>
+    <loc>https://laogen.site/gitlab-ci/example-docker-ssh-deploy/</loc>
     <lastmod>2018-12-11T02:20:48.861Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/gitlab-ci/index/</loc>
+    <loc>https://laogen.site/gitlab-ci/index/</loc>
     <lastmod>2018-12-11T02:16:36.620Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/gitlab-ci/example-node-js/</loc>
+    <loc>https://laogen.site/gitlab-ci/example-node-js/</loc>
     <lastmod>2018-12-10T14:26:28.529Z</lastmod>
   </url>  <url>
-    <loc>http://laogen.site/javascript/diy-simple-promise-js/</loc>
+    <loc>https://laogen.site/javascript/diy-simple-promise-js/</loc>
     <lastmod>2018-11-23T19:00:16.701Z</lastmod>
   </url>
 </urlset>

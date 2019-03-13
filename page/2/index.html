@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/nodejs/nodejs-src/the-main/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/expose-cpp-func-params/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -331,8 +331,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/nodejs/nodejs-src/the-main/" itemprop="url">
-                  Node.js 源码分析 - 从 main 函数开始
+                <a class="post-title-link" href="/v8/expose-cpp-func-params/" itemprop="url">
+                  Js Engine V8 Embedding -  V8 函数传参、返回、异常处理
                 </a>
               
             
@@ -358,7 +358,7 @@
                 
               
 
-              <time title="创建时间：2018-11-27 21:30:15" itemprop="dateCreated datePublished" datetime="2018-11-27T21:30:15+08:00">2018-11-27</time>
+              <time title="创建时间：2018-08-05 21:07:07" itemprop="dateCreated datePublished" datetime="2018-08-05T21:07:07+08:00">2018-08-05</time>
             
 
             
@@ -375,7 +375,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-11 22:15:38" itemprop="dateModified" datetime="2019-02-11T22:15:38+08:00">2019-02-11</time>
+                <time title="修改时间：2019-03-13 20:44:19" itemprop="dateModified" datetime="2019-03-13T20:44:19+08:00">2019-03-13</time>
               
             
           </span>
@@ -392,7 +392,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/V8-Embedding-Basics/" itemprop="url" rel="index"><span itemprop="name">V8 Embedding Basics</span></a></span>
 
                 
                 
@@ -422,7 +429,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.6k</span>
+                <span title="本文字数">5.2k</span>
               
 
               
@@ -436,7 +443,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </span>
           
@@ -458,16 +465,13 @@
 
       
         
-          <h3 id="小目标"><a href="#小目标" class="headerlink" title="小目标"></a>小目标</h3><blockquote>
-<p>知道程序大概执行逻辑，关键点执行的顺序</p>
-</blockquote>
-<p>我们平时在终端敲下 <code>node app.js</code> 后，发生了什么。</p>
-<p>具体点，知道 node.js 原生(C++)模块什么时候加载的，在哪加载的;<br>知道我们的 js 代码是在哪个环节被加载执行的；<br>知道进程的主循环（事件循环）什么时候启动的；</p>
-<p>有了这个小目标的基础，在接下来的文章中，我们再进一步的探索 node.js 原生模块的注册是怎么实现的，怎么获取 &amp; 初始化的，怎么曝露给 js 环境调用的；再细说 node.js 的模块机制，我们通常的 <code>app.js</code> 怎么被执行的；</p>
+          <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>上一篇我们只是简单的把 C++ 环境中的函数暴露到 Javascript 环境中调用，这篇我们更进一步，学会操作函数参数、返回值以及 V8 异常处理。</p>
+<p>写一个简单 <code>Math.add()</code> 函数传给 js 环境，使以下代码可运行：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="number">1023</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="number">1</span></span><br><span class="line"><span class="keyword">const</span> sum = <span class="built_in">Math</span>.add(a, b)</span><br><span class="line"><span class="built_in">console</span>.log(sum)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/nodejs/nodejs-src/the-main/" rel="contents">
+              <a class="btn" href="/v8/expose-cpp-func-params/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -522,7 +526,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/nodejs/nodejs-src/index/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/expose-cpp-function/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -541,8 +545,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/nodejs/nodejs-src/index/" itemprop="url">
-                  Node.js 源码分析 - 目录 & 前言
+                <a class="post-title-link" href="/v8/expose-cpp-function/" itemprop="url">
+                  Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境
                 </a>
               
             
@@ -568,7 +572,7 @@
                 
               
 
-              <time title="创建时间：2018-11-24 22:30:15" itemprop="dateCreated datePublished" datetime="2018-11-24T22:30:15+08:00">2018-11-24</time>
+              <time title="创建时间：2018-08-04 21:07:07" itemprop="dateCreated datePublished" datetime="2018-08-04T21:07:07+08:00">2018-08-04</time>
             
 
             
@@ -585,7 +589,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-21 15:40:05" itemprop="dateModified" datetime="2019-02-21T15:40:05+08:00">2019-02-21</time>
+                <time title="修改时间：2019-03-13 20:44:11" itemprop="dateModified" datetime="2019-03-13T20:44:11+08:00">2019-03-13</time>
               
             
           </span>
@@ -602,7 +606,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/V8-Embedding-Basics/" itemprop="url" rel="index"><span itemprop="name">V8 Embedding Basics</span></a></span>
 
                 
                 
@@ -632,7 +643,645 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">890</span>
+                <span title="本文字数">3.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </span>
+          
+          </div>
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>上一篇我们把 C++ 环境中的对象暴露到 Javascript 环境中，这篇我们要将 C++ 环境中的 <code>函数</code> 暴露到 Javascript 环境中，写一个简单 <code>console.log</code> 函数传给 js 环境，使以下代码可运行：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Hi, 老根!'</span>)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/v8/expose-cpp-function/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/expose-cpp-var/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="Fullstack Developer">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/v8/expose-cpp-var/" itemprop="url">
+                  Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-03 08:14:42" itemprop="dateCreated datePublished" datetime="2018-08-03T08:14:42+08:00">2018-08-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-13 20:44:01" itemprop="dateModified" datetime="2019-03-13T20:44:01+08:00">2019-03-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/V8-Embedding-Basics/" itemprop="url" rel="index"><span itemprop="name">V8 Embedding Basics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+        <div class="new-line">
+          
+
+          
+            <span class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </span>
+          
+          </div>
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/v8/expose-cpp-var/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/v8-embedding-hello-world/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="Fullstack Developer">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/v8/v8-embedding-hello-world/" itemprop="url">
+                  Javascript Engine V8 Embedding - Hello World 讲解
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-02 23:47:14" itemprop="dateCreated datePublished" datetime="2018-08-02T23:47:14+08:00">2018-08-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-13 20:43:54" itemprop="dateModified" datetime="2019-03-13T20:43:54+08:00">2019-03-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/V8-Embedding-Basics/" itemprop="url" rel="index"><span itemprop="name">V8 Embedding Basics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+        <div class="new-line">
+          
+
+          
+            <span class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </span>
+          
+          </div>
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>通过一个 Hello World 示例来介绍 V8 的几个重要概念。</p>
+<p>这个示例代码是基于 V8 (7.1) 的，要编译这个示例请查看 <a href="/v8/compile-v8/" title="Javascript Engine V8 Embedding - 编译">Javascript Engine V8 Embedding - 编译</a></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/v8/v8-embedding-hello-world/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/compile-v8/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="Fullstack Developer">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/v8/compile-v8/" itemprop="url">
+                  Javascript Engine V8 Embedding - 编译
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-01 23:47:14" itemprop="dateCreated datePublished" datetime="2018-08-01T23:47:14+08:00">2018-08-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-13 20:43:39" itemprop="dateModified" datetime="2019-03-13T20:43:39+08:00">2019-03-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/V8-Embedding-Basics/" itemprop="url" rel="index"><span itemprop="name">V8 Embedding Basics</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+        <div class="new-line">
+          
+
+          
+            <span class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.1k</span>
               
 
               
@@ -668,16 +1317,429 @@
 
       
         
-          <blockquote>
-<p>这两年先后两次读过 Node.js 源码，但是每次都懒于记录，过几个月就忘记了，这次把疏理过程记录下来，以免之后再浪费时间从头看。虽然是为了备忘，我会尽量站在读者的角度写，以望能帮助想了解 Node.js 源码的朋友节省一些时间、精力。</p>
-</blockquote>
-<h3 id="适合谁"><a href="#适合谁" class="headerlink" title="适合谁"></a>适合谁</h3><pre><code>- 你需要熟悉 C/C++
-- 你需要熟悉 Node.js，理解异步编程及原理
-</code></pre>
+          <p>直接 git pull V8 的代码是不行的，需要使用 Google 提供的 depot_tools 工具包来获对代码并配置。</p>
+<p>由于要从 Google 下载资源，需要科学上网，下载和编译的耗时都较长，分别视你的网络情况和机器配置而定。</p>
+<p>为了屏蔽掉不同系统的差异，直接使用 Docker 容器环境来编译。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/nodejs/nodejs-src/index/" rel="contents">
+              <a class="btn" href="/v8/compile-v8/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/javascript/deep-into-async-await/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="Fullstack Developer">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/javascript/deep-into-async-await/" itemprop="url">
+                  Javascript async/await 原理 & 实现
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-02-28 21:30:14" itemprop="dateCreated datePublished" datetime="2018-02-28T21:30:14+08:00">2018-02-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-13 20:41:20" itemprop="dateModified" datetime="2019-03-13T20:41:20+08:00">2019-03-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+        <div class="new-line">
+          
+
+          
+            <span class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </span>
+          
+          </div>
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>ES7 在语法层面上支持了 <code>async/await</code> 关键字，我们将在代码层面上模拟实现 <code>async/await</code> 来理解它的工作原理。</p>
+<p>本文旨在说明其工作原理，你应该具备以下前置知识：</p>
+<ul>
+<li>熟悉 <code>Promise</code> 的概念及使用</li>
+<li>熟悉 <code>async/await</code> 的概念及使用</li>
+<li>了解 <code>Generator</code> 的概念</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/javascript/deep-into-async-await/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/javascript/constructor-bind-call-apply/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maslow">
+      <meta itemprop="description" content="Fullstack Developer">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="老根的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/javascript/constructor-bind-call-apply/" itemprop="url">
+                  Javascript 构造函数、new、bind()、call() 原理理解
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-02-28 14:11:14" itemprop="dateCreated datePublished" datetime="2018-02-28T14:11:14+08:00">2018-02-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-13 20:42:11" itemprop="dateModified" datetime="2019-03-13T20:42:11+08:00">2019-03-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+          
+          
+
+          
+          
+        <div class="new-line">
+          
+
+          
+            <span class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </span>
+          
+          </div>
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/javascript/constructor-bind-call-apply/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -778,12 +1840,24 @@
                 
               
 
-              <time title="创建时间：2018-11-24 02:07:14 / 修改时间：03:00:16" itemprop="dateCreated datePublished" datetime="2018-11-24T02:07:14+08:00">2018-11-24</time>
+              <time title="创建时间：2018-01-24 02:07:14" itemprop="dateCreated datePublished" datetime="2018-01-24T02:07:14+08:00">2018-01-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-13 20:41:53" itemprop="dateModified" datetime="2019-03-13T20:41:53+08:00">2019-03-13</time>
               
             
           </span>
@@ -871,1059 +1945,6 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/javascript/diy-simple-promise-js/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-web-front-end/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maslow">
-      <meta itemprop="description" content="Fullstack Developer">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老根的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gitlab-ci/example-web-front-end/" itemprop="url">
-                  GitLab CI 示例：构建 & 部署 Web 前端项目（部署到 Swarm）
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-22 09:51:04" itemprop="dateCreated datePublished" datetime="2018-11-22T09:51:04+08:00">2018-11-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-28 19:16:20" itemprop="dateModified" datetime="2018-12-28T19:16:20+08:00">2018-12-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-          
-          
-
-          
-          
-        <div class="new-line">
-          
-
-          
-            <span class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.7k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </span>
-          
-          </div>
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node；</p>
-<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage) 可以使用。</p>
-<p>这里我所谓的 release 是指发布 docker image ，所以需要一个 Dockerfile，并且是以 nginx image 为基础镜像构建的。</p>
-<p>我这里是部署到 swarm 集群上，所以会首先把 <code>docker-stack.yml</code> 文件 scp 到目标服务器上。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/gitlab-ci/example-web-front-end/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-db-sync/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maslow">
-      <meta itemprop="description" content="Fullstack Developer">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老根的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gitlab-ci/example-db-sync/" itemprop="url">
-                  GitLab CI 示例：利用 CI 同步生产环境数据库到开发环境
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-20 20:58:19" itemprop="dateCreated datePublished" datetime="2018-11-20T20:58:19+08:00">2018-11-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-15 08:13:25" itemprop="dateModified" datetime="2018-12-15T08:13:25+08:00">2018-12-15</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-          
-          
-
-          
-          
-        <div class="new-line">
-          
-
-          
-            <span class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">4.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">4 分钟</span>
-              
-            </span>
-          
-          </div>
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们通常需要频繁的将生产环境(production)的数据库同步到 develop 和 staging 环境。</p>
-<p>之前我们的做法是写了一个 shell 在服务器上手动运行，这个需要测试人员和开发人员拥有服务器权限，甚至是生产环境的权限，风险较大且 “不够 CI/CD 化”。</p>
-<p>后来是想写一个 HTTP 服务来触发这样的数据库同步操作，增加了额外的工作开销，还要为这个服务配相应的 CI/CD，不如直接使用 GitLab CI 来完成这个工作。</p>
-<p>GitLab CI Pipeline 不仅可以在用户 push 代码的时候被触发，还可以通过 HTTP 调用的形式主动触发。</p>
-<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>开发 &amp; 测试人员将 production 环境的数据库同步到 develop / staging 环境：</p>
-<pre><code>- 无需接触服务器环境
-- 任意时间可主动进行同步（相对于计划任务而言）
-- 可指定同步某个项目相关的数据库
-- 可指定同步到某个服务器环境 ( develop / staging )
-</code></pre><p>预设场景：</p>
-<pre><code>- 有三个数据库项目：project-a  project-b  project-c
-- 有三个服务器环境：production  develop  staging
-- 通过 GitLab CI Pipeline Triggers 来触发执行(HTTP方式)
-- 我们可任意指定同步某一个项目的 production 数据库到 develop 或 staging
-</code></pre>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/gitlab-ci/example-db-sync/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-docker-ssh-deploy/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maslow">
-      <meta itemprop="description" content="Fullstack Developer">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老根的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gitlab-ci/example-docker-ssh-deploy/" itemprop="url">
-                  GitLab CI 示例：Docker 镜像打包发布 & SSH 部署
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-18 21:44:35" itemprop="dateCreated datePublished" datetime="2018-11-18T21:44:35+08:00">2018-11-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-11 10:20:48" itemprop="dateModified" datetime="2018-12-11T10:20:48+08:00">2018-12-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-          
-          
-
-          
-          
-        <div class="new-line">
-          
-
-          
-            <span class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">1.8k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </span>
-          
-          </div>
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><p>当我们 push 代码到 git 仓库时，将项目部署到目标服务器上，具体步骤：</p>
-<pre><code>- 基于代码仓库中的 Dockerfile 构建代码镜像
-- 将构建的代码镜像推送到我们的私有镜像仓库
-- 通过 ssh 连接目标服务器，远程执行部署指令，基于代码镜像启动容器
-</code></pre>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/gitlab-ci/example-docker-ssh-deploy/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/example-node-js/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maslow">
-      <meta itemprop="description" content="Fullstack Developer">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老根的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gitlab-ci/example-node-js/" itemprop="url">
-                  GitLab CI 示例：构建 & 测试 Node.js 应用
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-14 00:18:13" itemprop="dateCreated datePublished" datetime="2018-11-14T00:18:13+08:00">2018-11-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-10 22:26:28" itemprop="dateModified" datetime="2018-12-10T22:26:28+08:00">2018-12-10</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-          
-          
-
-          
-          
-        <div class="new-line">
-          
-
-          
-            <span class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </span>
-          
-          </div>
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>通过解释说明一个简单的 Node.js 应用的 <code>Pipeline</code> 示例来介绍 GitLab CI 的工作方式和使用。</p>
-<p>其中会重点介绍 GitLab CI 的执行过程，<code>Stage</code> <code>Job</code> 等基础概念，以及缓存策略。<br>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/gitlab-ci/example-node-js/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </p></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/gitlab-ci/index/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Maslow">
-      <meta itemprop="description" content="Fullstack Developer">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="老根的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/gitlab-ci/index/" itemprop="url">
-                  GitLab CI 基本介绍
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 00:03:53" itemprop="dateCreated datePublished" datetime="2018-11-09T00:03:53+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-11 10:16:36" itemprop="dateModified" datetime="2018-12-11T10:16:36+08:00">2018-12-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/GitLab-CI-CD/" itemprop="url" rel="index"><span itemprop="name">GitLab CI/CD</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-          
-          
-
-          
-          
-        <div class="new-line">
-          
-
-          
-            <span class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">975</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </span>
-          
-          </div>
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="https://docs.gitlab.com/ee/ci/img/cicd_pipeline_infograph.png">
-<blockquote>
-<p>这篇基本介绍只介绍 GitLab CI，不会写具体的使用细节，旨在让新接触 GitLab CI 的同学先对它有个基本的认识，直接看官网文档可能需要多花点时间才能理清一些概念。</p>
-</blockquote>
-<blockquote>
-<p>GitLab CI 的设计很灵活，有多种使用方案，我在接下来会针对最常用的几种情况写一系列包括实现细节步骤的文章。</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/gitlab-ci/index/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

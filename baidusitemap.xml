@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://laogen.site/nodejs/nodejs-src/bootstrap-js/</loc>
+    <lastmod>2019-03-13T12:32:22.228Z</lastmod>
+  </url>  <url>
+    <loc>https://laogen.site/nodejs/nodejs-src/register-builtin-modules/</loc>
+    <lastmod>2019-03-13T11:06:52.857Z</lastmod>
+  </url>  <url>
     <loc>https://laogen.site/javascript/deep-into-async-await/</loc>
     <lastmod>2019-02-28T14:47:53.773Z</lastmod>
   </url>  <url>
@@ -9,9 +15,6 @@
   </url>  <url>
     <loc>https://laogen.site/nodejs/nodejs-src/index/</loc>
     <lastmod>2019-02-21T07:40:05.415Z</lastmod>
-  </url>  <url>
-    <loc>https://laogen.site/nodejs/nodejs-src/register-builtin-modules/</loc>
-    <lastmod>2019-02-11T14:25:49.009Z</lastmod>
   </url>  <url>
     <loc>https://laogen.site/nodejs/nodejs-src/the-main/</loc>
     <lastmod>2019-02-11T14:15:38.483Z</lastmod>

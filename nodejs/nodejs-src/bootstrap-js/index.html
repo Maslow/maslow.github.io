@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="目标上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。">
-<meta name="keywords" content="javascript,V8,Node.js,C&#x2F;C++">
+  <meta name="description" content="提出问题 了解 js 文件加载前的准备工作  在《从 main 函数开始》这篇中说到了 LoadEnvironment() 函数负责加载 js 代码，但并没有继续说明加载细节。 这篇从 LoadEnvironment() 开始探究 js 代码加载的详细过程。">
+<meta name="keywords" content="Node.js,Node.js 源码分析,源码分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">
-<meta property="og:url" content="https://laogen.site/v8/expose-cpp-var/index.html">
+<meta property="og:title" content="Node.js 源码分析 - 加载 js 文件">
+<meta property="og:url" content="https://laogen.site/nodejs/nodejs-src/bootstrap-js/index.html">
 <meta property="og:site_name" content="老根的博客">
-<meta property="og:description" content="目标上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。">
+<meta property="og:description" content="提出问题 了解 js 文件加载前的准备工作  在《从 main 函数开始》这篇中说到了 LoadEnvironment() 函数负责加载 js 代码，但并没有继续说明加载细节。 这篇从 LoadEnvironment() 开始探究 js 代码加载的详细过程。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-20T07:13:06.525Z">
+<meta property="og:updated_time" content="2019-03-13T12:32:22.228Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">
-<meta name="twitter:description" content="目标上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。">
+<meta name="twitter:title" content="Node.js 源码分析 - 加载 js 文件">
+<meta name="twitter:description" content="提出问题 了解 js 文件加载前的准备工作  在《从 main 函数开始》这篇中说到了 LoadEnvironment() 函数负责加载 js 代码，但并没有继续说明加载细节。 这篇从 LoadEnvironment() 开始探究 js 代码加载的详细过程。">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://laogen.site/v8/expose-cpp-var/">
+  <link rel="canonical" href="https://laogen.site/nodejs/nodejs-src/bootstrap-js/">
 
 
 
@@ -145,7 +145,7 @@
   };
 </script>
 
-  <title>Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境 | 老根的博客</title>
+  <title>Node.js 源码分析 - 加载 js 文件 | 老根的博客</title>
   
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/v8/expose-cpp-var/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/nodejs/nodejs-src/bootstrap-js/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -329,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境
+          <h2 class="post-title" itemprop="name headline">Node.js 源码分析 - 加载 js 文件
               
             
           </h2>
@@ -354,7 +354,7 @@
                 
               
 
-              <time title="创建时间：2018-12-12 08:14:42" itemprop="dateCreated datePublished" datetime="2018-12-12T08:14:42+08:00">2018-12-12</time>
+              <time title="创建时间：2018-11-30 21:04:49" itemprop="dateCreated datePublished" datetime="2018-11-30T21:04:49+08:00">2018-11-30</time>
             
 
             
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-20 15:13:06" itemprop="dateModified" datetime="2019-01-20T15:13:06+08:00">2019-01-20</time>
+                <time title="修改时间：2019-03-13 20:32:22" itemprop="dateModified" datetime="2019-03-13T20:32:22+08:00">2019-03-13</time>
               
             
           </span>
@@ -388,14 +388,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/" itemprop="url" rel="index"><span itemprop="name">Javascript Engine V8</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript-Engine-V8/V8-Embedding-Basics/" itemprop="url" rel="index"><span itemprop="name">V8 Embedding Basics</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Node-js-源码分析/" itemprop="url" rel="index"><span itemprop="name">Node.js 源码分析</span></a></span>
 
                 
                 
@@ -412,13 +405,11 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/javascript/" rel="tag"> javascript</a>
-              
-                <a href="/tags/V8/" rel="tag"> V8</a>
-              
                 <a href="/tags/Node-js/" rel="tag"> Node.js</a>
               
-                <a href="/tags/C-C/" rel="tag"> C/C++</a>
+                <a href="/tags/Node-js-源码分析/" rel="tag"> Node.js 源码分析</a>
+              
+                <a href="/tags/源码分析/" rel="tag"> 源码分析</a>
               
             </span>
           
@@ -446,7 +437,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.5k</span>
+                <span title="本文字数">4.9k</span>
               
 
               
@@ -460,7 +451,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </span>
           
@@ -481,18 +472,28 @@
       
 
       
-        <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>上一篇通过 Hello World 示例了解了 v8 的核心概念和基本使用方式，这篇中我们要将 C++ 环境中的对象暴露到 Javascript 环境中，即在 Javascript 代码中可以使用在 C++ 环境中的数据。</p>
+        <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><blockquote>
+<p>了解 js 文件加载前的准备工作</p>
+</blockquote>
+<p>在《<a href="/nodejs/nodejs-src/the-main/" title="从 main 函数开始">从 main 函数开始</a>》这篇中说到了 <code>LoadEnvironment()</code> 函数负责加载 js 代码，但并没有继续说明加载细节。</p>
+<p>这篇从 <code>LoadEnvironment()</code> 开始探究 js 代码加载的详细过程。</p>
 <a id="more"></a>
-<h2 id="代码-amp-说明"><a href="#代码-amp-说明" class="headerlink" title="代码 &amp; 说明"></a>代码 &amp; 说明</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// expose-var.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/libplatform/libplatform.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"include/v8.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> v8;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 初始化 V8</span></span><br><span class="line">  V8::InitializeICUDefaultLocation(argv[<span class="number">0</span>]);</span><br><span class="line">  V8::InitializeExternalStartupData(argv[<span class="number">0</span>]);</span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Platform&gt; platform = platform::NewDefaultPlatform();</span><br><span class="line">  V8::InitializePlatform(platform.get());</span><br><span class="line">  V8::Initialize();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建 Isolate 实例</span></span><br><span class="line">  Isolate::CreateParams create_params;</span><br><span class="line">  create_params.array_buffer_allocator =</span><br><span class="line">      ArrayBuffer::Allocator::NewDefaultAllocator();</span><br><span class="line">  Isolate* isolate = Isolate::New(create_params);</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// 使 `isolate` 成为当前 Isolate</span></span><br><span class="line">    Isolate::<span class="function">Scope <span class="title">isolate_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 HandleScope，用于管理 Handle 的生命周期</span></span><br><span class="line">    <span class="function">HandleScope <span class="title">handle_scope</span><span class="params">(isolate)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 定义三个 v8 变量</span></span><br><span class="line">    Local&lt;String&gt; myname = String::NewFromUtf8(isolate, <span class="string">"Maslow"</span>);</span><br><span class="line">    Local&lt;String&gt; myblog = String::NewFromUtf8(isolate, <span class="string">"https://laogen.site"</span>);</span><br><span class="line">    Local&lt;Number&gt; myage = Number::New(isolate, <span class="number">25</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 v8 对象模板 `author`，将上面的三个变量设为 `author` 的属性</span></span><br><span class="line">    Local&lt;ObjectTemplate&gt; author = ObjectTemplate::New(isolate);</span><br><span class="line">    author-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"name"</span>), myname);</span><br><span class="line">    author-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"age"</span>), myage);</span><br><span class="line">    author-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"blog"</span>), myblog);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个 v8 对象模板 `global_template`，将上面的 `author` 设为其属性</span></span><br><span class="line">    Local&lt;ObjectTemplate&gt; global_template = ObjectTemplate::New(isolate);</span><br><span class="line">    global_template-&gt;Set(String::NewFromUtf8(isolate, <span class="string">"author"</span>), author);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建 v8 Context，将 `global_template` 做为它的 global 对象模板</span></span><br><span class="line">    Local&lt;Context&gt; context = Context::New(isolate, <span class="literal">NULL</span>, global_template);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  进入 or 使用 context</span></span><br><span class="line">    Context::<span class="function">Scope <span class="title">context_scope</span><span class="params">(context)</span></span>;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 在 js 代码中就可以直接访问 global 中的对象了</span></span><br><span class="line">      <span class="keyword">const</span> <span class="keyword">char</span>* js_code =</span><br><span class="line">        <span class="string">"`My Info: $&#123;author.name&#125;, $&#123;author.age&#125; years old, visit $&#123;author.blog&#125;`"</span>;</span><br><span class="line"></span><br><span class="line">      Local&lt;String&gt; source = String::NewFromUtf8(isolate, js_code);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 编译 JS 代码</span></span><br><span class="line">      Local&lt;Script&gt; script = Script::Compile(context, source).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 运行 JS 代码，并获取结果</span></span><br><span class="line">      Local&lt;Value&gt; result = script-&gt;Run(context).ToLocalChecked();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 将运行结果转换为 UTF8 字符串，并打印</span></span><br><span class="line">      String::<span class="function">Utf8Value <span class="title">utf8</span><span class="params">(isolate, result)</span></span>;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, *utf8);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 释放 V8 相关资源</span></span><br><span class="line">  isolate-&gt;Dispose();</span><br><span class="line">  V8::Dispose();</span><br><span class="line">  V8::ShutdownPlatform();</span><br><span class="line">  <span class="keyword">delete</span> create_params.array_buffer_allocator;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在我们创建一个 <code>Context</code> 对象时，可以指定一个 <code>ObjectTemplate</code> 做为它的全局对象模板（ Global ObjectTemplate )，我们只需要将 C++ 的变量挂（设置）到 <code>Global ObjectTemplate</code> 上，在 js 环境中就可以全局访问它们。</p>
-<p>比如，浏览器中的 <code>window</code> <code>document</code> 等对象就是以这种方式提供给 js 执行环境的。</p>
-<h3 id="ObjectTemplate-与-Object-的区别"><a href="#ObjectTemplate-与-Object-的区别" class="headerlink" title="ObjectTemplate 与 Object 的区别"></a>ObjectTemplate 与 Object 的区别</h3><p>在 v8 中，一个 <code>Object</code> 对象代表一个 js 对象；<br>而 <code>ObjectTemplate</code> 对象，官方文档说它是 <code>Object</code> 对象的 “Blueprint”，简单的说，<code>ObjectTemplate</code> 是 <code>Object</code> 对象的 “定义”，可以用它来生成相应的 <code>Object</code>。</p>
-<h3 id="Gobal-ObjectTemplate"><a href="#Gobal-ObjectTemplate" class="headerlink" title="Gobal ObjectTemplate"></a>Gobal ObjectTemplate</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Local&lt;ObjectTemplate&gt; global_template = ObjectTemplate::New(isolate);</span><br></pre></td></tr></table></figure>
-<p>这个 <code>global_template</code> 就是一个 <code>ObjectTemplate</code>，<code>context</code> 根据这它来生成 <code>Global</code> 对象，而 <code>Global</code> 对象里面的属性，我们在 js 环境中是可以全局访问的。</p>
-<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
-<li>Getting started with embedding V8: <a href="https://v8.dev/docs/embed#advanced-guide" target="_blank" rel="noopener">https://v8.dev/docs/embed#advanced-guide</a></li>
-<li>Node.js C++ Addons: <a href="https://nodejs.org/dist/latest-v10.x/docs/api/addons.html" target="_blank" rel="noopener">https://nodejs.org/dist/latest-v10.x/docs/api/addons.html</a></li>
+<h3 id="LoadEnvironment"><a href="#LoadEnvironment" class="headerlink" title="LoadEnvironment()"></a>LoadEnvironment()</h3><p><code>LoadEnvironment()</code> 的逻辑分两部分：</p>
+<ol>
+<li>加载并执行两个 js 文件：<code>loaders.js</code> <code>node.js</code>，执行后得到两个启动函数；</li>
+<li>分别调用这两个启动函数：loaders_bootstrapper() 和 node_bootstrapper();</li>
+</ol>
+<p>这段代码比较长，我们把不影响主逻辑的代码省略掉，然后直接在代码中以注释的形式来解释：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LoadEnvironment</span><span class="params">(Environment* env)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">/************************************************************/</span></span><br><span class="line">  <span class="comment">/**** 第一步.加载并执行两个 js 文件：`loaders.js` `node.js`****/</span></span><br><span class="line">  <span class="comment">/************************************************************/</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// The bootstrapper scripts are lib/internal/bootstrap/loaders.js and</span></span><br><span class="line">  <span class="comment">// lib/internal/bootstrap/node.js, each included as a static C string</span></span><br><span class="line">  <span class="comment">// defined in node_javascript.h, generated in node_javascript.cc by</span></span><br><span class="line">  <span class="comment">// node_js2c.</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这两个 js 文件在 node 构建过程中就被转换成了 C++ 代码，即以 C++ 字符串的</span></span><br><span class="line">  <span class="comment">// 形式存在于 C++ 代码中，根据这个文件名就可以直接获取相应的 js 代码字符串；</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// loaders.js 的文件名</span></span><br><span class="line">  Local&lt;String&gt; loaders_name =</span><br><span class="line">      FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"internal/bootstrap/loaders.js"</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 执行 loaders.js 得到函数： `loaders_bootstrapper`</span></span><br><span class="line">  MaybeLocal&lt;Function&gt; loaders_bootstrapper =</span><br><span class="line">      GetBootstrapper(env, LoadersBootstrapperSource(env), loaders_name);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// node.js 文件名</span></span><br><span class="line">  Local&lt;String&gt; node_name =</span><br><span class="line">      FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"internal/bootstrap/node.js"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 执行 loaders.js 得到函数： `loaders_bootstrapper`</span></span><br><span class="line">  MaybeLocal&lt;Function&gt; node_bootstrapper =</span><br><span class="line">      GetBootstrapper(env, NodeBootstrapperSource(env), node_name);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 上面代码中：LoadersBootstrapperSource() &amp; NodeBootstrapperSource() 是</span></span><br><span class="line">  <span class="comment">// 在 /src/node_javascript.h 头文件中声明的，node 源码中并没有它们的具体实现，</span></span><br><span class="line">  <span class="comment">// 它们的实现代码是在 node 本身构建过程中生成的；</span></span><br><span class="line">  <span class="comment">// 至于 GetBootstrapper()，它的作用是编译&amp;执行 js 代码，返回执行结果。</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (loaders_bootstrapper.IsEmpty() || node_bootstrapper.IsEmpty()) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Local&lt;Object&gt; global = env-&gt;context()-&gt;Global();</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="comment">// Expose the global object as a property on itself</span></span><br><span class="line">  <span class="comment">// (Allows you to set stuff on `global` from anywhere in JavaScript.)</span></span><br><span class="line">  global-&gt;Set(FIXED_ONE_BYTE_STRING(env-&gt;isolate(), <span class="string">"global"</span>), global);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*************************************************************************/</span></span><br><span class="line">  <span class="comment">/* 第二步.分别调用这两个启动函数:loaders_bootstrapper、node_bootstrapper ****/</span></span><br><span class="line">  <span class="comment">/*************************************************************************/</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create binding loaders</span></span><br><span class="line">  <span class="comment">// 基于 GetBinding() 函数模板 创建 get_binding_fn 函数</span></span><br><span class="line">  Local&lt;Function&gt; get_binding_fn =</span><br><span class="line">      env-&gt;NewFunctionTemplate(GetBinding)-&gt;GetFunction(env-&gt;context())</span><br><span class="line">          .ToLocalChecked();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 基于 GetLinkedBinding() 函数模板 创建 get_linked_binding_fn 函数</span></span><br><span class="line">  Local&lt;Function&gt; get_linked_binding_fn =</span><br><span class="line">      env-&gt;NewFunctionTemplate(GetLinkedBinding)-&gt;GetFunction(env-&gt;context())</span><br><span class="line">          .ToLocalChecked();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 基于 GetInternalBinding() 函数模板 创建 get_internal_binding_fn 函数</span></span><br><span class="line">  Local&lt;Function&gt; get_internal_binding_fn =</span><br><span class="line">      env-&gt;NewFunctionTemplate(GetInternalBinding)-&gt;GetFunction(env-&gt;context())</span><br><span class="line">          .ToLocalChecked();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 上面三个函数会作为 调用 loaders_bootstrapper() 时的参数。</span></span><br><span class="line">  Local&lt;Value&gt; loaders_bootstrapper_args[] = &#123;</span><br><span class="line">    env-&gt;process_object(),</span><br><span class="line">    get_binding_fn,</span><br><span class="line">    get_linked_binding_fn,</span><br><span class="line">    get_internal_binding_fn,</span><br><span class="line">    Boolean::New(env-&gt;isolate(),</span><br><span class="line">                 env-&gt;options()-&gt;debug_options-&gt;break_node_first_line)</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// loaders_bootstrapper() 调用结果将保存在这个变量，</span></span><br><span class="line">  <span class="comment">// 接下来，它将被作为参数传给另一个启动函数：node_bootstrapper()</span></span><br><span class="line">  Local&lt;Value&gt; bootstrapped_loaders;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用启动函数 loaders_bootstrapper()</span></span><br><span class="line">  <span class="keyword">if</span> (!ExecuteBootstrapper(env, loaders_bootstrapper.ToLocalChecked(),</span><br><span class="line">                           arraysize(loaders_bootstrapper_args),</span><br><span class="line">                           loaders_bootstrapper_args,</span><br><span class="line">                           &amp;bootstrapped_loaders)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Bootstrap Node.js</span></span><br><span class="line">  Local&lt;Object&gt; bootstrapper = Object::New(env-&gt;isolate());</span><br><span class="line">  SetupBootstrapObject(env, bootstrapper);</span><br><span class="line">  Local&lt;Value&gt; bootstrapped_node;</span><br><span class="line">  Local&lt;Value&gt; node_bootstrapper_args[] = &#123;</span><br><span class="line">    env-&gt;process_object(),</span><br><span class="line">    bootstrapper,</span><br><span class="line">    bootstrapped_loaders</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 调用启动函数 loaders_bootstrapper()</span></span><br><span class="line">  <span class="keyword">if</span> (!ExecuteBootstrapper(env, node_bootstrapper.ToLocalChecked(),</span><br><span class="line">                           arraysize(node_bootstrapper_args),</span><br><span class="line">                           node_bootstrapper_args,</span><br><span class="line">                           &amp;bootstrapped_node)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><code>LoadEnvironment()</code> 主要是调用了两个 <code>启动函数(Bootstrapper)</code></p>
+<ul>
+<li>loaders_bootstrapper()</li>
+<li>node_bootstrapper()</li>
 </ul>
+<p>其中 loaders_bootstrapper() 主要实现了一个简单的模块加载机制名为 <code>NativeModule</code>，主要用于加载内部模块的，会在 node_bootstrapper() 中用到；</p>
+<p>而在 node_bootstrapper() 则加载并执行了用户的 js 文件（也就是通常的 app.js 或 index.js)。</p>
+<p>这两个启动函数分别定义在 <code>/lib/internal/bootstrap/loaders.js</code> 和 <code>/lib/internal/bootstrap/node.js</code> 文件中；</p>
+<p>接下来的两篇文，会分别对这两个文件进行详细的探究，弄清楚 js 文件加载执行的细节；</p>
 
       
     </div>
@@ -543,7 +544,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://laogen.site/v8/expose-cpp-var/" title="Js Engine V8 Embedding - C++ 变量暴露给 Javascript 环境">https://laogen.site/v8/expose-cpp-var/</a>
+    <a href="https://laogen.site/nodejs/nodejs-src/bootstrap-js/" title="Node.js 源码分析 - 加载 js 文件">https://laogen.site/nodejs/nodejs-src/bootstrap-js/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -561,8 +562,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/v8/v8-embedding-hello-world/" rel="next" title="Javascript Engine V8 Embedding - Hello World 讲解">
-                <i class="fa fa-chevron-left"></i> Javascript Engine V8 Embedding - Hello World 讲解
+              <a href="/nodejs/nodejs-src/register-builtin-modules/" rel="next" title="Node.js 源码分析 - 原生模块(C++模块)的注册">
+                <i class="fa fa-chevron-left"></i> Node.js 源码分析 - 原生模块(C++模块)的注册
               </a>
             
           </div>
@@ -571,8 +572,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/v8/expose-cpp-function/" rel="prev" title="Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境">
-                Js Engine V8 Embedding - C++ 函数暴露给 Javascript 环境 <i class="fa fa-chevron-right"></i>
+              <a href="/v8/compile-v8/" rel="prev" title="Javascript Engine V8 Embedding - 编译">
+                Javascript Engine V8 Embedding - 编译 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -809,7 +810,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码-amp-说明"><span class="nav-number">2.</span> <span class="nav-text">代码 &amp; 说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ObjectTemplate-与-Object-的区别"><span class="nav-number">2.1.</span> <span class="nav-text">ObjectTemplate 与 Object 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gobal-ObjectTemplate"><span class="nav-number">2.2.</span> <span class="nav-text">Gobal ObjectTemplate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">3.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#提出问题"><span class="nav-number">1.</span> <span class="nav-text">提出问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LoadEnvironment"><span class="nav-number">2.</span> <span class="nav-text">LoadEnvironment()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

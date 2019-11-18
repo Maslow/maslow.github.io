@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://laogen.site/github-actions/npm-publish/</loc>
+    <lastmod>2019-11-18T07:26:23.601Z</lastmod>
+  </url>  <url>
     <loc>https://laogen.site/v8/expose-cpp-func-callback/</loc>
     <lastmod>2019-03-13T12:44:24.173Z</lastmod>
   </url>  <url>

@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
-<meta name="keywords" content="javascript,constructor,new,call(),bind()">
+  <meta name="description" content="文档中并没有关于 SSH 方面的东西，虽然不属于 Github Actions 范畴，但经常用到，并且确实要花费一些时间去检索用法，甚至调试很久。 此文是为了记录经过验证的示例代码，方便日后或他人参考和使用。">
+<meta name="keywords" content="CI&#x2F;CD,DevOps,github,github-ci,github actions,ssh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Javascript 构造函数、new、bind()、call() 原理理解">
-<meta property="og:url" content="https://laogen.site/javascript/constructor-bind-call-apply/index.html">
+<meta property="og:title" content="Github Actions - 使用 SSH 远程连接服务器部署">
+<meta property="og:url" content="https://laogen.site/github-actions/ssh-deploy/index.html">
 <meta property="og:site_name" content="老根的博客">
-<meta property="og:description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
+<meta property="og:description" content="文档中并没有关于 SSH 方面的东西，虽然不属于 Github Actions 范畴，但经常用到，并且确实要花费一些时间去检索用法，甚至调试很久。 此文是为了记录经过验证的示例代码，方便日后或他人参考和使用。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-13T12:42:11.820Z">
+<meta property="og:updated_time" content="2019-11-18T07:59:57.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Javascript 构造函数、new、bind()、call() 原理理解">
-<meta name="twitter:description" content="其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。">
+<meta name="twitter:title" content="Github Actions - 使用 SSH 远程连接服务器部署">
+<meta name="twitter:description" content="文档中并没有关于 SSH 方面的东西，虽然不属于 Github Actions 范畴，但经常用到，并且确实要花费一些时间去检索用法，甚至调试很久。 此文是为了记录经过验证的示例代码，方便日后或他人参考和使用。">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://laogen.site/javascript/constructor-bind-call-apply/">
+  <link rel="canonical" href="https://laogen.site/github-actions/ssh-deploy/">
 
 
 
@@ -145,7 +145,7 @@
   };
 </script>
 
-  <title>Javascript 构造函数、new、bind()、call() 原理理解 | 老根的博客</title>
+  <title>Github Actions - 使用 SSH 远程连接服务器部署 | 老根的博客</title>
   
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://laogen.site/javascript/constructor-bind-call-apply/">
+    <link itemprop="mainEntityOfPage" href="https://laogen.site/github-actions/ssh-deploy/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maslow">
@@ -329,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Javascript 构造函数、new、bind()、call() 原理理解
+          <h2 class="post-title" itemprop="name headline">Github Actions - 使用 SSH 远程连接服务器部署
               
             
           </h2>
@@ -354,24 +354,12 @@
                 
               
 
-              <time title="创建时间：2018-02-28 14:11:14" itemprop="dateCreated datePublished" datetime="2018-02-28T14:11:14+08:00">2018-02-28</time>
+              <time title="创建时间：2019-11-18 15:57:53 / 修改时间：15:59:57" itemprop="dateCreated datePublished" datetime="2019-11-18T15:57:53+08:00">2019-11-18</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-13 20:42:11" itemprop="dateModified" datetime="2019-03-13T20:42:11+08:00">2019-03-13</time>
               
             
           </span>
@@ -388,7 +376,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CI-CD/" itemprop="url" rel="index"><span itemprop="name">CI/CD</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/CI-CD/Github-Actions/" itemprop="url" rel="index"><span itemprop="name">Github Actions</span></a></span>
 
                 
                 
@@ -405,15 +400,17 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/javascript/" rel="tag"> javascript</a>
+                <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
               
-                <a href="/tags/constructor/" rel="tag"> constructor</a>
+                <a href="/tags/DevOps/" rel="tag"> DevOps</a>
               
-                <a href="/tags/new/" rel="tag"> new</a>
+                <a href="/tags/github/" rel="tag"> github</a>
               
-                <a href="/tags/call/" rel="tag"> call()</a>
+                <a href="/tags/github-ci/" rel="tag"> github-ci</a>
               
-                <a href="/tags/bind/" rel="tag"> bind()</a>
+                <a href="/tags/github-actions/" rel="tag"> github actions</a>
+              
+                <a href="/tags/ssh/" rel="tag"> ssh</a>
               
             </span>
           
@@ -441,7 +438,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3k</span>
+                <span title="本文字数">1.2k</span>
               
 
               
@@ -455,7 +452,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">1 分钟</span>
               
             </span>
           
@@ -476,44 +473,24 @@
       
 
       
-        <p>其它语言开发者初接触 Js 时，会对构造函数、new 关键字有些迷糊，因为这两个概念在其它 OO 语言中是很基本的概念，但在 Js 中用起来和在以前熟悉的语言中有些不一样，引起一些困惑。</p>
+        <p>文档中并没有关于 SSH 方面的东西，虽然不属于 Github Actions 范畴，但经常用到，并且确实要花费一些时间去检索用法，甚至调试很久。</p>
+<p>此文是为了记录经过验证的示例代码，方便日后或他人参考和使用。</p>
 <a id="more"></a>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>在 C++/Java/PHP 中都有 class 的概念，class 有构造函数以及通过 new 实例化对象看起来都很理所当然，没什么可疑惑的。</p>
-<p>为什么会对 Js 中的 <code>new</code> <code>构造函数</code>就会产生一些疑惑呢，因为我们对这两个概念先入为主了。</p>
-<p>我们先抛开一般 OO 语言中的 class 等这些语法、概念，从更 “原始” 的角度去理解这两个概念及其作用，理解起来就变得非常简单。</p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p><code>构造函数</code> 在 C++/java/PHP 中构造函数在形式上比较特殊，它们需要定义在一个 class 中，并且往往还有固定的函数名等。</p>
-<p>抛开这些说，<code>构造函数</code> 首先是一个函数，这个函数基本作用是用来初始化一个实例对象。</p>
-<p>在 Js 中，构造函数就是一个普通函数，它的定义也和普通的函数一样:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么我们要怎么用这个函数 <code>Person</code> 来初始化一个对象呢？<br>这就要提到 <code>执行环境</code> 这个概念了，也就是 <code>Person</code> 函数中的 <code>this</code> 关键字，它就代表当前函数执行时的 <code>执行环境</code>，在这里也就是我们要初始化的那个对象。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">Person.call(obj, <span class="string">'laogen'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(obj)   <span class="comment">// &#123;name: 'laogen'&#125;</span></span><br></pre></td></tr></table></figure>
-<p>这段代码就实现了——调用 <code>Person</code> 这个函数初始化了 <code>obj</code> 这个对象。<br>也就是说，我们通过 <code>call</code> 调用函数，第一个参数就是该函数的 <code>执行环境</code>，也就是 <code>Person</code> 中的 <code>this</code>。</p>
-<p>但上面这段实例化对象的代码 “不好看”，不像在 Java/C++ 中直接使用 <code>new</code> 来的简洁，我们用以下代码来模拟实现一个类似 Java/C++ 的实例化语法：</p>
-<ul>
-<li>指定一个构造函数及其参数</li>
-<li>返回一个实例化的对象</li>
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>当 push 代码到仓库时，触发部署流程，在 actions 中通过 ssh 操作远程服务器实现。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">deploy</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span> <span class="string">[push]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line"><span class="attr">  deploy:</span></span><br><span class="line"><span class="attr">    runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"><span class="attr">    steps:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">init</span> <span class="string">ssh,</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">      run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        eval $(ssh-agent -s)</span></span><br><span class="line"><span class="string">        echo "$<span class="template-variable">&#123;&#123;secrets.SERVER_SSH_PRIV_KEY&#125;&#125;</span>" &gt; deploy.key</span></span><br><span class="line"><span class="string">        mkdir -p ~/.ssh</span></span><br><span class="line"><span class="string">        chmod 0600 deploy.key</span></span><br><span class="line"><span class="string">        ssh-add deploy.key</span></span><br><span class="line"><span class="string">        echo -e "Host *\n\tStrictHostKeyChecking no\n\n" &gt; ~/.ssh/config</span></span><br><span class="line"><span class="string">        ssh root@$<span class="template-variable">&#123;&#123;secrets.SERVER_IP&#125;&#125;</span> "cd /your/workspace/path &amp;&amp; sh update.sh "</span></span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>主要是两个部分：</p>
+<p><code>secrets.SERVER_SSH_PRIV_KEY</code> 是用来访问远程服务器的私钥，具体：</p>
+<ol>
+<li>生成密钥对（见文末参考链接）</li>
+<li>在远程服务器上添加公钥 (将公钥添加到服务器的 <code>~/.ssh/authorized_keys</code> 文件中)</li>
+<li>在 Github 仓库设置私钥 (<code>Settings &gt; Secrets</code>)</li>
+</ol>
+<p><code>secrets.SERVER_IP</code> 是远程服务器地址；</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li>Generating new SSH key: <a href="https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank" rel="noopener">https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent</a></li>
+<li>Github Actions Doc: <a href="https://help.github.com/en/actions/automating-your-workflow-with-github-actions" target="_blank" rel="noopener">https://help.github.com/en/actions/automating-your-workflow-with-github-actions</a></li>
+<li><a href="https://laogen.site/gitlab-ci/example-docker-ssh-deploy/">https://laogen.site/gitlab-ci/example-docker-ssh-deploy/</a></li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">New</span>(<span class="params">constructor, ...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">    <span class="keyword">constructor</span>.call(obj, ...args)</span><br><span class="line">    return obj</span><br><span class="line">&#125;</span><br><span class="line">// 用法如下</span><br><span class="line">let obj3 = New(Person, 'laogen3')</span><br><span class="line">console.log(obj3)   // &#123; name: <span class="string">'laogen3'</span> &#125;</span><br></pre></td></tr></table></figure>
-<p>这个用法看起来就很 “像” Java/C++/PHP 中实例化一个对象的用法了。</p>
-<p>当然，在 Js 中有同样简洁的方式创建和初始化一个实例：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj2 = <span class="keyword">new</span> Person(<span class="string">'laogen2'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(obj2)    <span class="comment">// &#123; name: 'laogen2' &#125;</span></span><br></pre></td></tr></table></figure>
-<p>到这里，你肯定就明白 <code>new</code> 一个构造函数到底是怎么回事了。你可以把 <code>new</code> 理解为一个语法糖，其实际工作就是我们上面模拟的 <code>New</code> 函数所做的。</p>
-<p>也就是说 <code>new</code> 关键字首先创建了一个对象，然后调用 <code>Person</code> 函数初始化这个对象。</p>
-<p>另外一个问题，我们直接调用构造函数 <code>Person()</code> 而不用 <code>new</code> 来调用会是什么样呢？ <code>Person()</code> 里面的 <code>this</code> 到底指向什么对象呢？</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person(<span class="string">'laogen4'</span>)</span><br><span class="line"><span class="built_in">console</span>(name)  <span class="comment">// "laogen4"</span></span><br></pre></td></tr></table></figure>
-<p>我们直接调用 <code>Person()</code> 而不通过 <code>new</code> 调用，结果就是在当前执行环境中创建并初始化了 <code>name</code> 属性，所以直接打印 <code>name</code> 输出了 <code>&quot;laogen4&quot;</code>。</p>
-<p>也就是说，如果我们直接调用 <code>Person()</code>，那么它的 <code>this</code> 就指向这个函数调用所在的执行环境，如果是在全局环境中调用的，那么这个执行环境： 在 Node.js 中就是 <code>global</code> 对象；在浏览器中通常是 <code>window</code> 对象。</p>
-<h3 id="this-amp-call"><a href="#this-amp-call" class="headerlink" title="this &amp; call()"></a>this &amp; call()</h3><p>我们上面是通过调用 <code>call</code> 函数来完成的，那这个 call 又是怎么实现的呢？</p>
-<p>这个 <code>call</code> 函数当然是 Js 本身就支持的，我们通过下面代码模拟实现它，以便更好的理解其原理，因为 <code>this</code> 是 Js 关键字，不可用做标识符，我们用 <code>that</code> 来模拟代替 <code>this</code>:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 在这里约定最后一个参数是 `that`</span></span><br><span class="line">    <span class="keyword">let</span> that = <span class="built_in">arguments</span>[<span class="built_in">arguments</span>.length - <span class="number">1</span>]</span><br><span class="line">    that.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.call = <span class="function"><span class="keyword">function</span>(<span class="params">that, ...args</span>) </span>&#123;</span><br><span class="line">    Person(...args, that)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj3 = &#123;&#125;</span><br><span class="line">Person.call(obj3, <span class="string">'laogen3'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(obj3)   <span class="comment">// &#123; name: 'laogen3' &#125;</span></span><br></pre></td></tr></table></figure>
-<p>通过这段代码可以看出， <code>call()</code> 把它的第一个参数以某种方式传给了被调用的函数 <code>Person()</code>，并作用 <code>Person()</code> 函数的 <code>this</code> （也就是代码中的 <code>that</code>)。</p>
-<p>这段代码只是模拟过程，实际上 <code>this</code> 对象并不是通过被调用函数的最后一个传数来传递的，这个是 Js 编译器层面去实现的，这里不细究。</p>
-<h3 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.bind(target, ...args)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> Person.call(target, ...args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj4 = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> func = Person.bind(obj4, <span class="string">'laogen4'</span>)</span><br><span class="line">func()</span><br><span class="line"><span class="built_in">console</span>.log(obj4)  <span class="comment">// &#123; name: 'laogen4' &#125;</span></span><br></pre></td></tr></table></figure>
-<p>这段代码模拟实现了 <code>bind()</code> 函数的逻辑，<code>bind()</code> 与 <code>call()</code> 的区别在于： <code>bind()</code> 并不调用 <code>Person()</code> 函数，它只是返回一个新函数，在这个新函数里调用了 <code>call()</code>。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这篇文主要说明了 Js 构造函数只是普通的函数，和其它 OO 语言不同的是，它并没有很特别的地方，构造函数的主要作用就是初始化实例对象；</p>
-<p>通过模拟代码解释了 <code>new</code> 关键字的内部逻辑，以更好的理解构造函数的工作原理； </p>
-<p>通过模拟 <code>this</code> 更进一步的理解 <code>执行环境</code> 的概念；</p>
-<p>通过模拟 <code>call()</code> 和 <code>bind()</code> 方法，更直观深入的理解两者的逻辑和使用；</p>
 
       
     </div>
@@ -564,7 +541,7 @@
     <strong>本文作者： </strong>Maslow</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://laogen.site/javascript/constructor-bind-call-apply/" title="Javascript 构造函数、new、bind()、call() 原理理解">https://laogen.site/javascript/constructor-bind-call-apply/</a>
+    <a href="https://laogen.site/github-actions/ssh-deploy/" title="Github Actions - 使用 SSH 远程连接服务器部署">https://laogen.site/github-actions/ssh-deploy/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -582,8 +559,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/javascript/diy-simple-promise-js/" rel="next" title="动手写一个简单的 Promise.js">
-                <i class="fa fa-chevron-left"></i> 动手写一个简单的 Promise.js
+              <a href="/github-actions/npm-publish/" rel="next" title="Github Actions - 发布 npm 包">
+                <i class="fa fa-chevron-left"></i> Github Actions - 发布 npm 包
               </a>
             
           </div>
@@ -591,10 +568,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/javascript/deep-into-async-await/" rel="prev" title="Javascript async/await 原理 & 实现">
-                Javascript async/await 原理 & 实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -848,7 +821,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造函数"><span class="nav-number">2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this-amp-call"><span class="nav-number">3.</span> <span class="nav-text">this &amp; call()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bind"><span class="nav-number">4.</span> <span class="nav-text">bind()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>

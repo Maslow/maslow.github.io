@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://laogen.site/"/>
-  <updated>2019-11-18T07:59:57.535Z</updated>
+  <updated>2019-11-24T09:41:14.650Z</updated>
   <id>https://laogen.site/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FFMPEG - 基础命令</title>
+    <link href="https://laogen.site/videos/ffmpeg-basic/"/>
+    <id>https://laogen.site/videos/ffmpeg-basic/</id>
+    <published>2019-11-24T06:31:14.000Z</published>
+    <updated>2019-11-24T09:41:14.650Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="查看-mac-上的设备列表"><a href="#查看-mac-上的设备列表" class="headerlink" title="查看 mac 上的设备列表"></a>查看 mac 上的设备列表</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -list_devices <span class="literal">true</span> -i <span class="string">""</span></span><br></pre></td></tr></table></figure><h3 id="屏幕录像"><a href="#屏幕录像" class="headerlink" title="屏幕录像"></a>屏幕录像</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 录屏</span></span><br><span class="line">ffmpeg -f avfoundation -i 1 -r 30 -pix_fmt yuv420p out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 录屏+录音</span></span><br><span class="line">ffmpeg -f avfoundation -i 1:0 -r 30 -pix_fmt yuv420p -c:v libx264 -crf 0 -c:a aac -b:a 192k out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 录屏+录音(指定输出分辨率)</span></span><br><span class="line">ffmpeg -f avfoundation -i 1:0 -r 30 -s 1024x720 -pix_fmt yuv420p -c:v libx264 -c:a aac -b:a 192k out.mp4</span><br></pre></td></tr></table></figure><p>其中, <code>-r</code> 指的是帧率(fps)， <code>-crf 0</code> 指的是无损压缩。</p><p><code>-i 1:1</code> 前面的1是指视频设备索引，后面的0是指麦克风设备索引，这个值根据上面查看设备列表指令返回的结果而定。</p><p>如果报类似的错 <code>Too many packets buffered for output stream 0:0</code>，则加上参数 <code>-max_muxing_queue_size 2048</code> 如下：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i 1:0 -max_muxing_queue_size 2048 -r 30 -pix_fmt yuv420p -c:v libx264 -s 1920x1080 -b:a 32k out.mp4</span><br></pre></td></tr></table></figure><h3 id="摄像头录制"><a href="#摄像头录制" class="headerlink" title="摄像头录制"></a>摄像头录制</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 录视频</span></span><br><span class="line">ffmpeg -framerate 30 -f avfoundation -i 0 -pix_fmt yuv420p out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频 + 音频</span></span><br><span class="line">ffmpeg -framerate 30 -f avfoundation -i 0:0 -pix_fmt yuv420p out.mp4</span><br></pre></td></tr></table></figure><h3 id="录音"><a href="#录音" class="headerlink" title="录音"></a>录音</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i :0 out.wav</span><br></pre></td></tr></table></figure><h3 id="录制画中画"><a href="#录制画中画" class="headerlink" title="录制画中画"></a>录制画中画</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i <span class="string">"1"</span> -framerate 30 -f avfoundation -i <span class="string">"0:0"</span> -r 30 -c:v libx264 -preset ultrafast -s 1024x720 -filter_complex <span class="string">"[1:v]scale=w=300:h=300:force_original_aspect_ratio=decrease[a];[0:v][a]overlay=x=W-w-10:y=H-h-30[out]"</span> -map <span class="string">"[out]"</span> -movflags faststart -map 1:a -pix_fmt yuv420p b.mp4</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;查看-mac-上的设备列表&quot;&gt;&lt;a href=&quot;#查看-mac-上的设备列表&quot; class=&quot;headerlink&quot; title=&quot;查看 mac 上的设备列表&quot;&gt;&lt;/a&gt;查看 mac 上的设备列表&lt;/h3&gt;&lt;figure class=&quot;highlight sh&quot;&gt;
+      
+    
+    </summary>
+    
+      <category term="Videos" scheme="https://laogen.site/categories/Videos/"/>
+    
+      <category term="ffmpeg" scheme="https://laogen.site/categories/Videos/ffmpeg/"/>
+    
+    
+      <category term="ffmpeg" scheme="https://laogen.site/tags/ffmpeg/"/>
+    
+  </entry>
   
   <entry>
     <title>Github Actions - 使用 SSH 远程连接服务器部署</title>
@@ -627,30 +654,6 @@
       <category term="call()" scheme="https://laogen.site/tags/call/"/>
     
       <category term="bind()" scheme="https://laogen.site/tags/bind/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>动手写一个简单的 Promise.js</title>
-    <link href="https://laogen.site/javascript/diy-simple-promise-js/"/>
-    <id>https://laogen.site/javascript/diy-simple-promise-js/</id>
-    <published>2018-01-23T18:07:14.000Z</published>
-    <updated>2019-03-13T12:41:53.399Z</updated>
-    
-    <content type="html"><![CDATA[<p>初学 <code>Node.js</code> 的朋友总会耗一番周折去理解 <code>Promise</code>，这里给出一个最简单的 <code>Promise</code> 实现，以帮助对 <code>Promise</code> 还有疑惑的同学彻底理解其实现原理。</p><a id="more"></a><blockquote><p>这个代码应该是三年前我刚接触 <code>Node.js</code> 的时候写的了，当时也是 Google 不少关于 <code>Promise</code> 的文章，现在已经不记得相关链接了。</p></blockquote><blockquote><p>这个并不是完整的 <code>Promise</code> 逻辑，旨在理解 <code>Promise</code> 的实现原理，由于过了太久，我就直接贴出来代码不做解释说明了。如果先前有用过 <code>Promise</code> 的话，应该还是较容易理解的； 若是初接触，这个逻辑还是有点绕，先去其它地方了解 Promse 的用法，再多花点时间去理一理这段代码，是值得的。</p></blockquote><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Promise</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span></span><br><span class="line">    self.state = <span class="string">'PENDING'</span></span><br><span class="line">    self.onFulfilled = <span class="literal">null</span></span><br><span class="line">    self.onRejected = <span class="literal">null</span></span><br><span class="line">    self.then = <span class="function"><span class="keyword">function</span> (<span class="params">onResolved, onRejected</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">            that.onFulfilled = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> ret = onResolved ? onResolved(val) : val;</span><br><span class="line">                <span class="keyword">if</span> (ret &amp;&amp; ret.then) &#123;</span><br><span class="line">                    ret.then(<span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">                        resolve(val)</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    resolve(ret);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            that.onRejected = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> ret = onRejected ? onRejected(val) : val;</span><br><span class="line">                reject(ret);</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    fn &amp;&amp; fn(<span class="function"><span class="keyword">function</span> (<span class="params">result</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (self.state === <span class="string">'PENDING'</span>) &#123;</span><br><span class="line">            self.state = <span class="string">'FULFILLED'</span>;</span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                self.onFulfilled &amp;&amp; self.onFulfilled(result);</span><br><span class="line">            &#125;,<span class="number">0</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">reason</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (self.state === <span class="string">'PENDING'</span>) &#123;</span><br><span class="line">            self.state = <span class="string">'REJECTED'</span>;</span><br><span class="line">            self.onRejected &amp;&amp; self.onRejected(reason);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>使用示例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sleep</span>(<span class="params">t</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(t)</span><br><span class="line">            resolve(t)</span><br><span class="line">        &#125;, t)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sleep(<span class="number">1000</span>)</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> sleep(data + <span class="number">1</span>))</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> sleep(data + <span class="number">1</span>))</span><br><span class="line">    .then(<span class="function"><span class="params">data</span> =&gt;</span> sleep(data + <span class="number">1</span>))</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;初学 &lt;code&gt;Node.js&lt;/code&gt; 的朋友总会耗一番周折去理解 &lt;code&gt;Promise&lt;/code&gt;，这里给出一个最简单的 &lt;code&gt;Promise&lt;/code&gt; 实现，以帮助对 &lt;code&gt;Promise&lt;/code&gt; 还有疑惑的同学彻底理解其实现原理。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Javascript" scheme="https://laogen.site/categories/Javascript/"/>
-    
-    
-      <category term="javascript" scheme="https://laogen.site/tags/javascript/"/>
-    
-      <category term="promise" scheme="https://laogen.site/tags/promise/"/>
     
   </entry>
   

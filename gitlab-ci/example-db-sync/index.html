@@ -116,14 +116,14 @@
 
 
   <meta name="description" content="问题我们通常需要频繁的将生产环境(production)的数据库同步到 develop 和 staging 环境。 之前我们的做法是写了一个 shell 在服务器上手动运行，这个需要测试人员和开发人员拥有服务器权限，甚至是生产环境的权限，风险较大且 “不够 CI/CD 化”。 后来是想写一个 HTTP 服务来触发这样的数据库同步操作，增加了额外的工作开销，还要为这个服务配相应的 CI/CD，不如直">
-<meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
+<meta name="keywords" content="CI&#x2F;CD,DevOps,gitlab,gitlab-ci">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GitLab CI 示例：利用 CI 同步生产环境数据库到开发环境">
 <meta property="og:url" content="https://laogen.site/gitlab-ci/example-db-sync/index.html">
 <meta property="og:site_name" content="老根的博客">
 <meta property="og:description" content="问题我们通常需要频繁的将生产环境(production)的数据库同步到 develop 和 staging 环境。 之前我们的做法是写了一个 shell 在服务器上手动运行，这个需要测试人员和开发人员拥有服务器权限，甚至是生产环境的权限，风险较大且 “不够 CI/CD 化”。 后来是想写一个 HTTP 服务来触发这样的数据库同步操作，增加了额外的工作开销，还要为这个服务配相应的 CI/CD，不如直">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-18T07:28:29.127Z">
+<meta property="og:updated_time" content="2019-11-18T07:28:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitLab CI 示例：利用 CI 同步生产环境数据库到开发环境">
 <meta name="twitter:description" content="问题我们通常需要频繁的将生产环境(production)的数据库同步到 develop 和 staging 环境。 之前我们的做法是写了一个 shell 在服务器上手动运行，这个需要测试人员和开发人员拥有服务器权限，甚至是生产环境的权限，风险较大且 “不够 CI/CD 化”。 后来是想写一个 HTTP 服务来触发这样的数据库同步操作，增加了额外的工作开销，还要为这个服务配相应的 CI/CD，不如直">
@@ -245,7 +245,7 @@
           
           <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
   </li>
         
         
@@ -261,7 +261,7 @@
           
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">27</span></a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">22</span></a>
   </li>
 
       
@@ -412,13 +412,13 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
-              
-                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
-              
                 <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
               
                 <a href="/tags/DevOps/" rel="tag"> DevOps</a>
+              
+                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
+              
+                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
               
             </span>
           
@@ -707,10 +707,6 @@
                     
                       
                     
-                      
-                    
-                      
-                    
                     <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
@@ -723,16 +719,6 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -884,7 +870,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -898,7 +884,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">68k</span>
   
 
   
@@ -909,7 +895,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:02</span>
   
 </div>
 

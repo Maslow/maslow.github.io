@@ -116,14 +116,14 @@
 
 
   <meta name="description" content="问题Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node； TL;DR所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage">
-<meta name="keywords" content="gitlab,gitlab-ci,CI&#x2F;CD,DevOps">
+<meta name="keywords" content="CI&#x2F;CD,DevOps,gitlab,gitlab-ci">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GitLab CI 示例：构建 &amp; 部署 Web 前端项目（部署到 Swarm）">
 <meta property="og:url" content="https://laogen.site/gitlab-ci/example-web-front-end/index.html">
 <meta property="og:site_name" content="老根的博客">
 <meta property="og:description" content="问题Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node； TL;DR所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-18T07:28:42.510Z">
+<meta property="og:updated_time" content="2019-11-18T07:28:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GitLab CI 示例：构建 &amp; 部署 Web 前端项目（部署到 Swarm）">
 <meta name="twitter:description" content="问题Web 前端的应用需要在 node 环境下安装依赖和构建，但是发布一般又是用 nginx 镜像，我们既不想在 node 容器里安装 nginx，也不想在 nginx 容器里安装 node； TL;DR所以，我们先在一个 node 容器中 build 应用，利用 GitLab CI Cache 机制，将构建后的目标文件（通常是 dist 文件夹）缓存，以便在发布阶段 (release stage">
@@ -245,7 +245,7 @@
           
           <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
   </li>
         
         
@@ -261,7 +261,7 @@
           
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">27</span></a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">22</span></a>
   </li>
 
       
@@ -412,13 +412,13 @@
             标签
             <span class="post-tags">
               
-                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
-              
-                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
-              
                 <a href="/tags/CI-CD/" rel="tag"> CI/CD</a>
               
                 <a href="/tags/DevOps/" rel="tag"> DevOps</a>
+              
+                <a href="/tags/gitlab/" rel="tag"> gitlab</a>
+              
+                <a href="/tags/gitlab-ci/" rel="tag"> gitlab-ci</a>
               
             </span>
           
@@ -687,10 +687,6 @@
                     
                       
                     
-                      
-                    
-                      
-                    
                     <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
@@ -703,16 +699,6 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -864,7 +850,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -878,7 +864,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">68k</span>
   
 
   
@@ -889,7 +875,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:02</span>
   
 </div>
 

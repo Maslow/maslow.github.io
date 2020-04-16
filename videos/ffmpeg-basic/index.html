@@ -115,18 +115,18 @@
 
 
 
-  <meta name="description" content="查看 mac 上的设备列表1ffmpeg -f avfoundation -list_devices true -i &quot;&quot;">
+  <meta name="description" content="Mac 安装1brew install ffmpeg 查看 mac 上的设备列表1ffmpeg -f avfoundation -list_devices true -i &quot;&quot;">
 <meta name="keywords" content="ffmpeg">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FFMPEG - 基础命令">
 <meta property="og:url" content="https://laogen.site/videos/ffmpeg-basic/index.html">
 <meta property="og:site_name" content="老根的博客">
-<meta property="og:description" content="查看 mac 上的设备列表1ffmpeg -f avfoundation -list_devices true -i &quot;&quot;">
+<meta property="og:description" content="Mac 安装1brew install ffmpeg 查看 mac 上的设备列表1ffmpeg -f avfoundation -list_devices true -i &quot;&quot;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-24T09:42:41.346Z">
+<meta property="og:updated_time" content="2020-04-16T05:56:03.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFMPEG - 基础命令">
-<meta name="twitter:description" content="查看 mac 上的设备列表1ffmpeg -f avfoundation -list_devices true -i &quot;&quot;">
+<meta name="twitter:description" content="Mac 安装1brew install ffmpeg 查看 mac 上的设备列表1ffmpeg -f avfoundation -list_devices true -i &quot;&quot;">
 
 
 
@@ -245,7 +245,7 @@
           
           <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">9</span></a>
   </li>
         
         
@@ -261,7 +261,7 @@
           
           <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
-      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">27</span></a>
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">22</span></a>
   </li>
 
       
@@ -354,12 +354,24 @@
                 
               
 
-              <time title="创建时间：2019-11-24 14:31:14 / 修改时间：17:42:41" itemprop="dateCreated datePublished" datetime="2019-11-24T14:31:14+08:00">2019-11-24</time>
+              <time title="创建时间：2019-11-24 14:31:14" itemprop="dateCreated datePublished" datetime="2019-11-24T14:31:14+08:00">2019-11-24</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-16 13:56:03" itemprop="dateModified" datetime="2020-04-16T13:56:03+08:00">2020-04-16</time>
               
             
           </span>
@@ -428,7 +440,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.2k</span>
+                <span title="本文字数">2k</span>
               
 
               
@@ -442,7 +454,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </span>
           
@@ -463,7 +475,8 @@
       
 
       
-        <h3 id="查看-mac-上的设备列表"><a href="#查看-mac-上的设备列表" class="headerlink" title="查看 mac 上的设备列表"></a>查看 mac 上的设备列表</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -list_devices <span class="literal">true</span> -i <span class="string">""</span></span><br></pre></td></tr></table></figure>
+        <h3 id="Mac-安装"><a href="#Mac-安装" class="headerlink" title="Mac 安装"></a>Mac 安装</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ffmpeg</span><br></pre></td></tr></table></figure>
+<h3 id="查看-mac-上的设备列表"><a href="#查看-mac-上的设备列表" class="headerlink" title="查看 mac 上的设备列表"></a>查看 mac 上的设备列表</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -list_devices <span class="literal">true</span> -i <span class="string">""</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h3 id="屏幕录像"><a href="#屏幕录像" class="headerlink" title="屏幕录像"></a>屏幕录像</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 录屏</span></span><br><span class="line">ffmpeg -f avfoundation -i 1 -r 30 -pix_fmt yuv420p out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 录屏+录音</span></span><br><span class="line">ffmpeg -f avfoundation -i 1:0 -r 30 -pix_fmt yuv420p -c:v libx264 -crf 0 -c:a aac -b:a 192k out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 录屏+录音(指定输出分辨率)</span></span><br><span class="line">ffmpeg -f avfoundation -i 1:0 -r 30 -s 1024x720 -pix_fmt yuv420p -c:v libx264 -c:a aac -b:a 192k out.mp4</span><br></pre></td></tr></table></figure>
 <p>其中, <code>-r</code> 指的是帧率(fps)， <code>-crf 0</code> 指的是无损压缩。</p>
@@ -472,8 +485,18 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i 1:0 -max_muxing_queue_size 2048 -r 30 -pix_fmt yuv420p -c:v libx264 -s 1920x1080 -b:a 32k out.mp4</span><br></pre></td></tr></table></figure>
 <h3 id="摄像头录制"><a href="#摄像头录制" class="headerlink" title="摄像头录制"></a>摄像头录制</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 录视频</span></span><br><span class="line">ffmpeg -framerate 30 -f avfoundation -i 0 -pix_fmt yuv420p out.mp4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频 + 音频</span></span><br><span class="line">ffmpeg -framerate 30 -f avfoundation -i 0:0 -pix_fmt yuv420p out.mp4</span><br></pre></td></tr></table></figure>
 <h3 id="录音"><a href="#录音" class="headerlink" title="录音"></a>录音</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i :0 out.wav</span><br></pre></td></tr></table></figure>
-<h3 id="录制画中画"><a href="#录制画中画" class="headerlink" title="录制画中画"></a>录制画中画</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i <span class="string">"1"</span> -framerate 30 -f avfoundation -i <span class="string">"0:0"</span> -r 30 -c:v libx264 -preset ultrafast -s 1024x720 -filter_complex <span class="string">"[1:v]scale=w=300:h=300:force_original_aspect_ratio=decrease[a];[0:v][a]overlay=x=W-w-10:y=H-h-30[out]"</span> -map <span class="string">"[out]"</span> -movflags faststart -map 1:a -pix_fmt yuv420p b.mp4</span><br></pre></td></tr></table></figure>
-
+<h3 id="录制画中画"><a href="#录制画中画" class="headerlink" title="录制画中画"></a>录制画中画</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f avfoundation -i <span class="string">"1"</span> -framerate 30 -f avfoundation -i <span class="string">"0:0"</span> -r 30 -c:v libx264 -preset ultrafast -filter_complex <span class="string">"[1:v]scale=w=300:h=300:force_original_aspect_ratio=decrease[a];[0:v][a]overlay=x=W-w-10:y=H-h-30[out]"</span> -map <span class="string">"[out]"</span> -movflags faststart -map 1:a -pix_fmt yuv420p -s 1024x720 output.mp4</span><br></pre></td></tr></table></figure>
+<h3 id="RTMP拉流"><a href="#RTMP拉流" class="headerlink" title="RTMP拉流"></a>RTMP拉流</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># url 要加引号，不然会出错</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 播放</span></span><br><span class="line">ffplay -i <span class="string">"rtmp://223.240.118.251:10085/hls/Seven23?sign=BklPCT0Wg"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看视频信息</span></span><br><span class="line">ffprobe -i <span class="string">"rtmp://223.240.118.251:10085/hls/Seven23?sign=BklPCT0Wg"</span></span><br></pre></td></tr></table></figure>
+<h3 id="视频批量切割"><a href="#视频批量切割" class="headerlink" title="视频批量切割"></a>视频批量切割</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -fflags +genpts -i input.mov -acodec copy -vcodec copy -f segment -segment_time 30 -reset_timestamps 1 -map 0:0 -map 0:1 piece_%03d.mov</span><br></pre></td></tr></table></figure>
+<h3 id="视频合并"><a href="#视频合并" class="headerlink" title="视频合并"></a>视频合并</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># index.txt</span></span><br><span class="line">file <span class="string">'out_000.mp4'</span></span><br><span class="line">file <span class="string">'out_001.mp4'</span></span><br><span class="line">file <span class="string">'out_002.mp4'</span></span><br></pre></td></tr></table></figure>
+<pre><code class="sh"><span class="comment"># 合并</span>
+ffmpeg -f concat -i index.txt -c copy output.mp4
+</code></pre>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><pre><code>- [ffmpeg视频切片转码合并](https://www.dazhuanlan.com/2019/12/04/5de7ce6d6ffdd/)
+- [ffmpeg转码](https://blog.csdn.net/hk_shao/article/details/86688756)
+- [FFmpeg命令实例合集](https://blog.csdn.net/yu540135101/article/details/103025957)
+- [ffmpeg实例，split，pad，crop，scale，hflip，overlay](https://blog.csdn.net/yu540135101/article/details/84332055)
+</code></pre>
       
     </div>
 
@@ -659,10 +682,6 @@
                     
                       
                     
-                      
-                    
-                      
-                    
                     <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
@@ -675,16 +694,6 @@
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -809,7 +818,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-mac-上的设备列表"><span class="nav-number">1.</span> <span class="nav-text">查看 mac 上的设备列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕录像"><span class="nav-number">2.</span> <span class="nav-text">屏幕录像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摄像头录制"><span class="nav-number">3.</span> <span class="nav-text">摄像头录制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录音"><span class="nav-number">4.</span> <span class="nav-text">录音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录制画中画"><span class="nav-number">5.</span> <span class="nav-text">录制画中画</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac-安装"><span class="nav-number">1.</span> <span class="nav-text">Mac 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-mac-上的设备列表"><span class="nav-number">2.</span> <span class="nav-text">查看 mac 上的设备列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕录像"><span class="nav-number">3.</span> <span class="nav-text">屏幕录像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#摄像头录制"><span class="nav-number">4.</span> <span class="nav-text">摄像头录制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录音"><span class="nav-number">5.</span> <span class="nav-text">录音</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录制画中画"><span class="nav-number">6.</span> <span class="nav-text">录制画中画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTMP拉流"><span class="nav-number">7.</span> <span class="nav-text">RTMP拉流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频批量切割"><span class="nav-number">8.</span> <span class="nav-text">视频批量切割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频合并"><span class="nav-number">9.</span> <span class="nav-text">视频合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -836,7 +845,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -850,7 +859,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">67k</span>
+    <span title="站点总字数">68k</span>
   
 
   
@@ -861,7 +870,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:02</span>
   
 </div>
 
